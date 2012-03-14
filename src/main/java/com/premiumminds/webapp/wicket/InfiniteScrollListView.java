@@ -27,6 +27,8 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 	private WebMarkupContainer upLoading;
 	private WebMarkupContainer downLoading;
 	
+	private ListView<T> listView;
+	
 	private AbstractDefaultAjaxBehavior upBehavior;
 	private AbstractDefaultAjaxBehavior downBehavior;
 
@@ -57,14 +59,13 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 				
 				setStartIndex(InfiniteScrollListView.this.getModel().getStartIndex()-SCROLL_SIZE);
 				
-				upLoading.setVisible(isShowUpLoading());
-				downLoading.setVisible(isShowDownLoading());
+				refreshLoadings();
 
 				target.add(listContainer);
 			}
 		}); 
 		
-		listContainer.add(new ListView<T>("list", new LoadableDetachableModel<List<? extends T>>(){
+		listView = new ListView<T>("list", new LoadableDetachableModel<List<? extends T>>(){
 				@Override
 				protected List<? extends T> load() {
 					return getModel().getObject();
@@ -90,7 +91,8 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 				
 				super.renderHead(response);
 			}
-		});
+		};
+		listContainer.add(listView);
 		
 		listContainer.add(downLoading = new WebMarkupContainer("downLoading"));
 		downLoading.setOutputMarkupPlaceholderTag(true);
@@ -104,8 +106,7 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 				target.appendJavaScript("InfiniteScroll.getFromContainer('"+InfiniteScrollListView.this.getMarkupId()+"').scrollUpTo('"+getItemMarkupId(InfiniteScrollListView.this.getModel().getObject().get(InfiniteScrollListView.this.getModel().getViewSize()-1))+"')");
 				setStartIndex(getModel().getStartIndex()+SCROLL_SIZE);
 
-				upLoading.setVisible(isShowUpLoading());
-				downLoading.setVisible(isShowDownLoading());
+				refreshLoadings();
 				
 				target.add(listContainer);
 			}
@@ -139,7 +140,8 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 	@Override
 	protected void onBeforeRender() {
 		setStartIndex(0);
-		upLoading.setVisible(false);
+
+		refreshLoadings();
 		
 		super.onBeforeRender();
 	}
@@ -163,5 +165,10 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 
 	public void setModel(PageableListModel<? extends List<? extends T>> model){
 		setDefaultModel(model);
+	}
+	
+	private void refreshLoadings(){
+		upLoading.setVisible(isShowUpLoading());
+		downLoading.setVisible(isShowDownLoading());
 	}
 }

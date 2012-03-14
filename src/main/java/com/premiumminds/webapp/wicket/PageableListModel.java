@@ -32,10 +32,6 @@ public abstract class PageableListModel<T extends Collection<?>> implements IMod
 		}
 	}
 	
-	public void clear(){
-		list = null;
-	}
-	
 	public int getStartIndex(){
 		return currentStartIndex;
 	}
