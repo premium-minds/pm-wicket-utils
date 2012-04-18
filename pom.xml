@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.premiumminds</groupId>
   <artifactId>wicket-utils</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <packaging>jar</packaging>
   
   <name>wicket-utils</name>
@@ -37,6 +37,20 @@
 		<version>1.5.4</version>
 	    <scope>runtime</scope>
 	</dependency>
+	
+	<dependency>
+	    <groupId>com.google.inject.extensions</groupId>
+	    <artifactId>guice-persist</artifactId>
+	    <version>3.0</version>
+	    <scope>runtime</scope>
+	</dependency>
+	<dependency>
+		<groupId>javax.persistence</groupId>
+		<artifactId>persistence-api</artifactId>
+		<version>1.0.2</version>
+	    <scope>runtime</scope>
+	</dependency>
+            	
   </dependencies>
   <build>
     <finalName>${artifactId}</finalName>
