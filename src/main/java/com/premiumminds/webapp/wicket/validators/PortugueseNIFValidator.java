@@ -1,6 +1,7 @@
 package com.premiumminds.webapp.wicket.validators;
 
 import org.apache.wicket.validation.IValidatable;
+import org.apache.wicket.validation.ValidationError;
 import org.apache.wicket.validation.validator.StringValidator;
 
 /**
@@ -14,15 +15,17 @@ public class PortugueseNIFValidator extends StringValidator {
 	private static final long serialVersionUID = -8262152957585701745L;
 
 	@Override
-	protected void onValidate(IValidatable<String> validatable) {
+	public void validate(IValidatable<String> validatable) {
+		super.validate(validatable);
+		
 		final String value = validatable.getValue();
 		
 		if(value==null || value.length()==0) return;
 		
 		try {
-			if(!isNIFValid(value)) error(validatable);
+			if(!isNIFValid(value)) validatable.error(new ValidationError(this));
 		} catch(NumberFormatException e){
-			error(validatable);
+			validatable.error(new ValidationError(this));
 		}
 	}
 

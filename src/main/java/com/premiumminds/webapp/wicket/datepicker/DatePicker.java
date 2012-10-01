@@ -2,7 +2,10 @@ package com.premiumminds.webapp.wicket.datepicker;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.CssReferenceHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnLoadHeaderItem;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
@@ -44,16 +47,16 @@ public class DatePicker extends Behavior {
 	
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
-		response.renderCSSReference(DATE_PICKER_DATE_CSS, "screen");
-		response.renderJavaScriptReference(DATE_PICKER_JS);
-		response.renderJavaScriptReference(DATE_PICKER_ATTACH_JS);
-		response.renderJavaScriptReference(DATE_PICKER_DATE_JS);
+		response.render(CssReferenceHeaderItem.forReference(DATE_PICKER_DATE_CSS, "screen"));
+		response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_JS));
+		response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_ATTACH_JS));
+		response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_DATE_JS));
 		
 		if(component.isEnabledInHierarchy()){
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append("Date.defineParser(\"").append(getDatePattern()).append("\");");
-			response.renderJavaScript(sb.toString(), "pickerDatePattern");
+			response.render(JavaScriptHeaderItem.forScript(sb.toString(), "pickerDatePattern"));
 			
 			sb = new StringBuilder();
 			
@@ -89,7 +92,7 @@ public class DatePicker extends Behavior {
 			
 			sb.append("})");
 			
-			response.renderOnLoadJavaScript(sb.toString());
+			response.render(OnLoadHeaderItem.forScript(sb.toString()));
 		}
 	}
 

@@ -7,7 +7,9 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -84,10 +86,10 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 			public void renderHead(IHeaderResponse response) {
 				String containerId = InfiniteScrollListView.this.getMarkupId();
 				
-				response.renderJavaScriptReference(javascriptReference, "infinite-scroll-list-view-js");
-				
-				response.renderOnDomReadyJavaScript("InfiniteScroll.getFromContainer('"+containerId+"').changeUp("+Boolean.toString(isShowUpLoading())+")");
-				response.renderOnDomReadyJavaScript("InfiniteScroll.getFromContainer('"+containerId+"').changeDown("+Boolean.toString(isShowDownLoading())+")");
+				response.render(JavaScriptHeaderItem.forReference(javascriptReference, "infinite-scroll-list-view-js"));
+
+				response.render(OnDomReadyHeaderItem.forScript("InfiniteScroll.getFromContainer('"+containerId+"').changeUp("+Boolean.toString(isShowUpLoading())+")"));
+				response.render(OnDomReadyHeaderItem.forScript("InfiniteScroll.getFromContainer('"+containerId+"').changeDown("+Boolean.toString(isShowDownLoading())+")"));
 				
 				super.renderHead(response);
 			}
@@ -127,7 +129,7 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 			public void renderHead(Component component, IHeaderResponse response) {
 				super.renderHead(component, response);
 
-				response.renderOnDomReadyJavaScript("InfiniteScroll.getFromContainer('"+getMarkupId()+"').setUrls('"+upBehavior.getCallbackUrl()+"', '"+downBehavior.getCallbackUrl()+"')");
+				response.render(OnDomReadyHeaderItem.forScript("InfiniteScroll.getFromContainer('"+getMarkupId()+"').setUrls('"+upBehavior.getCallbackUrl()+"', '"+downBehavior.getCallbackUrl()+"')"));
 			}
 			
 			@Override
