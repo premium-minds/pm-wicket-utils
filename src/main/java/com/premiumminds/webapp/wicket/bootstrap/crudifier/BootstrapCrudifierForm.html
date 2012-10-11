@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <body>
+  	<wicket:panel>
+       <fieldset>
+			<legend wicket:id="legend">Winphar Galeno</legend>
+           
+			<div wicket:id="feedbackError" class="alert alert-error"></div>
+			<div wicket:id="feedbackWarning" class="alert alert-warning"></div>
+			<div wicket:id="feedbackSuccess" class="alert alert-success"></div>
+           
+			<wicket:container wicket:id="controls" />
+           
+			<div class="control-group">
+				<div class="controls">
+	                <button type="submit" class="btn btn-primary" wicket:id="submit"><wicket:container wicket:id="submitLabel">Submit</wicket:container></button>
+	                <button type="reset" class="btn"><wicket:container wicket:id="resetLabel">Reset</wicket:container></button>
+				</div>
+			</div>
+       </fieldset>
+    </wicket:panel>
+  </body>
+</html>
