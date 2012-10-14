@@ -8,6 +8,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapControlGroupFeedback;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierConfiguration;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
 
 @SuppressWarnings("rawtypes")
 public class CollectionControlGroup<T> extends AbstractControlGroup<T> {
@@ -24,6 +26,8 @@ public class CollectionControlGroup<T> extends AbstractControlGroup<T> {
 
 			@Override
 			protected List<T> load() {
+				EntityProvider<?> provider = getConfiguration().getProviders().get(getPropertyName());
+				if(provider==null) throw new RuntimeException("Provider for property "+getPropertyName()+" is missing, check your "+CrudifierConfiguration.class.getSimpleName());
 				return (List<T>) getConfiguration().getProviders().get(getPropertyName()).load();
 			}
 		});

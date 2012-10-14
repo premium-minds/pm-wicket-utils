@@ -92,7 +92,7 @@ public class ListControlGroups<T> extends Panel {
 					else if(configuration.getProviders().containsKey(objectProperty.name)){
 						typesControlGroup = ObjectChoiceControlGroup.class;
 					} else {
-						throw new RuntimeException("Crudifier didn't found a provider for property "+objectProperty.name);
+						throw new RuntimeException("Crudifier didn't found a provider for property "+objectProperty.name+", check your "+CrudifierConfiguration.class.getSimpleName());
 					}
 				}
 				
