@@ -32,8 +32,11 @@ public class BootstrapDatePickerBehaviour extends Behavior {
 		if(component.isEnabledInHierarchy()){
 			response.render(CssReferenceHeaderItem.forReference(DATE_PICKER_CSS));
 			response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_JAVASCRIPT));
-			response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "locales/bootstrap-datepicker."+component.getLocale().getLanguage()+".js")));
 			
+			if(!component.getLocale().getLanguage().equals("en")){
+				response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "locales/bootstrap-datepicker."+component.getLocale().getLanguage()+".js")));
+			}
+
 			response.render(OnDomReadyHeaderItem.forScript("$(\"#"+component.getMarkupId()+"\").datepicker()"));
 		}
 	}
