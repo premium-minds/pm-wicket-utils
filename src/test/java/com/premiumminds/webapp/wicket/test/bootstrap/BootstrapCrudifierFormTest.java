@@ -21,7 +21,7 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
 
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.BootstrapCrudifierForm;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierConfiguration;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
 
 public class BootstrapCrudifierFormTest {
@@ -39,7 +39,7 @@ public class BootstrapCrudifierFormTest {
 		
 		Entity entity = new Entity(false, 0, "", entities[0], entitiesSet, Entity.Enume.ENUM1 );
 		
-		CrudifierConfiguration config = new CrudifierConfiguration();
+		CrudifierSettings config = new CrudifierSettings();
 		
 		EntityProvider<Entity2> providerEntity2 = new EntityProvider<Entity2>() {
 			public List<Entity2> load() {

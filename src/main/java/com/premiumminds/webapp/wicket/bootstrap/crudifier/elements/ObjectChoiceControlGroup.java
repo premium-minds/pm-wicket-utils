@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 
@@ -28,10 +29,12 @@ public class ObjectChoiceControlGroup<T> extends AbstractControlGroup<T> {
 		});
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 		
+		dropDown.setChoiceRenderer((IChoiceRenderer<T>) getConfiguration().getProviders().get(getPropertyName()).getRenderer());
 		add(new BootstrapControlGroupFeedback("controlGroup").add(dropDown));
 	}
 

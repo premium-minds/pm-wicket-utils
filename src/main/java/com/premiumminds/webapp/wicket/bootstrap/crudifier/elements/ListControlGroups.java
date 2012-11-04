@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,7 +27,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierConfiguration;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
 import com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty;
 
 public class ListControlGroups<T> extends Panel {
@@ -47,37 +48,62 @@ public class ListControlGroups<T> extends Panel {
 	}
 	
 	private List<ObjectProperties> objectProperties;
-	private CrudifierConfiguration configuration;
+	private CrudifierSettings settings;
 	
-	public ListControlGroups(String id, IModel<T> model, CrudifierConfiguration configuration) {
+	public ListControlGroups(String id, IModel<T> model, CrudifierSettings settings) {
 		super(id, model);
 		
 		objectProperties = new ArrayList<ObjectProperties>();
-		this.configuration = configuration;
+		this.settings = settings;
 		
-		PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(model.getObject().getClass());
+		Class<?> modelClass = model.getObject().getClass();
+		
+		Set<String> properties = getPropertiesByOrder(modelClass);
+		
 		Validator validator = HibernateValidatorProperty.validatorFactory.getValidator();
 		BeanDescriptor constraintDescriptors = validator.getConstraintsForClass(model.getObject().getClass());
-		for(PropertyDescriptor descriptor : descriptors){
-			if(!descriptor.getName().equals("class")){
-				boolean required = false;
-				
-				ElementDescriptor constraintDescriptor = constraintDescriptors.getConstraintsForProperty(descriptor.getName());
-				if(constraintDescriptor!=null){
-					Set<ConstraintDescriptor<?>> constraintsSet = constraintDescriptor.getConstraintDescriptors();
-					for(ConstraintDescriptor<?> constraint : constraintsSet){
-						if(constraint.getAnnotation() instanceof NotNull ||
-						   constraint.getAnnotation() instanceof NotEmpty ||
-						   constraint.getAnnotation() instanceof NotBlank)
-							required = true;
-					}
-				}
-				
-				objectProperties.add(new ObjectProperties(descriptor, required));
+		for(String property : properties){
+			PropertyDescriptor descriptor;
+			try {
+				descriptor = PropertyUtils.getPropertyDescriptor(model.getObject(), property);
+			} catch (Exception e) {
+				throw new RuntimeException("error getting property "+property, e);
 			}
+			
+			boolean required = false;
+			
+			ElementDescriptor constraintDescriptor = constraintDescriptors.getConstraintsForProperty(descriptor.getName());
+			if(constraintDescriptor!=null){
+				Set<ConstraintDescriptor<?>> constraintsSet = constraintDescriptor.getConstraintDescriptors();
+				for(ConstraintDescriptor<?> constraint : constraintsSet){
+					if(constraint.getAnnotation() instanceof NotNull ||
+					   constraint.getAnnotation() instanceof NotEmpty ||
+					   constraint.getAnnotation() instanceof NotBlank)
+						required = true;
+				}
+			}
+			
+			objectProperties.add(new ObjectProperties(descriptor, required));
 		}
 	}
 	
+	private Set<String> getPropertiesByOrder(Class<?> modelClass) {
+		Set<String> properties = new LinkedHashSet<String>();
+		
+		for(String property : settings.getOrderOfFields()){
+			if(!settings.getHiddenFields().contains(property))
+				properties.add(property);
+		}
+		for(PropertyDescriptor descriptor : PropertyUtils.getPropertyDescriptors(modelClass)){
+			if(!settings.getHiddenFields().contains(descriptor.getName()) &&
+			   !properties.contains(descriptor.getName()) &&
+			   !descriptor.getName().equals("class"))
+				properties.add(descriptor.getName());
+		}
+		
+		return properties;
+	}
+
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
@@ -89,17 +115,17 @@ public class ListControlGroups<T> extends Panel {
 				Class<? extends Panel> typesControlGroup = getControlGroupByType(objectProperty.type);
 				if(typesControlGroup==null){
 					if(objectProperty.type.isEnum()) typesControlGroup = EnumControlGroup.class;
-					else if(configuration.getProviders().containsKey(objectProperty.name)){
+					else if(settings.getProviders().containsKey(objectProperty.name)){
 						typesControlGroup = ObjectChoiceControlGroup.class;
 					} else {
-						throw new RuntimeException("Crudifier didn't found a provider for property "+objectProperty.name+", check your "+CrudifierConfiguration.class.getSimpleName());
+						throw new RuntimeException("Crudifier didn't found a provider for property "+objectProperty.name+", check your "+CrudifierSettings.class.getSimpleName());
 					}
 				}
 				
 				constructor = typesControlGroup.getConstructor(String.class, IModel.class);
 
 				AbstractControlGroup<?> controlGroup = (AbstractControlGroup<?>) constructor.newInstance(view.newChildId(), new PropertyModel<Object>(ListControlGroups.this.getModel(), objectProperty.name));
-				controlGroup.init(objectProperty.name, getResourceBase(), configuration, objectProperty.required, objectProperty.type);
+				controlGroup.init(objectProperty.name, getResourceBase(), settings, objectProperty.required, objectProperty.type);
 				controlGroup.setEnabled(objectProperty.enabled);
 				
 				view.add(controlGroup);

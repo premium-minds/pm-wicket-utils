@@ -14,7 +14,7 @@ import com.premiumminds.webapp.wicket.bootstrap.crudifier.elements.ListControlGr
 public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> {
 	private static final long serialVersionUID = -1762699420685191222L;
 
-	public BootstrapStatelessCrudifierForm(String id, IModel<T> model, CrudifierConfiguration configuration) {
+	public BootstrapStatelessCrudifierForm(String id, IModel<T> model, CrudifierSettings configuration) {
 		super(id, model);
 
 		setOutputMarkupId(true);

@@ -1,6 +1,5 @@
 package com.premiumminds.webapp.wicket.bootstrap;
 
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.FeedbackCollector;
 import org.apache.wicket.feedback.FeedbackMessage;
