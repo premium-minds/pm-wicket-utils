@@ -1,21 +1,27 @@
 package com.premiumminds.webapp.wicket.bootstrap.crudifier;
 
+import java.util.Map;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.panel.IMarkupSourcingStrategy;
 import org.apache.wicket.markup.html.panel.PanelMarkupSourcingStrategy;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapFeedbackPanel;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.elements.AbstractControlGroup;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.elements.ListControlGroups;
 
-public class BootstrapCrudifierForm<T> extends Form<T> {
+public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrudifierForm<T> {
 	private static final long serialVersionUID = -611772486341659737L;
 
+	private ListControlGroups<T> listControlGroups;
+	
 	public BootstrapCrudifierForm(String id, IModel<T> model, CrudifierSettings configuration) {
 		super(id, model);
 
@@ -26,7 +32,7 @@ public class BootstrapCrudifierForm<T> extends Form<T> {
 		add(new BootstrapFeedbackPanel("feedbackWarning", FeedbackMessage.WARNING).setEscapeModelStrings(false));
 		add(new BootstrapFeedbackPanel("feedbackSuccess", FeedbackMessage.SUCCESS).setEscapeModelStrings(false));
 		
-		add(new ListControlGroups<T>("controls", getModel(), configuration));
+		add(listControlGroups = new ListControlGroups<T>("controls", getModel(), configuration));
 		
 		add(new AjaxSubmitLink("submit", this) {
 			private static final long serialVersionUID = -4527592607129929399L;
@@ -48,5 +54,11 @@ public class BootstrapCrudifierForm<T> extends Form<T> {
 	@Override
 	protected IMarkupSourcingStrategy newMarkupSourcingStrategy() {
 		return new PanelMarkupSourcingStrategy(false);
+	}
+
+	public FormComponent<?> getFormComponent(String propertyName) {
+		Map<String, AbstractControlGroup<?>> fields = listControlGroups.getFieldsControlGroup();
+		if(!fields.containsKey(propertyName)) throw new RuntimeException("No property "+propertyName+" was found on the form");
+		return fields.get(propertyName).getFormComponent();
 	}
 }

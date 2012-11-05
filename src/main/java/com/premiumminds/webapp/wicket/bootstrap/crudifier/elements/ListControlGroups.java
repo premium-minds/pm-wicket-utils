@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -32,6 +33,8 @@ import com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty;
 
 public class ListControlGroups<T> extends Panel {
 	private static final long serialVersionUID = 7205285700113097720L;
+	
+	private Map<String, AbstractControlGroup<?>> fieldComponents = new HashMap<String, AbstractControlGroup<?>>();
 	
 	@SuppressWarnings("rawtypes")
 	private static final Map<Class<?>, Class<? extends AbstractControlGroup>> typesControlGroups = new HashMap<Class<?>, Class<? extends AbstractControlGroup>>();
@@ -129,6 +132,8 @@ public class ListControlGroups<T> extends Panel {
 				controlGroup.setEnabled(objectProperty.enabled);
 				
 				view.add(controlGroup);
+				
+				fieldComponents.put(objectProperty.name, controlGroup);
 			} catch (SecurityException e) {
 				throw new RuntimeException(e);
 			} catch (NoSuchMethodException e) {
@@ -154,6 +159,10 @@ public class ListControlGroups<T> extends Panel {
 	
 	public Component getResourceBase(){
 		return this;
+	}
+	
+	public Map<String, AbstractControlGroup<?>> getFieldsControlGroup(){
+		return Collections.unmodifiableMap(fieldComponents);
 	}
 	
 	@SuppressWarnings("rawtypes")
