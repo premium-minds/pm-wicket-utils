@@ -1,15 +1,16 @@
 <wicket:panel>
+
 	<ul>
-		<li wicket:id="first"><a href="#" wicket:id="link">&laquo;</a></li>
-		<li wicket:id="previous"><a href="#" wicket:id="link">&lsaquo;</a></li>
-		<li wicket:id="previousPages"><span>...</span></li>
+		<li wicket:id="first"><a href="#" wicket:id="link"><wicket:message key="first"/></a></li>
+		<li wicket:id="previous"><a href="#" wicket:id="link"><wicket:message key="previous"/></a></li>
+		<li wicket:id="previousPages"><span><wicket:message key="elipsis"/></span></li>
 		<li wicket:id="page"><a href="#" wicket:id="link"><wicket:container wicket:id="label">2</wicket:container></a></li>
 		<wicket:remove>
 		<li><a href="#">4</a></li>
 		<li><a href="#">4</a></li>
 		</wicket:remove>
-		<li wicket:id="nextPages"><span>...</span></li>
-		<li wicket:id="next"><a href="#" wicket:id="link">&rsaquo;</a></li>
-		<li wicket:id="last"><a href="#" wicket:id="link">&raquo;</a></li>
+		<li wicket:id="nextPages"><span><wicket:message key="elipsis"/></span></li>
+		<li wicket:id="next"><a href="#" wicket:id="link"><wicket:message key="next"/></a></li>
+		<li wicket:id="last"><a href="#" wicket:id="link"><wicket:message key="last"/></a></li>
 	</ul>
 </wicket:panel>
