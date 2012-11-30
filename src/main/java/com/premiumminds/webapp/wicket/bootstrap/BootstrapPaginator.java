@@ -13,15 +13,29 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 
+/**
+ * 
+ * @author acamilo
+ * 
+ * @version 1.4.1 - properties added to change the string (first, next, previous, last and elipsis)
+ */
 @SuppressWarnings("serial")
 public abstract class BootstrapPaginator extends Panel implements IGenericComponent<Integer> {
 	private static final long serialVersionUID = -5991811031611368885L;
 	
+	/*booleans to control if the component should be showned*/
 	private boolean showFirstButton = true;
 	private boolean showLastButton = true;
 	private boolean showNextButton = true;
 	private boolean showPreviousButton = true;
 	private boolean showMorePagesInformation = false;
+	
+	/*booleans to control if the component should be hidden in specific cases*/
+	private boolean hiddenFirstButton = false;
+	private boolean hiddenLastButton = false;
+	private boolean hiddenPreviousButton = false;
+	private boolean hiddenNextButton = false;
+	
 	
 	private int pagesToShow = 5;
 	
@@ -34,6 +48,7 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 	public BootstrapPaginator(String id) {
 		super(id);
 		setOutputMarkupId(true);
+		
 		pagesToShow = Math.max(3, pagesToShow);
 		pageNumberModel = new Model<Integer>(0);
 		
@@ -42,7 +57,7 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			protected void onConfigure() {
 				super.onConfigure();
 				setEnabled(pageNumberModel.getObject()>0);
-				setVisible(showFirstButton || threshold>0);
+				setVisible(showFirstButton && (!hiddenFirstButton || threshold>0));
 			}
 		}.add(new AjaxLink<Void>("link"){
 			@Override
@@ -58,7 +73,7 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			protected void onConfigure() {
 				super.onConfigure();
 				setEnabled(pageNumberModel.getObject()>0);
-				setVisible(showPreviousButton || pageNumberModel.getObject()>0);
+				setVisible(showPreviousButton  && (!hiddenPreviousButton || pageNumberModel.getObject()>0));
 			}
 		}.add(new AjaxLink<Void>("link"){
 			@Override
@@ -74,7 +89,7 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			protected void onConfigure() {
 				super.onConfigure();
 				setEnabled(pageNumberModel.getObject()<totalPages-1);
-				setVisible(showNextButton || pageNumberModel.getObject()<(totalPages-1));
+				setVisible(showNextButton  && (!hiddenNextButton || pageNumberModel.getObject()<(totalPages-1)));
 			}
 		}.add(new AjaxLink<Void>("link"){
 			@Override
@@ -90,7 +105,7 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			protected void onConfigure() {
 				super.onConfigure();
 				setEnabled(pageNumberModel.getObject()<totalPages-1);
-				setVisible(showLastButton || threshold<(totalPages-pagesToShow));
+				setVisible(showLastButton  && (!hiddenLastButton || threshold<(totalPages-pagesToShow)));
 			}
 		}.add(new AjaxLink<Void>("link"){
 			@Override
@@ -244,6 +259,39 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 		this.totalPages = Math.max(1, totalPages);
 		setPage(0);
 	}
+	
+	public boolean isHiddenFirstButton() {
+		return hiddenFirstButton;
+	}
+
+	public void setHiddenFirstButton(boolean hiddenFirstButton) {
+		this.hiddenFirstButton = hiddenFirstButton;
+	}
+
+	public boolean isHiddenLastButton() {
+		return hiddenLastButton;
+	}
+
+	public void setHiddenLastButton(boolean hiddenLastButton) {
+		this.hiddenLastButton = hiddenLastButton;
+	}
+
+	public boolean isHiddenPreviousButton() {
+		return hiddenPreviousButton;
+	}
+
+	public void setHiddenPreviousButton(boolean hiddenPreviousButton) {
+		this.hiddenPreviousButton = hiddenPreviousButton;
+	}
+
+	public boolean isHiddenNextButton() {
+		return hiddenNextButton;
+	}
+
+	public void setHiddenNextButton(boolean hiddenNextButton) {
+		this.hiddenNextButton = hiddenNextButton;
+	}
+
 	
 	public abstract void onPageChange(AjaxRequestTarget target, IModel<Integer> page);
 }

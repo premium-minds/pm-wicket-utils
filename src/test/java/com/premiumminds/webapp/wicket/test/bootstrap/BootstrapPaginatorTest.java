@@ -45,12 +45,14 @@ public class BootstrapPaginatorTest {
 		};
 		paginator.setTotalPages(10);
 		tester.startComponentInPage(paginator);
+		
 		tester.clickLink("paginator:last:link");
 		assertEquals(9, (int) pageBox.value);
 		tester.assertDisabled("paginator:last:link");
 		tester.assertDisabled("paginator:next:link");
 		tester.assertEnabled("paginator:previous:link");
 		tester.assertEnabled("paginator:first:link");
+		
 	}
 
 	@Test
@@ -146,6 +148,30 @@ public class BootstrapPaginatorTest {
 		tester.assertEnabled("paginator:previous:link");
 		tester.assertEnabled("paginator:first:link");
 		tester.assertLabel("paginator:page:2:link:label", "5");
+	}
+	
+	@Test
+	public void testShowHiddenComponents(){
+		WicketTester tester = createTester();
+		BootstrapPaginator paginator = new BootstrapPaginator("paginator") {
+			private static final long serialVersionUID = -4486050808642574868L;
+			
+			@Override
+			public void onPageChange(AjaxRequestTarget target, IModel<Integer> page) {
+			}
+		};
+		
+		paginator.setTotalPages(10);
+		paginator.setShowLastButton(false);
+		paginator.setShowFirstButton(false);
+		paginator.setShowNextButton(false);
+		paginator.setShowPreviousButton(false);
+		
+		tester.startComponentInPage(paginator);
+		tester.assertInvisible("paginator:first:link");
+		tester.assertInvisible("paginator:previous:link");
+		tester.assertInvisible("paginator:next:link");
+		tester.assertInvisible("paginator:last:link");
 	}
 	
 	private WicketTester createTester(){
