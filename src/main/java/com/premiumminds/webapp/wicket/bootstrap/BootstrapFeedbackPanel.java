@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.FeedbackMessagesModel;
 import org.apache.wicket.feedback.IFeedback;
@@ -19,7 +21,7 @@ public class BootstrapFeedbackPanel extends Panel implements IFeedback {
 	private static final long serialVersionUID = 918157933592698927L;
 
 	private final ListView<FeedbackMessage> messageListView;
-
+	
 	public BootstrapFeedbackPanel(String id, final int level) {
 		super(id);
 		
@@ -68,11 +70,13 @@ public class BootstrapFeedbackPanel extends Panel implements IFeedback {
 		return !msgs.isEmpty();
 	}	
 	
+	
 	@Override
 	protected void onConfigure() {
 		super.onConfigure();
 		
-		setVisible(anyMessage());
+		boolean anyMessage = anyMessage();
+		setVisible(anyMessage);
 	}
 	
 	/**
