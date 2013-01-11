@@ -114,4 +114,11 @@
   
     <finalName>${artifactId}</finalName>
   </build>  
+	<repositories>
+	    <repository>
+	        <id>premium-repository</id>
+	        <name>premium-repository</name>
+	        <url>http://maven.premium-minds.local/repo</url>
+	    </repository>
+	</repositories>	
 </project>
