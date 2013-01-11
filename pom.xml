@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.premiumminds</groupId>
   <artifactId>wicket-utils</artifactId>
-  <version>1.5</version>
+  <version>1.6</version>
   <packaging>jar</packaging>
   
   <name>wicket-utils</name>
@@ -68,6 +68,13 @@
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-validator</artifactId>
 		<version>4.3.0.Final</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.premiumminds</groupId>
+		<artifactId>persistence-utils</artifactId>
+		<version>0.1.0</version>
+		<scope>provided</scope>
 	</dependency>
                         	
   </dependencies>
