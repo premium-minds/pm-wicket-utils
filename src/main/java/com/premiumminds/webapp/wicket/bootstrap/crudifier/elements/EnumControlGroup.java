@@ -34,7 +34,7 @@ public class EnumControlGroup<T extends Enum<?>> extends AbstractControlGroup<T>
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-
+		
 		try {
 			Method method = getType().getMethod("values");
 			@SuppressWarnings("unchecked")
@@ -62,7 +62,10 @@ public class EnumControlGroup<T extends Enum<?>> extends AbstractControlGroup<T>
 			
 			radioGroup.add(view);
 			
-			add(new BootstrapControlGroupFeedback("controlGroup").add(radioGroup));
+			add(new BootstrapControlGroupFeedback("controlGroup")
+				.add(radioGroup)
+				.add(new Label("label", new StringResourceModel(getPropertyName()+".label", getResourceBase(), getModel(), getPropertyName())))
+			);
 		} catch (SecurityException e) {
 			throw new RuntimeException(e);
 		} catch (NoSuchMethodException e) {
