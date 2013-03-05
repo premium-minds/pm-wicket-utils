@@ -105,7 +105,10 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 
 			@Override
 			protected void respond(AjaxRequestTarget target) {
-				target.appendJavaScript("InfiniteScroll.getFromContainer('"+InfiniteScrollListView.this.getMarkupId()+"').scrollUpTo('"+getItemMarkupId(InfiniteScrollListView.this.getModel().getObject().get(InfiniteScrollListView.this.getModel().getViewSize()-1))+"')");
+				target.appendJavaScript("InfiniteScroll.getFromContainer('"+InfiniteScrollListView.this.getMarkupId()+"')" +
+						".scrollUpTo('"+getItemMarkupId(InfiniteScrollListView.this.getModel().getObject().get(
+								Math.min(InfiniteScrollListView.this.getModel().getViewSize()-1, InfiniteScrollListView.this.getModel().getObject().size()-1)
+						  ))+"')");
 				setStartIndex(getModel().getStartIndex()+SCROLL_SIZE);
 
 				refreshLoadings();
