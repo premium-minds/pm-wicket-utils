@@ -5,15 +5,15 @@
        <fieldset>
 			<legend wicket:id="legend">Winphar Galeno</legend>
            
-			<div wicket:id="feedbackError" class="alert alert-error"></div>
+			<div wicket:id="feedbackError" class="alert alert-danger"></div>
 			<div wicket:id="feedbackWarning" class="alert alert-warning"></div>
 			<div wicket:id="feedbackSuccess" class="alert alert-success"></div>
            
 			<wicket:container wicket:id="controls" />
            
-			<div class="control-group">
-				<div class="controls">
-	                <button type="submit" class="btn btn-primary"><wicket:container wicket:id="submitLabel">Submit</wicket:container></button>
+			<div class="form-group">
+				<div class="col-lg-offset-2 col-lg-10">
+	                <button type="submit" class="btn btn-primary" wicket:id="submit"><wicket:container wicket:id="submitLabel">Submit</wicket:container></button>
 	                <button type="reset" class="btn" wicket:id="reset"><wicket:container wicket:id="resetLabel">Reset</wicket:container></button>
 				</div>
 			</div>

@@ -14,17 +14,23 @@ public class CrudifierSettings implements Serializable {
 	private boolean withSelfFeedback = true;
 	
 	private Map<String, EntityProvider<?>> providers;
+	private Map<Class<?>, IObjectRenderer<?>> renderers;
 	private Set<String> hiddenFields;
 	private Set<String> orderOfFields;
 	
 	public CrudifierSettings(){
 		providers = new HashMap<String, EntityProvider<?>>();
+		renderers = new HashMap<Class<?>, IObjectRenderer<?>>();
 		hiddenFields = new HashSet<String>();
 		orderOfFields = new LinkedHashSet<String>();
 	}
 	
 	public Map<String, EntityProvider<?>> getProviders(){
 		return providers;
+	}
+	
+	public Map<Class<?>, IObjectRenderer<?>> getRenderers(){
+		return renderers;
 	}
 	
 	public Set<String> getHiddenFields(){

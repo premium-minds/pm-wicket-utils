@@ -47,7 +47,7 @@ public class BootstrapControlGroupFeedback extends WebMarkupContainer implements
 	protected void onComponentTag(ComponentTag tag) {
 		super.onComponentTag(tag);
 		
-		if(new FeedbackCollector(getPage()).collect(filter).size() > 0) tag.append("class", "error", " ");
+		if(new FeedbackCollector(getPage()).collect(filter).size() > 0) tag.append("class", "has-error", " ");
 	}
 	
 }

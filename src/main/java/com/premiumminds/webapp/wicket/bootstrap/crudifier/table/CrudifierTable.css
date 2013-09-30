@@ -1,0 +1,4 @@
+table.crudifier tbody tr.hover:hover {
+	background-color: #ffeeaa;
+	cursor: pointer;
+}

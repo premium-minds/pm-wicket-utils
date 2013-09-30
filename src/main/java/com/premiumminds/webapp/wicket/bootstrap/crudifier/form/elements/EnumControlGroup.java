@@ -1,4 +1,4 @@
-package com.premiumminds.webapp.wicket.bootstrap.crudifier.elements;
+package com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

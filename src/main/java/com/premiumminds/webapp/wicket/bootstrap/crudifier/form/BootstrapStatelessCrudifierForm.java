@@ -1,29 +1,28 @@
-package com.premiumminds.webapp.wicket.bootstrap.crudifier;
+package com.premiumminds.webapp.wicket.bootstrap.crudifier.form;
 
 import java.util.Map;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.panel.IMarkupSourcingStrategy;
 import org.apache.wicket.markup.html.panel.PanelMarkupSourcingStrategy;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapFeedbackPanel;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.elements.AbstractControlGroup;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.elements.ListControlGroups;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.AbstractControlGroup;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.ListControlGroups;
 
-public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrudifierForm<T> {
-	private static final long serialVersionUID = -611772486341659737L;
+public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> implements IBootstrapCrudifierForm<T> {
+	private static final long serialVersionUID = -1762699420685191222L;
 
 	private ListControlGroups<T> listControlGroups;
 	
-	public BootstrapCrudifierForm(String id, IModel<T> model, CrudifierSettings configuration) {
+	public BootstrapStatelessCrudifierForm(String id, IModel<T> model, CrudifierSettings configuration) {
 		super(id, model);
 
 		setOutputMarkupId(true);
@@ -38,7 +37,7 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 				setVisible(!getDefaultModelObjectAsString().isEmpty());
 			}
 		});
-		
+
 		if(configuration.isWithSelfFeedback()){
 			add(new BootstrapFeedbackPanel("feedbackError", FeedbackMessage.ERROR).setEscapeModelStrings(false));
 			add(new BootstrapFeedbackPanel("feedbackWarning", FeedbackMessage.WARNING).setEscapeModelStrings(false));
@@ -51,21 +50,7 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 		
 		add(listControlGroups = new ListControlGroups<T>("controls", getModel(), configuration));
 		
-		add(new AjaxSubmitLink("submit", this) {
-			private static final long serialVersionUID = -4527592607129929399L;
-
-			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				target.add(BootstrapCrudifierForm.this);
-				BootstrapCrudifierForm.this.onSubmit(target, form);
-			}
-			
-			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
-				target.add(BootstrapCrudifierForm.this);
-				BootstrapCrudifierForm.this.onError(target, form);
-			}
-		}.add(new Label("submitLabel", new StringResourceModel("submitLabel", this, getModel(), "Submit"))));
+		add(new Label("submitLabel", new StringResourceModel("submitLabel", this, getModel(), "Submit")));
 		WebMarkupContainer reset = new WebMarkupContainer("reset");
 		add(reset);
 		reset.setVisible(configuration.isShowReset());
@@ -81,12 +66,6 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 		Map<String, AbstractControlGroup<?>> fields = listControlGroups.getFieldsControlGroup();
 		if(!fields.containsKey(propertyName)) throw new RuntimeException("No property "+propertyName+" was found on the form");
 		return fields.get(propertyName).getFormComponent();
-	}
-	
-	protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-	}
-	
-	protected void onError(AjaxRequestTarget target, Form<?> form) {
 	}
 	
 }

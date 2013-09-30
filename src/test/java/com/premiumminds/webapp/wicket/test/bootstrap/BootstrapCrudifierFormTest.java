@@ -20,9 +20,9 @@ import org.apache.wicket.request.Response;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.BootstrapCrudifierForm;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.BootstrapCrudifierForm;
 
 public class BootstrapCrudifierFormTest {
 

@@ -1,4 +1,4 @@
-package com.premiumminds.webapp.wicket.bootstrap.crudifier;
+package com.premiumminds.webapp.wicket.bootstrap.crudifier.form;
 
 import org.apache.wicket.markup.html.form.FormComponent;
 

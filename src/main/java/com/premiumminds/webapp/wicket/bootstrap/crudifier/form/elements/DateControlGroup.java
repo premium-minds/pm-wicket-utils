@@ -1,4 +1,4 @@
-package com.premiumminds.webapp.wicket.bootstrap.crudifier.elements;
+package com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements;
 
 import java.io.Serializable;
 import java.util.Date;

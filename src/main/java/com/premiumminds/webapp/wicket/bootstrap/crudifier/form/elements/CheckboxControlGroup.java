@@ -1,4 +1,4 @@
-package com.premiumminds.webapp.wicket.bootstrap.crudifier.elements;
+package com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements;
 
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.FormComponent;

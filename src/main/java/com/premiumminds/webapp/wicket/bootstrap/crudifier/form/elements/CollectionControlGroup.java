@@ -1,4 +1,4 @@
-package com.premiumminds.webapp.wicket.bootstrap.crudifier.elements;
+package com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,7 +12,6 @@ import org.apache.wicket.validation.IValidationError;
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapControlGroupFeedback;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.elements.AbstractControlGroup.MessageSource;
 
 @SuppressWarnings("rawtypes")
 public class CollectionControlGroup<T> extends AbstractControlGroup<T> {
