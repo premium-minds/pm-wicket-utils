@@ -21,6 +21,10 @@
 (function( $ ) {
 
 	var $window = $(window);
+//	specialDates = [
+//		{dt:new Date('2013-10-10'), css:'holiday',tooltip:'cenas'}
+//		,{dt:new Date('2013-10-15'), css:'holiday',tooltip:'coiso'}
+//	]
 
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
@@ -29,6 +33,15 @@
 		var today = new Date();
 		return UTCDate(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
 	}
+
+//	function isSpecialDate(_date) {
+//		for (var i=0, item; item = specialDates[i]; i++) {
+//			if(_date.getTime() == item.dt.getTime()) {
+//				return item;
+//			}
+//		}
+//		return false;
+//	}
 
 
 	// Picker object
@@ -569,6 +582,7 @@
 			if (currentDate && date.valueOf() == currentDate) {
 				cls.push('active');
 			}
+
 			if (date.valueOf() < this.o.startDate || date.valueOf() > this.o.endDate ||
 				$.inArray(date.getUTCDay(), this.o.daysOfWeekDisabled) !== -1) {
 				cls.push('disabled');
@@ -632,9 +646,15 @@
 
 					}
 				}
+
 				clsName = this.getClassNames(prevMonth);
 				clsName.push('day');
 
+				// insert special date class
+				var specialDate = isSpecialDate(prevMonth);
+				if(specialDate) {
+					clsName.push(specialDate.css);
+				}
 				if (this.o.beforeShowDay !== $.noop){
 					var before = this.o.beforeShowDay(this._utc_to_local(prevMonth));
 					if (before === undefined)
@@ -650,9 +670,13 @@
 					if (before.tooltip)
 						tooltip = before.tooltip;
 				}
+				
 
 				clsName = $.unique(clsName);
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
+				html.push('<td class="'+clsName.join(' ')+'"' 
+					+ (tooltip ? ' title="'+tooltip+'"' : '') 
+					+ (specialDate ? ' tooltip="'+specialDate.tooltip+'"' : '')+'>'
+					+prevMonth.getUTCDate() + '</td>');
 				if (prevMonth.getUTCDay() == this.o.weekEnd) {
 					html.push('</tr>');
 				}

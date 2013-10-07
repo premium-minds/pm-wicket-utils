@@ -2,6 +2,7 @@ package com.premiumminds.webapp.wicket.test.bootstrap;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.wicket.Page;
@@ -15,6 +16,7 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapDatepicker;
+import com.premiumminds.webapp.wicket.bootstrap.SpecialDate;
 
 public class BootstrapDatepickerTest {
 	
@@ -68,7 +70,15 @@ public class BootstrapDatepickerTest {
 			}
 		};
 		
-		component = new BootstrapDatepicker("datepicker");
+		component = new BootstrapDatepicker("datepicker") {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public List<SpecialDate> getSpecialDates() {
+				return null;
+			}
+			
+		};
 		
 		component.add(field = new DateTextField("input"));
 		

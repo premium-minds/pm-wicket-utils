@@ -1,7 +1,5 @@
 package com.premiumminds.webapp.wicket.test.bootstrap;
 
-import static org.junit.Assert.*;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;

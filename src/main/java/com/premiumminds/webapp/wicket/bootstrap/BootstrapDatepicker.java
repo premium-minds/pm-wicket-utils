@@ -1,5 +1,7 @@
 package com.premiumminds.webapp.wicket.bootstrap;
 
+import java.util.Collection;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.ComponentTag;
@@ -7,15 +9,21 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 
 import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBehaviour;
 
-public class BootstrapDatepicker extends WebMarkupContainer {
+public abstract class BootstrapDatepicker extends WebMarkupContainer {
 	private static final long serialVersionUID = -117683073963817461L;
 
 	private DateTextField dateField;
 	
 	public BootstrapDatepicker(String id) {
 		super(id);
-		
-		add(new BootstrapDatePickerBehaviour());
+		add(new BootstrapDatePickerBehaviour() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Collection<SpecialDate> getSpecialDates() {
+				return BootstrapDatepicker.this.getSpecialDates();
+			}
+		});
 	}
 	
 	@Override
@@ -36,7 +44,7 @@ public class BootstrapDatepicker extends WebMarkupContainer {
 			tag.put("data-date-format", dateField.getTextFormat().toLowerCase());
 		}
 	}
-
-
+	
+	public abstract Collection<SpecialDate> getSpecialDates();
 	
 }
