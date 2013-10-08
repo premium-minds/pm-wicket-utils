@@ -24,11 +24,20 @@ public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> impleme
 	private static final long serialVersionUID = -1762699420685191222L;
 
 	private ListControlGroups<T> listControlGroups;
+	private WebMarkupContainer reset;
+	
+	private CrudifierFormSettings formSettings;
+	private CrudifierEntitySettings entitySettings;
+	private Map<Class<?>, IObjectRenderer<?>> renderers;
 	
 	public BootstrapStatelessCrudifierForm(String id, IModel<T> model, CrudifierEntitySettings entitySettings, CrudifierFormSettings formSettings, Map<Class<?>, IObjectRenderer<?>> renderers) {
 		super(id, model);
 
 		setOutputMarkupId(true);
+		
+		this.formSettings = formSettings;
+		this.entitySettings = entitySettings;
+		this.renderers = renderers;
 		
 		add(new Label("legend", new StringResourceModel("legend", this, getModel(), "Unknown")){
 			private static final long serialVersionUID = -7854751811138463187L;
@@ -41,16 +50,6 @@ public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> impleme
 			}
 		});
 
-		if(formSettings.isWithSelfFeedback()){
-			add(new BootstrapFeedbackPanel("feedbackError", FeedbackMessage.ERROR).setEscapeModelStrings(false));
-			add(new BootstrapFeedbackPanel("feedbackWarning", FeedbackMessage.WARNING).setEscapeModelStrings(false));
-			add(new BootstrapFeedbackPanel("feedbackSuccess", FeedbackMessage.SUCCESS).setEscapeModelStrings(false));
-		} else {
-			add(new WebMarkupContainer("feedbackError").setVisible(false));
-			add(new WebMarkupContainer("feedbackWarning").setVisible(false));
-			add(new WebMarkupContainer("feedbackSuccess").setVisible(false));
-		}
-		
 		add(listControlGroups = new ListControlGroups<T>("controls", getModel(), entitySettings, renderers){
 			private static final long serialVersionUID = 2855610861985645116L;
 
@@ -61,14 +60,29 @@ public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> impleme
 		});
 		
 		add(new Label("submitLabel", new StringResourceModel("submitLabel", this, getModel(), "Submit")));
-		WebMarkupContainer reset = new WebMarkupContainer("reset");
+		reset = new WebMarkupContainer("reset");
 		add(reset);
-		reset.setVisible(formSettings.isShowReset());
 		reset.add(new Label("resetLabel", new StringResourceModel("resetLabel", this, getModel(), "Reset")));
 	}
 
 	public BootstrapStatelessCrudifierForm(String id, IModel<T> model) {
 		this(id, model, new CrudifierEntitySettings(), new CrudifierFormSettings(), new HashMap<Class<?>, IObjectRenderer<?>>());
+	}
+	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+
+		if(formSettings.isWithSelfFeedback()){
+			add(new BootstrapFeedbackPanel("feedbackError", FeedbackMessage.ERROR).setEscapeModelStrings(false));
+			add(new BootstrapFeedbackPanel("feedbackWarning", FeedbackMessage.WARNING).setEscapeModelStrings(false));
+			add(new BootstrapFeedbackPanel("feedbackSuccess", FeedbackMessage.SUCCESS).setEscapeModelStrings(false));
+		} else {
+			add(new WebMarkupContainer("feedbackError").setVisible(false));
+			add(new WebMarkupContainer("feedbackWarning").setVisible(false));
+			add(new WebMarkupContainer("feedbackSuccess").setVisible(false));
+		}
+		reset.setVisible(formSettings.isShowReset());
 	}
 	
 	@Override
@@ -84,6 +98,23 @@ public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> impleme
 	
 	protected EntityProvider<?> getEntityProvider(String name){
 		throw new RuntimeException("provider not found for '"+name+"', please override getEntityProvider");
+	}
+	
+	public CrudifierFormSettings getFormSettings() {
+		return formSettings;
+	}
+
+	public CrudifierEntitySettings getEntitySettings() {
+		return entitySettings;
+	}
+
+	public Map<Class<?>, IObjectRenderer<?>> getRenderers() {
+		return renderers;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<Class<?>, Class<? extends AbstractControlGroup>> getControlGroupsTypesMap(){
+		return listControlGroups.getControlGroupsTypesMap();
 	}
 	
 }

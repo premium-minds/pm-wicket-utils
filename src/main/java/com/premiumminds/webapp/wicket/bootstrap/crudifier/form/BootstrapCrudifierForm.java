@@ -135,4 +135,9 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 	public Map<Class<?>, IObjectRenderer<?>> getRenderers() {
 		return renderers;
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<Class<?>, Class<? extends AbstractControlGroup>> getControlGroupsTypesMap(){
+		return listControlGroups.getControlGroupsTypesMap();
+	}
 }

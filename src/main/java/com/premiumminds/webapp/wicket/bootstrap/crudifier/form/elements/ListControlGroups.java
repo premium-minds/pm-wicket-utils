@@ -39,8 +39,15 @@ public abstract class ListControlGroups<T> extends Panel {
 	private Map<String, AbstractControlGroup<?>> fieldComponents = new HashMap<String, AbstractControlGroup<?>>();
 	
 	@SuppressWarnings("rawtypes")
-	private static final Map<Class<?>, Class<? extends AbstractControlGroup>> typesControlGroups = new HashMap<Class<?>, Class<? extends AbstractControlGroup>>();
-	static {
+	private final Map<Class<?>, Class<? extends AbstractControlGroup>> typesControlGroups = new HashMap<Class<?>, Class<? extends AbstractControlGroup>>();
+	
+	private List<ObjectProperties> objectProperties;
+	private CrudifierEntitySettings entitySettings;
+	private Map<Class<?>, IObjectRenderer<?>> renderers;
+	
+	public ListControlGroups(String id, IModel<T> model, CrudifierEntitySettings entitySettings, Map<Class<?>, IObjectRenderer<?>> renderers) {
+		super(id, model);
+
 		typesControlGroups.put(Date.class, DateControlGroup.class);
 		typesControlGroups.put(String.class, TextFieldControlGroup.class);
 		typesControlGroups.put(Integer.class, TextFieldControlGroup.class);
@@ -50,14 +57,6 @@ public abstract class ListControlGroups<T> extends Panel {
 		typesControlGroups.put(Boolean.class, CheckboxControlGroup.class);
 		typesControlGroups.put(boolean.class, CheckboxControlGroup.class);
 		typesControlGroups.put(Set.class, CollectionControlGroup.class);
-	}
-	
-	private List<ObjectProperties> objectProperties;
-	private CrudifierEntitySettings entitySettings;
-	private Map<Class<?>, IObjectRenderer<?>> renderers;
-	
-	public ListControlGroups(String id, IModel<T> model, CrudifierEntitySettings entitySettings, Map<Class<?>, IObjectRenderer<?>> renderers) {
-		super(id, model);
 		
 		objectProperties = new ArrayList<ObjectProperties>();
 		this.entitySettings = entitySettings;
@@ -205,5 +204,10 @@ public abstract class ListControlGroups<T> extends Panel {
 			this.type = descriptor.getPropertyType();
 			this.required = required;
 		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<Class<?>, Class<? extends AbstractControlGroup>> getControlGroupsTypesMap(){
+		return typesControlGroups;
 	}
 }

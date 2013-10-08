@@ -30,6 +30,7 @@ public class ObjectChoiceControlGroup<T> extends AbstractControlGroup<T> {
 
 			@Override
 			protected List<T> load() {
+				if(entityProvider==null) throw new RuntimeException("no entity provider for '"+getPropertyName()+"'");
 				return (List<T>) entityProvider.load();
 			}
 			
