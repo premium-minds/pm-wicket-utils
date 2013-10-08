@@ -311,12 +311,15 @@
 		},
 		
 		isSpecialDate: function(_date) {
-		for (var i=0, item; item = this._specialDates[i]; i++) {
-			if(_date.getTime() == item.dt.getTime()) {
-				return item;
+			if(this._specialDates === undefined) {
+				return false;
 			}
-		}
-		return false;
+			for (var i=0, item; item = this._specialDates[i]; i++) {
+				if(_date.getTime() == item.dt.getTime()) {
+					return item;
+				}
+			}
+			return false;
 		},
 
 		show: function(e) {
