@@ -44,7 +44,7 @@ public class BootstrapDatePickerBehaviour extends Behavior {
 
 			if(null != specialDates && !specialDates.isEmpty()) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("var specialDates = [");
+				sb.append("[");
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				SpecialDate[] sdArray = specialDates.toArray(new SpecialDate[20]);
 				for(int i = 0; i < specialDates.size(); ++i) {
@@ -54,15 +54,16 @@ public class BootstrapDatePickerBehaviour extends Behavior {
 						sb.append(",");
 					}
 				}
-				sb.append("];");
-				sb.append("function isSpecialDate(_date) {for (var i=0, item; item = specialDates[i]; i++) {if(_date.getTime() == item.dt.getTime()) {return item;}}return false;};");
-				response.render(JavaScriptHeaderItem.forScript(sb.toString(), "special-dates"));
+				sb.append("]");
+				//response.render(JavaScriptHeaderItem.forScript(sb.toString(), "special-dates"));
 
 				if(!component.getLocale().getLanguage().equals("en")){
 					response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "locales/bootstrap-datepicker."+component.getLocale().getLanguage()+".js")));
 				}
+				response.render(OnDomReadyHeaderItem.forScript("$(\"#"+component.getMarkupId()+"\").datepicker(null, "+sb.toString()+")"));
+			} else {
+				response.render(OnDomReadyHeaderItem.forScript("$(\"#"+component.getMarkupId()+"\").datepicker()"));
 			}
-			response.render(OnDomReadyHeaderItem.forScript("$(\"#"+component.getMarkupId()+"\").datepicker()"));
 		}
 	}
 

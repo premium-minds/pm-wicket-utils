@@ -34,19 +34,9 @@
 		return UTCDate(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
 	}
 
-//	function isSpecialDate(_date) {
-//		for (var i=0, item; item = specialDates[i]; i++) {
-//			if(_date.getTime() == item.dt.getTime()) {
-//				return item;
-//			}
-//		}
-//		return false;
-//	}
-
-
 	// Picker object
 
-	var Datepicker = function(element, options) {
+	var Datepicker = function(element, options, specialDates) {
 		var that = this;
 
 		this._process_options(options);
@@ -62,6 +52,8 @@
 		this.picker = $(DPGlobal.template);
 		this._buildEvents();
 		this._attachEvents();
+
+		this.setSpecialDates(specialDates);
 
 		if(this.isInline) {
 			this.picker.addClass('datepicker-inline').appendTo(this.element);
@@ -105,6 +97,10 @@
 
 	Datepicker.prototype = {
 		constructor: Datepicker,
+		_specialDates : [],
+		setSpecialDates: function(specialDates) {
+			this._specialDates = specialDates;
+		},
 
 		_process_options: function(opts){
 			// Store raw options for reference
@@ -312,6 +308,15 @@
 					return DPGlobal.formatDate(date, format, this.o.language);
 				}, this)
 			});
+		},
+		
+		isSpecialDate: function(_date) {
+		for (var i=0, item; item = this._specialDates[i]; i++) {
+			if(_date.getTime() == item.dt.getTime()) {
+				return item;
+			}
+		}
+		return false;
 		},
 
 		show: function(e) {
@@ -651,7 +656,7 @@
 				clsName.push('day');
 
 				// insert special date class
-				var specialDate = isSpecialDate(prevMonth);
+				var specialDate = this.isSpecialDate(prevMonth);
 				if(specialDate) {
 					clsName.push(specialDate.css);
 				}
@@ -1118,7 +1123,7 @@
 	}
 
 	var old = $.fn.datepicker;
-	$.fn.datepicker = function ( option ) {
+	$.fn.datepicker = function ( option, specialDates ) {
 		var args = Array.apply(null, arguments);
 		args.shift();
 		var internal_return,
@@ -1141,7 +1146,7 @@
 					$this.data('datepicker', (data = new DateRangePicker(this, $.extend(opts, ropts))));
 				}
 				else{
-					$this.data('datepicker', (data = new Datepicker(this, opts)));
+					$this.data('datepicker', (data = new Datepicker(this, opts, specialDates)));
 				}
 			}
 			if (typeof option == 'string' && typeof data[option] == 'function') {
