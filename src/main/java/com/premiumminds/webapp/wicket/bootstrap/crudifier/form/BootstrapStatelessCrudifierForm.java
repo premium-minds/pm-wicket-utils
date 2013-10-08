@@ -1,5 +1,6 @@
 package com.premiumminds.webapp.wicket.bootstrap.crudifier.form;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.wicket.feedback.FeedbackMessage;
@@ -13,7 +14,9 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapFeedbackPanel;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierEntitySettings;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.AbstractControlGroup;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.ListControlGroups;
 
@@ -22,7 +25,7 @@ public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> impleme
 
 	private ListControlGroups<T> listControlGroups;
 	
-	public BootstrapStatelessCrudifierForm(String id, IModel<T> model, CrudifierSettings configuration) {
+	public BootstrapStatelessCrudifierForm(String id, IModel<T> model, CrudifierEntitySettings entitySettings, CrudifierFormSettings formSettings, Map<Class<?>, IObjectRenderer<?>> renderers) {
 		super(id, model);
 
 		setOutputMarkupId(true);
@@ -38,7 +41,7 @@ public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> impleme
 			}
 		});
 
-		if(configuration.isWithSelfFeedback()){
+		if(formSettings.isWithSelfFeedback()){
 			add(new BootstrapFeedbackPanel("feedbackError", FeedbackMessage.ERROR).setEscapeModelStrings(false));
 			add(new BootstrapFeedbackPanel("feedbackWarning", FeedbackMessage.WARNING).setEscapeModelStrings(false));
 			add(new BootstrapFeedbackPanel("feedbackSuccess", FeedbackMessage.SUCCESS).setEscapeModelStrings(false));
@@ -48,13 +51,24 @@ public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> impleme
 			add(new WebMarkupContainer("feedbackSuccess").setVisible(false));
 		}
 		
-		add(listControlGroups = new ListControlGroups<T>("controls", getModel(), configuration));
+		add(listControlGroups = new ListControlGroups<T>("controls", getModel(), entitySettings, renderers){
+			private static final long serialVersionUID = 2855610861985645116L;
+
+			@Override
+			protected EntityProvider<?> getEntityProvider(String name) {
+				return getEntityProvider(name);
+			}
+		});
 		
 		add(new Label("submitLabel", new StringResourceModel("submitLabel", this, getModel(), "Submit")));
 		WebMarkupContainer reset = new WebMarkupContainer("reset");
 		add(reset);
-		reset.setVisible(configuration.isShowReset());
+		reset.setVisible(formSettings.isShowReset());
 		reset.add(new Label("resetLabel", new StringResourceModel("resetLabel", this, getModel(), "Reset")));
+	}
+
+	public BootstrapStatelessCrudifierForm(String id, IModel<T> model) {
+		this(id, model, new CrudifierEntitySettings(), new CrudifierFormSettings(), new HashMap<Class<?>, IObjectRenderer<?>>());
 	}
 	
 	@Override
@@ -66,6 +80,10 @@ public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> impleme
 		Map<String, AbstractControlGroup<?>> fields = listControlGroups.getFieldsControlGroup();
 		if(!fields.containsKey(propertyName)) throw new RuntimeException("No property "+propertyName+" was found on the form");
 		return fields.get(propertyName).getFormComponent();
+	}
+	
+	protected EntityProvider<?> getEntityProvider(String name){
+		throw new RuntimeException("provider not found for '"+name+"', please override getEntityProvider");
 	}
 	
 }

@@ -17,7 +17,6 @@ import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.string.interpolator.VariableInterpolator;
 import org.apache.wicket.validation.IErrorMessageSource;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
 import com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty;
 
 public abstract class AbstractControlGroup<T> extends Panel {
@@ -25,7 +24,6 @@ public abstract class AbstractControlGroup<T> extends Panel {
 
 	private String propertyName;
 	private Component resourceBase;
-	private CrudifierSettings configuration;
 	private Class<?> type;
 	private boolean required;
 
@@ -33,10 +31,9 @@ public abstract class AbstractControlGroup<T> extends Panel {
 		super(id, model);
 	}
 	
-	public void init(String propertyName, Component resourceBase, CrudifierSettings configuration, boolean required, Class<?> type){
+	public void init(String propertyName, Component resourceBase, boolean required, Class<?> type){
 		this.propertyName = propertyName;
 		this.resourceBase = resourceBase;
-		this.configuration = configuration;
 		this.type = type;
 		this.required = required;
 	}
@@ -67,10 +64,6 @@ public abstract class AbstractControlGroup<T> extends Panel {
 		return resourceBase;
 	}
 	
-	public CrudifierSettings getConfiguration(){
-		return configuration;
-	}
-
 	public Class<?> getType() {
 		return type;
 	}

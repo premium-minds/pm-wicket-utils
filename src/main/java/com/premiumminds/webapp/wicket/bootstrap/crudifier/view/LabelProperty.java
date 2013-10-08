@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 
 public abstract class LabelProperty extends Label {
@@ -19,12 +19,12 @@ public abstract class LabelProperty extends Label {
 	 */
 	private static final long serialVersionUID = 4465124169249526543L;
 	private IModel<?> model;
-	private CrudifierSettings settings;
+	private Map<Class<?>, IObjectRenderer<?>> renderers;
 
-	public LabelProperty(String id, final IModel<?> model, CrudifierSettings settings) {
+	public LabelProperty(String id, final IModel<?> model, Map<Class<?>, IObjectRenderer<?>> renderers) {
 		super(id);
 		this.model = model;
-		this.settings = settings;
+		this.renderers = renderers;
 	}
 	
 	@Override
@@ -51,8 +51,8 @@ public abstract class LabelProperty extends Label {
 				if(obj instanceof Boolean) return getResourceString(obj.toString(), obj.toString());
 				if(obj instanceof Number) return MessageFormat.format(getResourceString("format", "{0,number,#.##}"), obj);
 				if(obj instanceof Date) return MessageFormat.format(getResourceString("format", "{0,date}"), obj);
-				if(settings.getRenderers().containsKey(obj.getClass())){
-					return ((IObjectRenderer<Object>) settings.getRenderers().get(obj.getClass())).render(obj);
+				if(renderers.containsKey(obj.getClass())){
+					return ((IObjectRenderer<Object>) renderers.get(obj.getClass())).render(obj);
 				}
 				if(obj instanceof Collection<?>){
 					Collection<Object> collection = (Collection<Object>) obj;

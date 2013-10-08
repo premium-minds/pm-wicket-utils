@@ -28,10 +28,12 @@ import org.apache.wicket.model.PropertyModel;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierEntitySettings;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 import com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty;
 
-public class ListControlGroups<T> extends Panel {
+public abstract class ListControlGroups<T> extends Panel {
 	private static final long serialVersionUID = 7205285700113097720L;
 	
 	private Map<String, AbstractControlGroup<?>> fieldComponents = new HashMap<String, AbstractControlGroup<?>>();
@@ -51,13 +53,15 @@ public class ListControlGroups<T> extends Panel {
 	}
 	
 	private List<ObjectProperties> objectProperties;
-	private CrudifierSettings settings;
+	private CrudifierEntitySettings entitySettings;
+	private Map<Class<?>, IObjectRenderer<?>> renderers;
 	
-	public ListControlGroups(String id, IModel<T> model, CrudifierSettings settings) {
+	public ListControlGroups(String id, IModel<T> model, CrudifierEntitySettings entitySettings, Map<Class<?>, IObjectRenderer<?>> renderers) {
 		super(id, model);
 		
 		objectProperties = new ArrayList<ObjectProperties>();
-		this.settings = settings;
+		this.entitySettings = entitySettings;
+		this.renderers = renderers;
 		
 		Class<?> modelClass = model.getObject().getClass();
 		
@@ -93,12 +97,12 @@ public class ListControlGroups<T> extends Panel {
 	private Set<String> getPropertiesByOrder(Class<?> modelClass) {
 		Set<String> properties = new LinkedHashSet<String>();
 		
-		for(String property : settings.getOrderOfFields()){
-			if(!settings.getHiddenFields().contains(property))
+		for(String property : entitySettings.getOrderOfFields()){
+			if(!entitySettings.getHiddenFields().contains(property))
 				properties.add(property);
 		}
 		for(PropertyDescriptor descriptor : PropertyUtils.getPropertyDescriptors(modelClass)){
-			if(!settings.getHiddenFields().contains(descriptor.getName()) &&
+			if(!entitySettings.getHiddenFields().contains(descriptor.getName()) &&
 			   !properties.contains(descriptor.getName()) &&
 			   !descriptor.getName().equals("class"))
 				properties.add(descriptor.getName());
@@ -106,6 +110,8 @@ public class ListControlGroups<T> extends Panel {
 		
 		return properties;
 	}
+	
+	protected abstract EntityProvider<?> getEntityProvider(String name);
 
 	@Override
 	protected void onInitialize() {
@@ -118,18 +124,31 @@ public class ListControlGroups<T> extends Panel {
 				Class<? extends Panel> typesControlGroup = getControlGroupByType(objectProperty.type);
 				if(typesControlGroup==null){
 					if(objectProperty.type.isEnum()) typesControlGroup = EnumControlGroup.class;
-					else if(settings.getProviders().containsKey(objectProperty.name)){
-						typesControlGroup = ObjectChoiceControlGroup.class;
-					} else {
-						throw new RuntimeException("Crudifier didn't found a provider for property "+objectProperty.name+", check your "+CrudifierSettings.class.getSimpleName());
-					}
+					else typesControlGroup = ObjectChoiceControlGroup.class;
 				}
 				
 				constructor = typesControlGroup.getConstructor(String.class, IModel.class);
 
 				AbstractControlGroup<?> controlGroup = (AbstractControlGroup<?>) constructor.newInstance(view.newChildId(), new PropertyModel<Object>(ListControlGroups.this.getModel(), objectProperty.name));
-				controlGroup.init(objectProperty.name, getResourceBase(), settings, objectProperty.required, objectProperty.type);
+				controlGroup.init(objectProperty.name, getResourceBase(), objectProperty.required, objectProperty.type);
 				controlGroup.setEnabled(objectProperty.enabled);
+				
+				
+				if(typesControlGroup==ObjectChoiceControlGroup.class){
+					IObjectRenderer<?> renderer = renderers.get(objectProperty.type);
+					if(renderer==null){
+						renderer = new IObjectRenderer<Object>() {
+							private static final long serialVersionUID = -6171655578529011405L;
+
+							public String render(Object object) {
+								return object.toString();
+							}
+						};
+					}
+					((ObjectChoiceControlGroup<?>) controlGroup).setConfiguration(getEntityProvider(objectProperty.name), renderer);
+				} else if(typesControlGroup==CollectionControlGroup.class){
+					((CollectionControlGroup<?>) controlGroup).setConfiguration(getEntityProvider(objectProperty.name), renderers);
+				}
 				
 				view.add(controlGroup);
 				

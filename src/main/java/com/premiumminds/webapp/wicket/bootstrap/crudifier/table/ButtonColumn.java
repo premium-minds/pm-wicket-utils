@@ -1,6 +1,7 @@
 package com.premiumminds.webapp.wicket.bootstrap.crudifier.table;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -9,7 +10,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 
 public abstract class ButtonColumn<T extends Serializable> implements IColumn<T>, Serializable {
 	private static final long serialVersionUID = 2920108073341698814L;
@@ -24,8 +25,7 @@ public abstract class ButtonColumn<T extends Serializable> implements IColumn<T>
 		return propertyName;
 	}
 
-	public Component createComponent(String id, final T object,
-			Component resourceBase, CrudifierSettings settings) {
+	public Component createComponent(String id, final T object, Component resourceBase, Map<Class<?>, IObjectRenderer<?>> renderers) {
 		ButtonPanel panel = new ButtonPanel(id);
 		panel.add(new AjaxLink<Void>("button") {
 			private static final long serialVersionUID = 4260049524761483954L;

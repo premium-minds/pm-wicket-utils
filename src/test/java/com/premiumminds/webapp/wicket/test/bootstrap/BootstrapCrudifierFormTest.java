@@ -20,7 +20,6 @@ import org.apache.wicket.request.Response;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.BootstrapCrudifierForm;
 
@@ -39,18 +38,13 @@ public class BootstrapCrudifierFormTest {
 		
 		Entity entity = new Entity(false, 0, "", entities[0], entitiesSet, Entity.Enume.ENUM1 );
 		
-		CrudifierSettings config = new CrudifierSettings();
-		
 		EntityProvider<Entity2> providerEntity2 = new EntityProvider<Entity2>() {
 			public List<Entity2> load() {
 				return Arrays.asList(entities);
 			}
 		};
 		
-		config.getProviders().put("entity2", providerEntity2);
-		config.getProviders().put("entities2", providerEntity2);
-		
-		tester.startComponentInPage(new BootstrapCrudifierForm<Entity>("crud", Model.of(entity), config));
+		tester.startComponentInPage(new BootstrapCrudifierForm<Entity>("crud", Model.of(entity)));
 	}
 	
 	/* TODO: need this test */
