@@ -3,6 +3,7 @@ package com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
@@ -53,7 +54,10 @@ public class ObjectChoiceControlGroup<T> extends AbstractControlGroup<T> {
 		super.onInitialize();
 		
 		dropDown.setChoiceRenderer(new ChoiceRenderer());
-		add(new BootstrapControlGroupFeedback("controlGroup").add(dropDown));
+		WebMarkupContainer inputBox = new WebMarkupContainer("inputBox");
+		addInputBoxGridSize(inputBox);
+		inputBox.add(dropDown);
+		add(new BootstrapControlGroupFeedback("controlGroup").add(inputBox));
 	}
 
 	@Override
