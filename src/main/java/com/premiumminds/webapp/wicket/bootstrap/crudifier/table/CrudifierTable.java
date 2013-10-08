@@ -20,7 +20,6 @@ import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.view.LabelProperty;
 
 public abstract class CrudifierTable<T> extends Panel {
 	private static final long serialVersionUID = -6553624504699750680L;
@@ -30,6 +29,8 @@ public abstract class CrudifierTable<T> extends Panel {
 	private RepeatingView headers = new RepeatingView("headers");
 	
 	private boolean clickable = false;
+	
+	private ListView<T> listView;
 
 
 	public CrudifierTable(String id, final CrudifierSettings settings) {
@@ -46,23 +47,14 @@ public abstract class CrudifierTable<T> extends Panel {
 			}
 		};
 		
-		add(new ListView<T>("list", modelList) {
+		add(listView = new ListView<T>("list", modelList) {
 			private static final long serialVersionUID = -2293426877086666745L;
 
 			@Override
 			protected void populateItem(final ListItem<T> item) {
 				RepeatingView columns = new RepeatingView("columns");
 				for(final IColumn<T> column : CrudifierTable.this.columns){
-					LabelProperty label = new LabelProperty(columns.newChildId(), column.getPropertyModel(item.getModelObject()), settings){
-						private static final long serialVersionUID = -7483690703364079324L;
-
-						@Override
-						protected String getResourceString(String key, String defaultValue) {
-							return getLocalizer().getStringIgnoreSettings(column.getPropertyName()+"."+key, CrudifierTable.this, null, defaultValue);
-						}
-						
-					};
-					columns.add(label);
+					columns.add(column.createComponent(columns.newChildId(), item.getModelObject(), CrudifierTable.this, settings));
 				}
 				
 				item.add(columns);
@@ -113,4 +105,8 @@ public abstract class CrudifierTable<T> extends Panel {
 	protected abstract List<T> load(int page, int maxPerPage);
 	
 	protected void onSelected(AjaxRequestTarget target, IModel<T> model){ }
+	
+	public void refresh(){
+		listView.removeAll();
+	}
 }
