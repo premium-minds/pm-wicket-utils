@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.markup.html.form.ListMultipleChoice;
@@ -52,7 +53,10 @@ public class CollectionControlGroup<T> extends AbstractControlGroup<T> {
 	protected void onInitialize() {
 		super.onInitialize();
 		
-		add(new BootstrapControlGroupFeedback("controlGroup").add(multiChoice));
+		WebMarkupContainer inputBox = new WebMarkupContainer("inputBox");
+		addInputBoxGridSize(inputBox);
+		inputBox.add(multiChoice);
+		add(new BootstrapControlGroupFeedback("controlGroup").add(inputBox));
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.wicket.Application;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Localizer;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
@@ -17,6 +19,7 @@ import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.string.interpolator.VariableInterpolator;
 import org.apache.wicket.validation.IErrorMessageSource;
 
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierEntitySettings;
 import com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty;
 
 public abstract class AbstractControlGroup<T> extends Panel {
@@ -26,16 +29,18 @@ public abstract class AbstractControlGroup<T> extends Panel {
 	private Component resourceBase;
 	private Class<?> type;
 	private boolean required;
+	private CrudifierEntitySettings entitySettings;
 
 	public AbstractControlGroup(String id, IModel<T> model) {
 		super(id, model);
 	}
 	
-	public void init(String propertyName, Component resourceBase, boolean required, Class<?> type){
+	public void init(String propertyName, Component resourceBase, boolean required, Class<?> type, CrudifierEntitySettings entitySettings){
 		this.propertyName = propertyName;
 		this.resourceBase = resourceBase;
 		this.type = type;
 		this.required = required;
+		this.entitySettings = entitySettings;
 	}
 	
 	@Override
@@ -67,7 +72,49 @@ public abstract class AbstractControlGroup<T> extends Panel {
 	public Class<?> getType() {
 		return type;
 	}
+	
+	public CrudifierEntitySettings getEntitySettings(){
+		return entitySettings;
+	}
 
+	protected void addInputBoxGridSize(WebMarkupContainer inputBox){
+		String css = "col-lg-10"; // default
+		if(getEntitySettings().getGridFieldsSizes().containsKey(getPropertyName())){
+			switch(getEntitySettings().getGridFieldsSizes().get(getPropertyName())){
+			case COL1:
+				css = "col-lg-1";
+				break;
+			case COL2:
+				css = "col-lg-2";
+				break;
+			case COL3:
+				css = "col-lg-3";
+				break;
+			case COL4:
+				css = "col-lg-4";
+				break;
+			case COL5:
+				css = "col-lg-5";
+				break;
+			case COL6:
+				css = "col-lg-6";
+				break;
+			case COL7:
+				css = "col-lg-7";
+				break;
+			case COL8:
+				css = "col-lg-8";
+				break;
+			case COL9:
+				css = "col-lg-9";
+				break;
+			default:
+				break;
+			}
+		}
+		inputBox.add(AttributeModifier.append("class", css));
+	}
+	
 	/**
 	 * Copiado do FormComponent.MessageSource
 	 * 
@@ -263,5 +310,4 @@ public abstract class AbstractControlGroup<T> extends Panel {
 			return label;
 		}
 	}
-	
 }

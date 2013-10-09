@@ -14,10 +14,8 @@ import org.apache.wicket.model.IModel;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 
 public abstract class LabelProperty extends Label {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4465124169249526543L;
+
 	private IModel<?> model;
 	private Map<Class<?>, IObjectRenderer<?>> renderers;
 

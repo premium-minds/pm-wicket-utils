@@ -129,7 +129,7 @@ public abstract class ListControlGroups<T> extends Panel {
 				constructor = typesControlGroup.getConstructor(String.class, IModel.class);
 
 				AbstractControlGroup<?> controlGroup = (AbstractControlGroup<?>) constructor.newInstance(view.newChildId(), new PropertyModel<Object>(ListControlGroups.this.getModel(), objectProperty.name));
-				controlGroup.init(objectProperty.name, getResourceBase(), objectProperty.required, objectProperty.type);
+				controlGroup.init(objectProperty.name, getResourceBase(), objectProperty.required, objectProperty.type, entitySettings);
 				controlGroup.setEnabled(objectProperty.enabled);
 				
 				
