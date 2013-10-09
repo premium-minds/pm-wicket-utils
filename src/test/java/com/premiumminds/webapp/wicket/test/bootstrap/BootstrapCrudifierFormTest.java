@@ -1,7 +1,5 @@
 package com.premiumminds.webapp.wicket.test.bootstrap;
 
-import static org.junit.Assert.*;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -38,13 +36,18 @@ public class BootstrapCrudifierFormTest {
 		
 		Entity entity = new Entity(false, 0, "", entities[0], entitiesSet, Entity.Enume.ENUM1 );
 		
-		EntityProvider<Entity2> providerEntity2 = new EntityProvider<Entity2>() {
+		final EntityProvider<Entity2> providerEntity2 = new EntityProvider<Entity2>() {
 			public List<Entity2> load() {
 				return Arrays.asList(entities);
 			}
 		};
 		
-		tester.startComponentInPage(new BootstrapCrudifierForm<Entity>("crud", Model.of(entity)));
+		tester.startComponentInPage(new BootstrapCrudifierForm<Entity>("crud", Model.of(entity)) {
+			@Override 
+			public EntityProvider<?> getEntityProvider(String name) {
+				return providerEntity2;
+			}
+		});
 	}
 	
 	/* TODO: need this test */
