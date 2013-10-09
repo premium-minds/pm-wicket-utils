@@ -1,13 +1,16 @@
 package com.premiumminds.webapp.wicket.bootstrap.crudifier.table;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -19,7 +22,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierSettings;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 
 public abstract class CrudifierTable<T> extends Panel {
 	private static final long serialVersionUID = -6553624504699750680L;
@@ -31,12 +34,19 @@ public abstract class CrudifierTable<T> extends Panel {
 	private boolean clickable = false;
 	
 	private ListView<T> listView;
+	private WebMarkupContainer table;
+	
+	private Map<Class<?>, IObjectRenderer<?>> renderers;
 
 
-	public CrudifierTable(String id, final CrudifierSettings settings) {
+	public CrudifierTable(String id, Map<Class<?>, IObjectRenderer<?>> renderers) {
 		super(id);
 		
-		add(headers);
+		this.renderers = renderers;
+		
+		add(table = new WebMarkupContainer("table"));
+		
+		table.add(headers);
 
 		IModel<List<T>> modelList = new LoadableDetachableModel<List<T>>() {
 			private static final long serialVersionUID = 3296835301481871094L;
@@ -47,14 +57,14 @@ public abstract class CrudifierTable<T> extends Panel {
 			}
 		};
 		
-		add(listView = new ListView<T>("list", modelList) {
+		table.add(listView = new ListView<T>("list", modelList) {
 			private static final long serialVersionUID = -2293426877086666745L;
 
 			@Override
 			protected void populateItem(final ListItem<T> item) {
 				RepeatingView columns = new RepeatingView("columns");
 				for(final IColumn<T> column : CrudifierTable.this.columns){
-					columns.add(column.createComponent(columns.newChildId(), item.getModelObject(), CrudifierTable.this, settings));
+					columns.add(column.createComponent(columns.newChildId(), item.getModelObject(), CrudifierTable.this, CrudifierTable.this.renderers));
 				}
 				
 				item.add(columns);
@@ -72,6 +82,10 @@ public abstract class CrudifierTable<T> extends Panel {
 				}
 			}
 		}.setReuseItems(true));
+	}
+	
+	public CrudifierTable(String id){
+		this(id, new HashMap<Class<?>, IObjectRenderer<?>>());
 	}
 	
 	@Override
@@ -108,5 +122,13 @@ public abstract class CrudifierTable<T> extends Panel {
 	
 	public void refresh(){
 		listView.removeAll();
+	}
+	
+	public Map<Class<?>, IObjectRenderer<?>> getRenderers() {
+		return renderers;
+	}
+
+	public WebMarkupContainer getTableComponent(){
+		return table;
 	}
 }

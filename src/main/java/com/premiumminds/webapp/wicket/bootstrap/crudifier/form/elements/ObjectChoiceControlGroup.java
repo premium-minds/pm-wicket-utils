@@ -11,11 +11,15 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.validation.IValidationError;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapControlGroupFeedback;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 
 public class ObjectChoiceControlGroup<T> extends AbstractControlGroup<T> {
 	private static final long serialVersionUID = -8444849747715611613L;
 
 	private DropDownChoice<T> dropDown;
+	private EntityProvider<T> entityProvider;
+	private IObjectRenderer<T> renderer;
 	
 	@SuppressWarnings("serial")
 	public ObjectChoiceControlGroup(String id, IModel<T> model) {
@@ -24,10 +28,10 @@ public class ObjectChoiceControlGroup<T> extends AbstractControlGroup<T> {
 		IModel<List<? extends T>> modelList = new LoadableDetachableModel<List<? extends T>>() {
 			private static final long serialVersionUID = -3995535290067544541L;
 
-			@SuppressWarnings("unchecked")
 			@Override
 			protected List<T> load() {
-				return (List<T>) getConfiguration().getProviders().get(getPropertyName()).load();
+				if(entityProvider==null) throw new RuntimeException("no entity provider for '"+getPropertyName()+"'");
+				return (List<T>) entityProvider.load();
 			}
 			
 			
@@ -44,17 +48,36 @@ public class ObjectChoiceControlGroup<T> extends AbstractControlGroup<T> {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 		
-		dropDown.setChoiceRenderer((IChoiceRenderer<T>) getConfiguration().getProviders().get(getPropertyName()).getRenderer());
+		dropDown.setChoiceRenderer(new ChoiceRenderer());
 		add(new BootstrapControlGroupFeedback("controlGroup").add(dropDown));
 	}
 
 	@Override
 	public FormComponent<T> getFormComponent() {
 		return dropDown;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void setConfiguration(EntityProvider<?> entityProvider, IObjectRenderer<?> renderer){
+		this.entityProvider = (EntityProvider<T>) entityProvider;
+		this.renderer = (IObjectRenderer<T>) renderer;
+	}
+	
+	private class ChoiceRenderer implements IChoiceRenderer<T> {
+		private static final long serialVersionUID = -584810566291563698L;
+
+		public Object getDisplayValue(T obj) {
+			return renderer.render(obj);
+		}
+
+		public String getIdValue(T obj, int index) {
+			//TODO retrieve @Id value if present
+			return Integer.toString(index);
+		}
+		
 	}
 }

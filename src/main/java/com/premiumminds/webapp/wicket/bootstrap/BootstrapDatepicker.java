@@ -45,6 +45,8 @@ public abstract class BootstrapDatepicker extends WebMarkupContainer {
 		}
 	}
 	
-	public abstract Collection<SpecialDate> getSpecialDates();
+	public Collection<SpecialDate> getSpecialDates() {
+		return null;
+	}
 	
 }

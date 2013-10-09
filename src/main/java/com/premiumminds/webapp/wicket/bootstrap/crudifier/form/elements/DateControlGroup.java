@@ -1,7 +1,6 @@
 package com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
@@ -13,7 +12,6 @@ import org.apache.wicket.validation.IValidationError;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapControlGroupFeedback;
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapDatepicker;
-import com.premiumminds.webapp.wicket.bootstrap.SpecialDate;
 
 public class DateControlGroup extends AbstractControlGroup<Date> {
 	private static final long serialVersionUID = 7519983535463694024L;
@@ -30,11 +28,6 @@ public class DateControlGroup extends AbstractControlGroup<Date> {
 			protected void onComponentTag(ComponentTag tag) {
 				super.onComponentTag(tag);
 				if(isEnabledInHierarchy()) tag.append("class", "input-append", " ");
-			}
-			
-			@Override
-			public Collection<SpecialDate> getSpecialDates() {
-				return getConfiguration().getSpecialDates();
 			}
 		};
 		
@@ -70,4 +63,5 @@ public class DateControlGroup extends AbstractControlGroup<Date> {
 	public FormComponent<Date> getFormComponent() {
 		return dateField;
 	}
+
 }
