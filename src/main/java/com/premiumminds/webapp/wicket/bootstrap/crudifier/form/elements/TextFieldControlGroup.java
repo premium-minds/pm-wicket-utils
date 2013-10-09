@@ -3,6 +3,7 @@ package com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements;
 import java.io.Serializable;
 
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
@@ -37,7 +38,10 @@ public class TextFieldControlGroup<T> extends AbstractControlGroup<T> {
 		super.onInitialize();
 		
 		textField.add(AttributeModifier.replace("placeHolder", new StringResourceModel(getPropertyName()+".placeHolder", getResourceBase(), getModel(), "")));
-		add(new BootstrapControlGroupFeedback("controlGroup").add(textField));
+		WebMarkupContainer inputBox = new WebMarkupContainer("inputBox");
+		addInputBoxGridSize(inputBox);
+		inputBox.add(textField);
+		add(new BootstrapControlGroupFeedback("controlGroup").add(inputBox));
 	}
 
 	@Override
