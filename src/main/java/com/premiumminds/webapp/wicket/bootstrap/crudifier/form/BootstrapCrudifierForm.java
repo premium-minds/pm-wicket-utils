@@ -20,6 +20,7 @@ import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierEntitySetting
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.AbstractControlGroup;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.ControlGroupProvider;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.ListControlGroups;
 
 public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrudifierForm<T> {
@@ -139,5 +140,13 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 	@SuppressWarnings("rawtypes")
 	public Map<Class<?>, Class<? extends AbstractControlGroup>> getControlGroupsTypesMap(){
 		return listControlGroups.getControlGroupsTypesMap();
+	}
+	
+	/**
+	 * get the providers used in this form. To add new providers, simply make a put() to map returned by this method
+	 * @return
+	 */
+	public Map<Class<?>, ControlGroupProvider<? extends AbstractControlGroup<?>>> getControlGroupProviders(){
+		return listControlGroups.getControlGroupProviders();
 	}
 }
