@@ -66,24 +66,14 @@ public abstract class CrudifierTable<T> extends Panel {
 				for(final IColumn<T> column : CrudifierTable.this.columns){
 					columns.add(column.createComponent(columns.newChildId(), item.getModelObject(), CrudifierTable.this, CrudifierTable.this.renderers));
 				}
-				
-				item.add(columns);
-				
-				if(isClickable()){
-					item.add(new AjaxEventBehavior("click") {
-						private static final long serialVersionUID = -4889154387600763576L;
 
-						@Override
-						protected void onEvent(AjaxRequestTarget target) {
-							onSelected(target, item.getModel());
-						}
-					});
-					item.add(AttributeModifier.append("class", "hover"));
-				}
+				item.add(columns);
+				CrudifierTable.this.populateItem(item);
+				return;
 			}
 		}.setReuseItems(true));
 	}
-	
+
 	public CrudifierTable(String id){
 		this(id, new HashMap<Class<?>, IObjectRenderer<?>>());
 	}
@@ -114,6 +104,20 @@ public abstract class CrudifierTable<T> extends Panel {
 
 	public void setClickable(boolean clickable) {
 		this.clickable = clickable;
+	}
+
+	protected void populateItem(final ListItem<T> item) {
+		if(isClickable()){
+			item.add(new AjaxEventBehavior("click") {
+				private static final long serialVersionUID = -4889154387600763576L;
+				@Override
+				protected void onEvent(AjaxRequestTarget target) {
+					onSelected(target, item.getModel());
+				}
+			});
+			item.add(AttributeModifier.append("class", "hover"));
+		}
+		return;
 	}
 
 	protected abstract List<T> load(int page, int maxPerPage);
