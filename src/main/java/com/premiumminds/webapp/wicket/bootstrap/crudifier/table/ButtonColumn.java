@@ -29,40 +29,48 @@ public abstract class ButtonColumn<T extends Serializable> implements IColumn<T>
 		, INFO
 		, WARNING
 		, DANGER};
-	private String propertyName;
+		private String propertyName;
 		private ButtonType btnType;
-	
-		public ButtonColumn(String propertyName, ButtonType btnType){
-		this.propertyName = propertyName;
+		private ColumnAlign align;
+
+		public ButtonColumn(String propertyName, ButtonType btnType, ColumnAlign align){
+			this.propertyName = propertyName;
 			this.btnType = btnType;
+			this.align = align;
 		}
 
 		public ButtonColumn(String propertyName){
-			this(propertyName, ButtonType.DEFAULT);
-	}
-	
-	public String getPropertyName() {
-		return propertyName;
-	}
+			this(propertyName, ButtonType.DEFAULT, ColumnAlign.CENTER);
+		}
+		
+		public ButtonColumn(String propertyName, ColumnAlign align){
+			this(propertyName, ButtonType.DEFAULT, align);
+		}
+		public ButtonColumn(String propertyName, ButtonType btnType){
+			this(propertyName, btnType, ColumnAlign.CENTER);
+		}
+		
+		public String getPropertyName() {
+			return propertyName;
+		}
 
-	public Component createComponent(String id, final T object, Component resourceBase, Map<Class<?>, IObjectRenderer<?>> renderers) {
-		ButtonPanel panel = new ButtonPanel(id);
-		panel.add(new AjaxLink<Void>("button") {
-			private static final long serialVersionUID = 4260049524761483954L;
-
+		public Component createComponent(String id, final T object, Component resourceBase, Map<Class<?>, IObjectRenderer<?>> renderers) {
+			ButtonPanel panel = new ButtonPanel(id);
+			panel.add(new AjaxLink<Void>("button") {
+				private static final long serialVersionUID = 4260049524761483954L;
 				{
 					add(AttributeModifier.append("class", getCssClass()));
 				}
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				ButtonColumn.this.onClick(Model.of(object), target);
-			}
-		}.add(new Label("label", resourceBase.getString(propertyName+".label", new Model<String>(), "Button"))));
-		return panel;
-	}
+				@Override
+				public void onClick(AjaxRequestTarget target) {
+					ButtonColumn.this.onClick(Model.of(object), target);
+				}
+			}.add(new Label("label", resourceBase.getString(propertyName+".label", new Model<String>(), "Button"))));
+			return panel;
+		}
 
 		public ColumnAlign getAlign() {
-			return ColumnAlign.CENTER;
+			return align;
 		}
 
 		public abstract void onClick(IModel<T> model, AjaxRequestTarget target);
@@ -98,5 +106,17 @@ public abstract class ButtonColumn<T extends Serializable> implements IColumn<T>
 				break;
 			}
 			return rval;
+		}
+
+		public ButtonType getBtnType() {
+			return btnType;
+		}
+
+		public void setBtnType(ButtonType btnType) {
+			this.btnType = btnType;
+		}
+
+		public void setPropertyName(String propertyName) {
+			this.propertyName = propertyName;
 		}
 }
