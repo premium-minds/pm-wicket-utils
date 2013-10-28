@@ -3,6 +3,7 @@ package com.premiumminds.webapp.wicket.bootstrap.crudifier.form;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.feedback.FeedbackMessage;
@@ -32,10 +33,20 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 	private CrudifierEntitySettings entitySettings;
 	private Map<Class<?>, IObjectRenderer<?>> renderers;
 	private WebMarkupContainer reset;	
+	private ButtonType btnType;
 	
-	public BootstrapCrudifierForm(String id, IModel<T> model, CrudifierEntitySettings entitySettings, CrudifierFormSettings formSettings, Map<Class<?>, IObjectRenderer<?>> renderers) {
+	public enum ButtonType {DEFAULT
+		, PRIMARY
+		, SUCCESS
+		, INFO
+		, WARNING
+		, DANGER
+		};
+	
+	public BootstrapCrudifierForm(String id, IModel<T> model, CrudifierEntitySettings entitySettings, CrudifierFormSettings formSettings, Map<Class<?>, IObjectRenderer<?>> renderers, ButtonType submitButtonType){
 		super(id, model);
-
+		this.btnType = submitButtonType;
+		
 		setOutputMarkupId(true);
 		
 		this.formSettings = formSettings;
@@ -67,6 +78,10 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 		add(new AjaxSubmitLink("submit", this) {
 			private static final long serialVersionUID = -4527592607129929399L;
 
+			{
+				add(AttributeModifier.append("class", getCssClass()));
+			}
+			
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				target.add(BootstrapCrudifierForm.this);
@@ -88,6 +103,10 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 		this(id, model, new CrudifierEntitySettings(), new CrudifierFormSettings(), new HashMap<Class<?>, IObjectRenderer<?>>());
 	}
 	
+	public BootstrapCrudifierForm(String id, IModel<T> model, CrudifierEntitySettings entitySettings, CrudifierFormSettings formSettings, Map<Class<?>, IObjectRenderer<?>> renderers) {
+		this(id, model, entitySettings, formSettings, renderers, ButtonType.PRIMARY);
+	}
+	
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
@@ -103,6 +122,8 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 		}
 		reset.setVisible(formSettings.isShowReset());
 	}
+	
+
 	
 	@Override
 	protected IMarkupSourcingStrategy newMarkupSourcingStrategy() {
@@ -148,5 +169,30 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 	 */
 	public Map<Class<?>, ControlGroupProvider<? extends AbstractControlGroup<?>>> getControlGroupProviders(){
 		return listControlGroups.getControlGroupProviders();
+	}
+	
+	protected String getCssClass() {
+		String rval = "btn ";
+		switch(btnType) {
+		case DANGER:
+			rval += "btn-danger";
+			break;
+		case INFO:
+			rval += "btn-info";
+			break;
+		case PRIMARY:
+			rval += "btn-primary";
+			break;
+		case SUCCESS:
+			rval += "btn-success";
+			break;
+		case WARNING:
+			rval += "btn-warning";
+			break;
+		default:
+			rval += "btn-default";
+			break;
+		}
+		return rval;
 	}
 }
