@@ -63,36 +63,6 @@ public abstract class ListControlGroups<T> extends Panel {
 		objectProperties = new ArrayList<ObjectProperties>();
 		this.entitySettings = entitySettings;
 		this.renderers = renderers;
-
-		Class<?> modelClass = model.getObject().getClass();
-
-		Set<String> properties = getPropertiesByOrder(modelClass);
-
-		Validator validator = HibernateValidatorProperty.validatorFactory.getValidator();
-		BeanDescriptor constraintDescriptors = validator.getConstraintsForClass(model.getObject().getClass());
-		for(String property : properties){
-			PropertyDescriptor descriptor;
-			try {
-				descriptor = PropertyUtils.getPropertyDescriptor(model.getObject(), property);
-			} catch (Exception e) {
-				throw new RuntimeException("error getting property "+property, e);
-			}
-
-			boolean required = false;
-
-			ElementDescriptor constraintDescriptor = constraintDescriptors.getConstraintsForProperty(descriptor.getName());
-			if(constraintDescriptor!=null){
-				Set<ConstraintDescriptor<?>> constraintsSet = constraintDescriptor.getConstraintDescriptors();
-				for(ConstraintDescriptor<?> constraint : constraintsSet){
-					if(constraint.getAnnotation() instanceof NotNull ||
-					   constraint.getAnnotation() instanceof NotEmpty ||
-					   constraint.getAnnotation() instanceof NotBlank)
-						required = true;
-				}
-			}
-
-			objectProperties.add(new ObjectProperties(descriptor, required));
-		}
 	}
 
 	private Set<String> getPropertiesByOrder(Class<?> modelClass) {
@@ -118,6 +88,36 @@ public abstract class ListControlGroups<T> extends Panel {
 	protected void onInitialize() {
 		super.onInitialize();
 
+		Class<?> modelClass = getModel().getObject().getClass();
+
+		Set<String> properties = getPropertiesByOrder(modelClass);
+
+		Validator validator = HibernateValidatorProperty.validatorFactory.getValidator();
+		BeanDescriptor constraintDescriptors = validator.getConstraintsForClass(modelClass);
+		for(String property : properties){
+			PropertyDescriptor descriptor;
+			try {
+				descriptor = PropertyUtils.getPropertyDescriptor(getModel().getObject(), property);
+			} catch (Exception e) {
+				throw new RuntimeException("error getting property "+property, e);
+			}
+
+			boolean required = false;
+
+			ElementDescriptor constraintDescriptor = constraintDescriptors.getConstraintsForProperty(descriptor.getName());
+			if(constraintDescriptor!=null){
+				Set<ConstraintDescriptor<?>> constraintsSet = constraintDescriptor.getConstraintDescriptors();
+				for(ConstraintDescriptor<?> constraint : constraintsSet){
+					if(constraint.getAnnotation() instanceof NotNull ||
+					   constraint.getAnnotation() instanceof NotEmpty ||
+					   constraint.getAnnotation() instanceof NotBlank)
+						required = true;
+				}
+			}
+
+			objectProperties.add(new ObjectProperties(descriptor, required));
+		}
+		
 		RepeatingView view = new RepeatingView("controlGroup");
 		for(ObjectProperties objectProperty : objectProperties){
 			try {
