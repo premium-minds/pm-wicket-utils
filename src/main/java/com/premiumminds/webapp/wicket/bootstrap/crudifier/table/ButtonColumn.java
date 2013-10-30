@@ -28,7 +28,7 @@ public abstract class ButtonColumn<T extends Serializable> implements IColumn<T>
 		, SUCCESS
 		, INFO
 		, WARNING
-		, DANGER};
+		, DANGER, LINK};
 		private String propertyName;
 		private ButtonType btnType;
 		private ColumnAlign align;
@@ -101,6 +101,8 @@ public abstract class ButtonColumn<T extends Serializable> implements IColumn<T>
 			case WARNING:
 				rval += "btn-warning";
 				break;
+			case LINK:
+				rval += "btn-link";
 			default:
 				rval += "btn-default";
 				break;
