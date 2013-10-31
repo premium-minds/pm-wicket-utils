@@ -48,7 +48,7 @@ public abstract class LabelProperty extends Label {
 				if(obj.getClass().isEnum()) return getResourceString(obj.toString(), obj.toString());
 				if(obj instanceof Boolean) return getResourceString(obj.toString(), obj.toString());
 				if(obj instanceof Number) return MessageFormat.format(getResourceString("format", "{0,number,#.##}"), obj);
-				if(obj instanceof Date) return MessageFormat.format(getResourceString("format", "{0,date}"), obj);
+				if(obj instanceof Date) return MessageFormat.format(getResourceString("format", "{0,date,dd/MM/yyyy}"), obj);
 				if(renderers.containsKey(obj.getClass())){
 					return ((IObjectRenderer<Object>) renderers.get(obj.getClass())).render(obj);
 				}
