@@ -103,6 +103,7 @@ public abstract class ButtonColumn<T extends Serializable> implements IColumn<T>
 				break;
 			case LINK:
 				rval += "btn-link";
+				break;
 			default:
 				rval += "btn-default";
 				break;
