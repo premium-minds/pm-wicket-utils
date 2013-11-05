@@ -18,8 +18,8 @@ import org.apache.wicket.request.Response;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.BootstrapCrudifierForm;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.CrudifierForm;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.EntityProvider;
 
 public class BootstrapCrudifierFormTest {
 
@@ -42,7 +42,7 @@ public class BootstrapCrudifierFormTest {
 			}
 		};
 		
-		tester.startComponentInPage(new BootstrapCrudifierForm<Entity>("crud", Model.of(entity)) {
+		tester.startComponentInPage(new CrudifierForm<Entity>("crud", Model.of(entity)) {
 			@Override 
 			public EntityProvider<?> getEntityProvider(String name) {
 				return providerEntity2;

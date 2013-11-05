@@ -30,9 +30,9 @@ import org.apache.wicket.model.PropertyModel;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierEntitySettings;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.CrudifierEntitySettings;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.EntityProvider;
 import com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty;
 
 public abstract class ListControlGroups<T> extends Panel {

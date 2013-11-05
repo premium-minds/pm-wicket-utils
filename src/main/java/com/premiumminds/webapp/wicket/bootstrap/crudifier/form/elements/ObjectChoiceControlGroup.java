@@ -12,8 +12,8 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.validation.IValidationError;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapControlGroupFeedback;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.EntityProvider;
 
 public class ObjectChoiceControlGroup<T> extends AbstractControlGroup<T> {
 	private static final long serialVersionUID = -8444849747715611613L;

@@ -19,7 +19,7 @@ import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.string.interpolator.VariableInterpolator;
 import org.apache.wicket.validation.IErrorMessageSource;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierEntitySettings;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.CrudifierEntitySettings;
 import com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty;
 
 public abstract class AbstractControlGroup<T> extends Panel {

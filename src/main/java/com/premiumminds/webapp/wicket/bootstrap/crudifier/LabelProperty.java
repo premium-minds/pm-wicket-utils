@@ -1,4 +1,4 @@
-package com.premiumminds.webapp.wicket.bootstrap.crudifier.view;
+package com.premiumminds.webapp.wicket.bootstrap.crudifier;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -10,8 +10,6 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
-
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 
 public abstract class LabelProperty extends Label {
 	private static final long serialVersionUID = 4465124169249526543L;

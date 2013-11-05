@@ -1,37 +1,42 @@
 package com.premiumminds.webapp.wicket.bootstrap.crudifier.form;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.StatelessForm;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.IMarkupSourcingStrategy;
 import org.apache.wicket.markup.html.panel.PanelMarkupSourcingStrategy;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapFeedbackPanel;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierEntitySettings;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.AbstractControlGroup;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.ControlGroupProvider;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.ListControlGroups;
 
-public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> implements IBootstrapCrudifierForm<T> {
+public class StatelessCrudifierForm<T> extends StatelessForm<T> implements ICrudifierForm<T> {
 	private static final long serialVersionUID = -1762699420685191222L;
 
 	private ListControlGroups<T> listControlGroups;
-	private WebMarkupContainer reset;
 	
 	private CrudifierFormSettings formSettings;
 	private CrudifierEntitySettings entitySettings;
 	private Map<Class<?>, IObjectRenderer<?>> renderers;
 	
-	public BootstrapStatelessCrudifierForm(String id, IModel<T> model, CrudifierEntitySettings entitySettings, CrudifierFormSettings formSettings, Map<Class<?>, IObjectRenderer<?>> renderers) {
+	private List<Component> buttons = new ArrayList<Component>();
+	
+	public StatelessCrudifierForm(String id, IModel<T> model, CrudifierEntitySettings entitySettings, CrudifierFormSettings formSettings, Map<Class<?>, IObjectRenderer<?>> renderers) {
 		super(id, model);
 
 		setOutputMarkupId(true);
@@ -56,17 +61,31 @@ public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> impleme
 
 			@Override
 			protected EntityProvider<?> getEntityProvider(String name) {
-				return getEntityProvider(name);
+				return StatelessCrudifierForm.this.getEntityProvider(name);
 			}
 		});
 		
 		add(new Label("submitLabel", new StringResourceModel("submitLabel", this, getModel(), "Submit")));
-		reset = new WebMarkupContainer("reset");
-		add(reset);
-		reset.add(new Label("resetLabel", new StringResourceModel("resetLabel", this, getModel(), "Reset")));
+
+		add(new ListView<Component>("buttons", buttons) {
+			private static final long serialVersionUID = -8614436913101248043L;
+
+			@Override
+			protected void populateItem(ListItem<Component> item) {
+				if(getApplication().usesDevelopmentConfig()){
+					if(!"button".equals(item.getModelObject().getId())){
+						throw new WicketRuntimeException("custom buttons must have the wicket:id=\"button\" and must have a label with wicket:id=\"label\"");
+					}
+					if(item.getModelObject().get("label")==null){
+						throw new WicketRuntimeException("custom buttons must have a label inside them with wicket:id=\"label\"");
+					}
+				}
+				item.add(item.getModelObject());
+			}
+		});
 	}
 
-	public BootstrapStatelessCrudifierForm(String id, IModel<T> model) {
+	public StatelessCrudifierForm(String id, IModel<T> model) {
 		this(id, model, new CrudifierEntitySettings(), new CrudifierFormSettings(), new HashMap<Class<?>, IObjectRenderer<?>>());
 	}
 	
@@ -83,7 +102,6 @@ public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> impleme
 			add(new WebMarkupContainer("feedbackWarning").setVisible(false));
 			add(new WebMarkupContainer("feedbackSuccess").setVisible(false));
 		}
-		reset.setVisible(formSettings.isShowReset());
 	}
 	
 	@Override
@@ -123,5 +141,9 @@ public class BootstrapStatelessCrudifierForm<T> extends StatelessForm<T> impleme
 	 */
 	public Map<Class<?>, ControlGroupProvider<? extends AbstractControlGroup<?>>> getControlGroupProviders(){
 		return listControlGroups.getControlGroupProviders();
+	}
+	
+	public List<Component> getButtons(){
+		return buttons;
 	}
 }

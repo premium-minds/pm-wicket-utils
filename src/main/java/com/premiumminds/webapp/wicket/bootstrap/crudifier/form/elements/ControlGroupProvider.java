@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.apache.wicket.Component;
 import org.apache.wicket.model.IModel;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierEntitySettings;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.CrudifierEntitySettings;
 
 
 public interface ControlGroupProvider<T extends AbstractControlGroup<?>> extends Serializable {

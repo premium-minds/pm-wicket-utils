@@ -13,8 +13,8 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.validation.IValidationError;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapControlGroupFeedback;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.EntityProvider;
 
 @SuppressWarnings("rawtypes")
 public class CollectionControlGroup<T> extends AbstractControlGroup<T> {

@@ -8,7 +8,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.view.LabelProperty;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.LabelProperty;
 
 public class PropertyColumn<T> implements IColumn<T>, Serializable {
 	private static final long serialVersionUID = -1539532027947493672L;

@@ -16,8 +16,9 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierEntitySettings;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.LabelProperty;
+import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.CrudifierEntitySettings;
 
 public class CrudifierView<T> extends Panel implements IGenericComponent<T> {
 	private static final long serialVersionUID = -151637566983702881L;

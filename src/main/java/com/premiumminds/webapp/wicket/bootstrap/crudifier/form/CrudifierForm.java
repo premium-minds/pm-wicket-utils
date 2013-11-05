@@ -1,8 +1,12 @@
 package com.premiumminds.webapp.wicket.bootstrap.crudifier.form;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.feedback.FeedbackMessage;
@@ -10,20 +14,25 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.IMarkupSourcingStrategy;
 import org.apache.wicket.markup.html.panel.PanelMarkupSourcingStrategy;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapFeedbackPanel;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.CrudifierEntitySettings;
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.EntityProvider;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.AbstractControlGroup;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.ControlGroupProvider;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.ListControlGroups;
 
-public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrudifierForm<T> {
+/**
+ * @author acamilo
+ *
+ * @param <T>
+ */
+public class CrudifierForm<T> extends Form<T> implements ICrudifierForm<T> {
 	private static final long serialVersionUID = -611772486341659737L;
 
 	private ListControlGroups<T> listControlGroups;
@@ -31,9 +40,10 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 	private CrudifierFormSettings formSettings;
 	private CrudifierEntitySettings entitySettings;
 	private Map<Class<?>, IObjectRenderer<?>> renderers;
-	private WebMarkupContainer reset;	
 	
-	public BootstrapCrudifierForm(String id, IModel<T> model, CrudifierEntitySettings entitySettings, CrudifierFormSettings formSettings, Map<Class<?>, IObjectRenderer<?>> renderers) {
+	private List<Component> buttons = new ArrayList<Component>();
+	
+	public CrudifierForm(String id, IModel<T> model, CrudifierEntitySettings entitySettings, CrudifierFormSettings formSettings, Map<Class<?>, IObjectRenderer<?>> renderers) {
 		super(id, model);
 
 		setOutputMarkupId(true);
@@ -59,7 +69,7 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 
 			@Override
 			protected EntityProvider<?> getEntityProvider(String name) {
-				return BootstrapCrudifierForm.this.getEntityProvider(name);
+				return CrudifierForm.this.getEntityProvider(name);
 			}
 			
 		});
@@ -69,22 +79,36 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				target.add(BootstrapCrudifierForm.this);
-				BootstrapCrudifierForm.this.onSubmit(target, form);
+				target.add(CrudifierForm.this);
+				CrudifierForm.this.onSubmit(target, form);
 			}
 			
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
-				target.add(BootstrapCrudifierForm.this);
-				BootstrapCrudifierForm.this.onError(target, form);
+				target.add(CrudifierForm.this);
+				CrudifierForm.this.onError(target, form);
 			}
 		}.add(new Label("submitLabel", new StringResourceModel("submit.label", this, getModel(), "Submit"))));
-		reset = new WebMarkupContainer("reset");
-		add(reset);
-		reset.add(new Label("resetLabel", new StringResourceModel("reset.label", this, getModel(), "Reset")));
+		
+		add(new ListView<Component>("buttons", buttons) {
+			private static final long serialVersionUID = -8614436913101248043L;
+
+			@Override
+			protected void populateItem(ListItem<Component> item) {
+				if(getApplication().usesDevelopmentConfig()){
+					if(!"button".equals(item.getModelObject().getId())){
+						throw new WicketRuntimeException("custom buttons must have the wicket:id=\"button\" and must have a label with wicket:id=\"label\"");
+					}
+					if(item.getModelObject().get("label")==null){
+						throw new WicketRuntimeException("custom buttons must have a label inside them with wicket:id=\"label\"");
+					}
+				}
+				item.add(item.getModelObject());
+			}
+		});
 	}
 	
-	public BootstrapCrudifierForm(String id, IModel<T> model){
+	public CrudifierForm(String id, IModel<T> model){
 		this(id, model, new CrudifierEntitySettings(), new CrudifierFormSettings(), new HashMap<Class<?>, IObjectRenderer<?>>());
 	}
 	
@@ -101,7 +125,6 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 			add(new WebMarkupContainer("feedbackWarning").setVisible(false));
 			add(new WebMarkupContainer("feedbackSuccess").setVisible(false));
 		}
-		reset.setVisible(formSettings.isShowReset());
 	}
 	
 	@Override
@@ -148,5 +171,10 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 	 */
 	public Map<Class<?>, ControlGroupProvider<? extends AbstractControlGroup<?>>> getControlGroupProviders(){
 		return listControlGroups.getControlGroupProviders();
+	}
+	
+	
+	public List<Component> getButtons(){
+		return buttons;
 	}
 }
