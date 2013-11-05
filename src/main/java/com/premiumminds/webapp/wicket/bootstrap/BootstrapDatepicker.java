@@ -9,7 +9,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 
 import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBehaviour;
 
-public abstract class BootstrapDatepicker extends WebMarkupContainer {
+public class BootstrapDatepicker extends WebMarkupContainer {
 	private static final long serialVersionUID = -117683073963817461L;
 
 	private DateTextField dateField;
