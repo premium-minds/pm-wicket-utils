@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.feedback.FeedbackMessage;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
@@ -27,10 +28,26 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 
 		setOutputMarkupId(true);
 		
-		add(new Label("legend", new StringResourceModel("legend", this, getModel(), "Unknown")));
-		add(new BootstrapFeedbackPanel("feedbackError", FeedbackMessage.ERROR).setEscapeModelStrings(false));
-		add(new BootstrapFeedbackPanel("feedbackWarning", FeedbackMessage.WARNING).setEscapeModelStrings(false));
-		add(new BootstrapFeedbackPanel("feedbackSuccess", FeedbackMessage.SUCCESS).setEscapeModelStrings(false));
+		add(new Label("legend", new StringResourceModel("legend", this, getModel(), "Unknown")){
+			private static final long serialVersionUID = -7854751811138463187L;
+
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				
+				setVisible(!getDefaultModelObjectAsString().isEmpty());
+			}
+		});
+		
+		if(configuration.isWithSelfFeedback()){
+			add(new BootstrapFeedbackPanel("feedbackError", FeedbackMessage.ERROR).setEscapeModelStrings(false));
+			add(new BootstrapFeedbackPanel("feedbackWarning", FeedbackMessage.WARNING).setEscapeModelStrings(false));
+			add(new BootstrapFeedbackPanel("feedbackSuccess", FeedbackMessage.SUCCESS).setEscapeModelStrings(false));
+		} else {
+			add(new WebMarkupContainer("feedbackError").setVisible(false));
+			add(new WebMarkupContainer("feedbackWarning").setVisible(false));
+			add(new WebMarkupContainer("feedbackSuccess").setVisible(false));
+		}
 		
 		add(listControlGroups = new ListControlGroups<T>("controls", getModel(), configuration));
 		
@@ -40,15 +57,19 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				target.add(BootstrapCrudifierForm.this);
+				BootstrapCrudifierForm.this.onSubmit(target, form);
 			}
 			
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
 				target.add(BootstrapCrudifierForm.this);
+				BootstrapCrudifierForm.this.onError(target, form);
 			}
 		}.add(new Label("submitLabel", new StringResourceModel("submitLabel", this, getModel(), "Submit"))));
-		add(new Label("resetLabel", new StringResourceModel("resetLabel", this, getModel(), "Reset")));
-		
+		WebMarkupContainer reset = new WebMarkupContainer("reset");
+		add(reset);
+		reset.setVisible(configuration.isShowReset());
+		reset.add(new Label("resetLabel", new StringResourceModel("resetLabel", this, getModel(), "Reset")));
 	}
 	
 	@Override
@@ -61,4 +82,11 @@ public class BootstrapCrudifierForm<T> extends Form<T> implements IBootstrapCrud
 		if(!fields.containsKey(propertyName)) throw new RuntimeException("No property "+propertyName+" was found on the form");
 		return fields.get(propertyName).getFormComponent();
 	}
+	
+	protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+	}
+	
+	protected void onError(AjaxRequestTarget target, Form<?> form) {
+	}
+	
 }

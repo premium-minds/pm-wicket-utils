@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.premiumminds</groupId>
   <artifactId>wicket-utils</artifactId>
-  <version>1.4.1</version>
+  <version>1.8.0</version>
   <packaging>jar</packaging>
   
   <name>wicket-utils</name>
@@ -28,13 +28,13 @@
 	<dependency>
 	    <groupId>org.apache.wicket</groupId>
 	    <artifactId>wicket-core</artifactId>
-	    <version>6.3.0</version>
+	    <version>6.5.0</version>
 	    <scope>provided</scope>
 	</dependency>
 	<dependency>
 		<groupId>org.apache.wicket</groupId>
 		<artifactId>wicket-extensions</artifactId>
-		<version>6.1.0</version>
+		<version>6.5.0</version>
 	    <scope>provided</scope>
 	</dependency>
 	
@@ -69,6 +69,13 @@
 		<artifactId>hibernate-validator</artifactId>
 		<version>4.3.0.Final</version>
 	</dependency>
+	
+	<dependency>
+		<groupId>com.premiumminds</groupId>
+		<artifactId>persistence-utils</artifactId>
+		<version>0.1.0</version>
+		<scope>provided</scope>
+	</dependency>
                         	
   </dependencies>
   <build>
@@ -85,6 +92,32 @@
 				<debug>true</debug>
 			</configuration>
 		</plugin>
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-source-plugin</artifactId>
+		  <version>2.2.1</version>
+		  <executions>
+		    <execution>
+		      <id>attach-sources</id>
+		      <goals>
+		        <goal>jar</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+		</plugin>
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-javadoc-plugin</artifactId>
+		  <version>2.9</version>
+		  <executions>
+		    <execution>
+		      <id>attach-javadocs</id>
+		      <goals>
+		        <goal>jar</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+		</plugin>		
   	</plugins>
   	
   	<resources>
@@ -105,6 +138,20 @@
 		</resource>
   	</resources>
   
-    <finalName>${artifactId}</finalName>
+    <finalName>${project.artifactId}</finalName>
   </build>  
+	<repositories>
+	    <repository>
+	        <id>premium-repository</id>
+	        <name>premium-repository</name>
+	        <url>http://maven.premium-minds.local/repo</url>
+	    </repository>
+	</repositories>	
+	<distributionManagement>
+		<repository>
+			<id>premium-repository</id>
+			<name>premium-repository-releases</name>
+			<url>http://maven.premium-minds.local/libs-release-local</url>
+		</repository>
+	</distributionManagement>
 </project>
