@@ -48,6 +48,8 @@ public class ListControlGroups<T> extends Panel {
 		typesControlGroups.put(Boolean.class, CheckboxControlGroup.class);
 		typesControlGroups.put(boolean.class, CheckboxControlGroup.class);
 		typesControlGroups.put(Set.class, CollectionControlGroup.class);
+		typesControlGroups.put(Double.class, TextFieldControlGroup.class);
+		typesControlGroups.put(double.class, TextFieldControlGroup.class);
 	}
 	
 	private List<ObjectProperties> objectProperties;
