@@ -1,10 +1,9 @@
 package com.premiumminds.webapp.wicket;
 
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.io.IClusterable;
@@ -56,14 +55,14 @@ public class ConfirmationDialogModal extends ModalWindow{
 					confirmed(target, Result.CANCELED);
 				}
 			});
-			Component yesButton = new AjaxFallbackLink<Void>("yesButton"){
+			WebMarkupContainer yesButton = new AjaxFallbackLink<Void>("yesButton"){
 				@Override
 				public void onClick(AjaxRequestTarget target) {
 					ConfirmationDialogModal.this.close(target);
 					confirmed(target, Result.OK);
 				}
 			}; 
-			yesButton.add(AttributeModifier.replace("value", verb));
+			yesButton.add(new Label("okLbl" , verb));
 			add(yesButton);
 		}
 	}
