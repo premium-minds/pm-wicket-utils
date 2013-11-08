@@ -29,7 +29,8 @@ public class BootstrapControlGroupFeedback extends WebMarkupContainer implements
 
 			public boolean accept(FeedbackMessage msg) {
 				for(Component component : visitChildren(FormComponent.class)){
-					if(msg.getReporter().equals(component)) return true;
+					Component reporter = msg.getReporter(); 
+					if(reporter != null && reporter.equals(component)) return true;
 				}
 				return false;
 			}
