@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.FeedbackMessagesModel;
 import org.apache.wicket.feedback.IFeedback;
@@ -20,18 +22,44 @@ public class BootstrapFeedbackPanel extends Panel implements IFeedback {
 
 	private final ListView<FeedbackMessage> messageListView;
 
-	public BootstrapFeedbackPanel(String id, final int level) {
-		super(id);
-		
-		FeedbackMessagesModel model = new FeedbackMessagesModel(this);
-		model.setFilter(new IFeedbackMessageFilter() {
-			private static final long serialVersionUID = 3499027878665605756L;
+	/**
+	 * Constructor. builds a feedback panel which filters messages based on the message
+	 * level
+	 *
+	 * @param id
+	 * 				the component id.
+	 * @param level
+	 * 				the message level
+	 */
+	public BootstrapFeedbackPanel(String id, int level) {
+		this(id, new FeedbackMessageLevelFilter(level));
+		return;
+	}
 
-			public boolean accept(FeedbackMessage m) {
-				return m.getLevel()==level;
-			}
-		});
-		
+	/**
+	 * Constructor. Builds a feedback panel which filters messages based on the component
+	 * 
+	 * @see org.apache.wicket.markup.html.panel.ComponentFeedbackPanel
+	 * 
+	 */
+	public BootstrapFeedbackPanel(String id, Component componentToFilter) {
+		this(id, new ComponentFeedbackMessageFilter(componentToFilter));
+		return;
+	}
+
+	public BootstrapFeedbackPanel(String id, final int level, final Component componentToFilter) {
+		this(id, new AndComposedFeedbackMessageFilter(
+					new ComponentFeedbackMessageFilter(componentToFilter),
+					new FeedbackMessageLevelFilter(level)));
+		return;
+	}
+
+	public BootstrapFeedbackPanel(String id, IFeedbackMessageFilter filter) {
+		super(id);
+
+		FeedbackMessagesModel model = new FeedbackMessagesModel(this);
+		model.setFilter(filter);
+
 		messageListView = new ListView<FeedbackMessage>("message", model) {
 			private static final long serialVersionUID = -3957832180171180089L;
 
@@ -61,7 +89,7 @@ public class BootstrapFeedbackPanel extends Panel implements IFeedback {
 		};
 		add(messageListView);
 	}
-	
+
 	public final boolean anyMessage()
 	{
 		List<FeedbackMessage> msgs = getCurrentMessages();
@@ -84,5 +112,39 @@ public class BootstrapFeedbackPanel extends Panel implements IFeedback {
 	{
 		final List<FeedbackMessage> messages = messageListView.getModelObject();
 		return Collections.unmodifiableList(messages);
-	}	
+	}
+
+	private static class FeedbackMessageLevelFilter implements IFeedbackMessageFilter {
+		private static final long serialVersionUID = 4966186682921209451L;
+		final int level;
+
+		public FeedbackMessageLevelFilter(int level) {
+			this.level = level;
+			return;
+		}
+
+		public boolean accept(FeedbackMessage m) {
+			return m.getLevel()==level;
+		}
+	}
+
+	private static class AndComposedFeedbackMessageFilter implements IFeedbackMessageFilter {
+		private static final long serialVersionUID = 1L;
+		final protected IFeedbackMessageFilter[] filters;
+		;
+
+		protected AndComposedFeedbackMessageFilter(IFeedbackMessageFilter... filters) {
+			this.filters = filters;
+			return;
+		}
+		
+		public boolean accept(FeedbackMessage message) {
+			for ( IFeedbackMessageFilter f : filters ) {
+				if ( !f.accept(message) ) {
+					return false;
+				}
+			}
+			return true;
+		}
+	}
 }
