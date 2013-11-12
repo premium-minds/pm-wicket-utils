@@ -13,17 +13,17 @@ import org.apache.wicket.markup.html.form.FormComponent;
 
 public class BootstrapControlGroupFeedback extends WebMarkupContainer implements IFeedback {
 	private static final long serialVersionUID = -4902896529648117240L;
-
+	
 	private IFeedbackMessageFilter filter;
-
+	
 	public BootstrapControlGroupFeedback(String id) {
 		super(id);
 	}
-
+	
 	@Override
 	protected void onConfigure() {
 		super.onConfigure();
-
+		
 		filter = new IFeedbackMessageFilter() {
 			private static final long serialVersionUID = -7726392072697648969L;
 
@@ -39,15 +39,15 @@ public class BootstrapControlGroupFeedback extends WebMarkupContainer implements
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
-
+		
 		response.render(OnDomReadyHeaderItem.forScript("$(\"#"+this.getMarkupId(true)+"\").focusin(function(){ $(this).removeClass(\"error\"); })"));
 	}
-
+	
 	@Override
 	protected void onComponentTag(ComponentTag tag) {
 		super.onComponentTag(tag);
-
-		if(new FeedbackCollector(getPage()).collect(filter).size() > 0) tag.append("class", "has-error", " ");
+		
+		if(new FeedbackCollector(getPage()).collect(filter).size() > 0) tag.append("class", "error", " ");
 	}
-
+	
 }
