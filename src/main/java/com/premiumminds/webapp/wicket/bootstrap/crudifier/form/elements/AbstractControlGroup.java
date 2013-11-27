@@ -126,6 +126,10 @@ public abstract class AbstractControlGroup<T> extends Panel {
 	{
 		private final Set<String> triedKeys = new LinkedHashSet<String>();
 
+		public MessageSource() {
+			// TODO Auto-generated constructor stub
+		}
+
 		/**
 		 * @see org.apache.wicket.validation.IErrorMessageSource#getMessage(String, java.util.Map)
 		 */
