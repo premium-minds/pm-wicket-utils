@@ -30,7 +30,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
+import org.joda.time.Instant;
 
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.CrudifierEntitySettings;
@@ -55,8 +55,8 @@ public abstract class ListControlGroups<T> extends Panel {
 		super(id, model);
 
 		typesControlGroups.put(Date.class, DateControlGroup.class);
-		typesControlGroups.put(DateTime.class, JodaDateTimeControlGroup.class);
-		typesControlGroups.put(LocalDate.class, JodaDateTimeControlGroup.class);
+		typesControlGroups.put(DateTime.class, JodaInstantControlGroup.class);
+		typesControlGroups.put(Instant.class, JodaInstantControlGroup.class);
 		typesControlGroups.put(String.class, TextFieldControlGroup.class);
 		typesControlGroups.put(Integer.class, TextFieldControlGroup.class);
 		typesControlGroups.put(int.class, TextFieldControlGroup.class);

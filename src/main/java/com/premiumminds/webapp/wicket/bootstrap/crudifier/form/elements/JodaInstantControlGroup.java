@@ -7,20 +7,20 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.validation.IValidationError;
-import org.joda.time.ReadableInstant;
+import org.joda.time.DateTime;
 
 import com.premiumminds.webapp.wicket.bootstrap.BootstrapControlGroupFeedback;
-import com.premiumminds.webapp.wicket.bootstrap.BootstrapDatepicker;
+import com.premiumminds.webapp.wicket.bootstrap.BootstrapJodaDatepicker;
 
-public class JodaDateTimeControlGroup extends AbstractControlGroup<ReadableInstant> {
+public class JodaInstantControlGroup extends AbstractControlGroup<DateTime> {
 	private static final long serialVersionUID = 7519983535463694024L;
 
-	private JodaDateTextField dateField;
+	private JodaInstantTextField<DateTime> dateField;
 	
-	public JodaDateTimeControlGroup(String id, IModel<ReadableInstant> model) {
+	public JodaInstantControlGroup(String id, IModel<DateTime> model) {
 		super(id, model);
 		
-		BootstrapDatepicker datepicker = new BootstrapDatepicker("datepicker"){
+		BootstrapJodaDatepicker<DateTime> datepicker = new BootstrapJodaDatepicker<DateTime>("datepicker"){
 			private static final long serialVersionUID = -1294334224980199521L;
 
 			@Override
@@ -30,7 +30,7 @@ public class JodaDateTimeControlGroup extends AbstractControlGroup<ReadableInsta
 			}
 		};
 		
-		dateField = new JodaDateTextField("input", getModel()){
+		dateField = new JodaInstantTextField<DateTime>("input", getModel(), DateTime.class){
 			private static final long serialVersionUID = 4925601760084153117L;
 
 			@Override
@@ -59,7 +59,7 @@ public class JodaDateTimeControlGroup extends AbstractControlGroup<ReadableInsta
 	}
 
 	@Override
-	public FormComponent<ReadableInstant> getFormComponent() {
+	public FormComponent<DateTime> getFormComponent() {
 		return dateField;
 	}
 
