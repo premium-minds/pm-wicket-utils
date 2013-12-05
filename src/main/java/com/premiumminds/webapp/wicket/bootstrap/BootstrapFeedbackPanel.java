@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.FeedbackMessagesModel;
 import org.apache.wicket.feedback.IFeedback;
