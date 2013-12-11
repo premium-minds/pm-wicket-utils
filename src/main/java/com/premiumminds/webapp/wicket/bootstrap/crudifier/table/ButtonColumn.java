@@ -71,7 +71,7 @@ public abstract class ButtonColumn<T extends Serializable> implements
 				ButtonColumn.this.onClick(Model.of(object), target);
 			}
 		}.add(new Label("label", resourceBase.getString(
-				propertyName + ".label", new Model<String>(), "Button"))));
+				propertyName + ".button.label", new Model<String>(), "Button"))));
 		return panel;
 	}
 
