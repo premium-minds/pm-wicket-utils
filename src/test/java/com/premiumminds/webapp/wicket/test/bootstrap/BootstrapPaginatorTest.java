@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class BootstrapPaginatorTest {
 			public void onPageChange(AjaxRequestTarget target, IModel<Integer> page) {
 			}
 		};
-		paginator.setTotalPages(10);
+		paginator.setTotalResults(Model.of(100));
 		tester.startComponentInPage(paginator);
 		tester.assertDisabled("paginator:first:link");
 		tester.assertDisabled("paginator:previous:link");
@@ -43,7 +44,7 @@ public class BootstrapPaginatorTest {
 				pageBox.value=page.getObject();
 			}
 		};
-		paginator.setTotalPages(10);
+		paginator.setTotalResults(Model.of(100));
 		tester.startComponentInPage(paginator);
 		
 		tester.clickLink("paginator:last:link");
@@ -68,7 +69,7 @@ public class BootstrapPaginatorTest {
 				pageBox.value=page.getObject();
 			}
 		};
-		paginator.setTotalPages(10);
+		paginator.setTotalResults(Model.of(100));
 		tester.startComponentInPage(paginator);
 		tester.clickLink("paginator:next:link");
 		assertEquals(1, (int) pageBox.value);
@@ -91,7 +92,7 @@ public class BootstrapPaginatorTest {
 				pageBox.value=page.getObject();
 			}
 		};
-		paginator.setTotalPages(10);
+		paginator.setTotalResults(Model.of(100));
 		paginator.setModelObject(2);
 		tester.startComponentInPage(paginator);
 		tester.clickLink("paginator:previous:link");
@@ -115,7 +116,7 @@ public class BootstrapPaginatorTest {
 				pageBox.value=page.getObject();
 			}
 		};
-		paginator.setTotalPages(10);
+		paginator.setTotalResults(Model.of(100));
 		paginator.setModelObject(2);
 		tester.startComponentInPage(paginator);
 		tester.clickLink("paginator:first:link");
@@ -139,7 +140,7 @@ public class BootstrapPaginatorTest {
 				pageBox.value=page.getObject();
 			}
 		};
-		paginator.setTotalPages(10);
+		paginator.setTotalResults(Model.of(100));
 		tester.startComponentInPage(paginator);
 		tester.clickLink("paginator:page:4:link");
 		assertEquals(4, (int) pageBox.value);
@@ -161,7 +162,7 @@ public class BootstrapPaginatorTest {
 			}
 		};
 		
-		paginator.setTotalPages(10);
+		paginator.setTotalResults(Model.of(100));
 		paginator.setShowLastButton(false);
 		paginator.setShowFirstButton(false);
 		paginator.setShowNextButton(false);

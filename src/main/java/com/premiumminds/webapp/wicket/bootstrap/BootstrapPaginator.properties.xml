@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="first">«</entry>
+	<entry key="previous">‹</entry>
+	<entry key="next">›</entry>
+	<entry key="last">»</entry>
+	<entry key="elipsis">...</entry>
+	
+</properties>
