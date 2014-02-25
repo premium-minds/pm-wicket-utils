@@ -38,10 +38,9 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 	
 	
 	private int pagesToShow = 5;
-	
 	private IModel<Integer> pageNumberModel;
-	
-	private int totalPages=10;
+	private IModel<Integer> totalResults;
+	private int numberResultsPerPage = 10;
 	
 	private int threshold=0;
 
@@ -88,8 +87,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setEnabled(pageNumberModel.getObject()<totalPages-1);
-				setVisible(showNextButton  && (!hiddenNextButton || pageNumberModel.getObject()<(totalPages-1)));
+				setEnabled(pageNumberModel.getObject()<getTotalPages()-1);
+				setVisible(showNextButton  && (!hiddenNextButton || pageNumberModel.getObject()<(getTotalPages()-1)));
 			}
 		}.add(new AjaxLink<Void>("link"){
 			@Override
@@ -104,13 +103,13 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setEnabled(pageNumberModel.getObject()<totalPages-1);
-				setVisible(showLastButton  && (!hiddenLastButton || threshold<(totalPages-pagesToShow)));
+				setEnabled(pageNumberModel.getObject()<getTotalPages()-1);
+				setVisible(showLastButton  && (!hiddenLastButton || threshold<(getTotalPages()-pagesToShow)));
 			}
 		}.add(new AjaxLink<Void>("link"){
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				setPage(totalPages-1);
+				setPage(getTotalPages()-1);
 				target.add(BootstrapPaginator.this);
 				onPageChange(target, pageNumberModel);
 			}
@@ -127,14 +126,14 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setVisible(showMorePagesInformation && threshold<(totalPages-pagesToShow));
+				setVisible(showMorePagesInformation && threshold<(getTotalPages()-pagesToShow));
 			}
 		});
 		
 		IModel<Integer> pages = new LoadableDetachableModel<Integer>() {
 			@Override
 			protected Integer load() {
-				return Math.min(totalPages, pagesToShow);
+				return Math.min(getTotalPages(), pagesToShow);
 			}
 		};
 		
@@ -151,6 +150,7 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 				}));
 				item.add(new AjaxLink<Void>("link") {
 					
+					@Override
 					protected void onConfigure() {
 						super.onConfigure();
 					};
@@ -174,8 +174,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 	
 	private void setPage(int page){
 		pageNumberModel.setObject(page);
-		if(page>pagesToShow-2) threshold=(int) Math.max(Math.min(page-(Math.floor(pagesToShow/2)), totalPages-pagesToShow), 0);
-		if(page>totalPages-pagesToShow) threshold=totalPages-pagesToShow;
+		if(page>pagesToShow-2) threshold=(int) Math.max(Math.min(page-(Math.floor(pagesToShow/2)), getTotalPages()-pagesToShow), 0);
+		if(page>getTotalPages()-pagesToShow) threshold=getTotalPages()-pagesToShow;
 		if(page<pagesToShow-1) threshold=0;
 	}
 	
@@ -192,19 +192,23 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 		
 	}
 
+	@Override
 	public IModel<Integer> getModel() {
 		return pageNumberModel;
 	}
 
+	@Override
 	public Integer getModelObject() {
 		return pageNumberModel.getObject();
 	}
 
+	@Override
 	public void setModel(IModel<Integer> model) {
 		pageNumberModel=model;
 		setPage(pageNumberModel.getObject());
 	}
 
+	@Override
 	public void setModelObject(Integer page) {
 		pageNumberModel.setObject(page);
 		setPage(pageNumberModel.getObject());
@@ -252,14 +256,9 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 	}
 
 	public int getTotalPages() {
-		return totalPages;
+		return (int) Math.ceil(totalResults.getObject()/ (double) numberResultsPerPage);
 	}
 
-	public void setTotalPages(int totalPages) {
-		this.totalPages = Math.max(1, totalPages);
-		setPage(0);
-	}
-	
 	public boolean isHiddenFirstButton() {
 		return hiddenFirstButton;
 	}
@@ -294,4 +293,23 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	
 	public abstract void onPageChange(AjaxRequestTarget target, IModel<Integer> page);
+
+	public IModel<Integer> getTotalResults() {
+		return totalResults;
+	}
+
+	public void setTotalResults(IModel<Integer> totalResults) {
+		this.totalResults = totalResults;
+	}
+
+	public int getNumberResultsPerPage() {
+		return numberResultsPerPage;
+	}
+
+	public void setNumberResultsPerPage(int numberResultsPerPage) {
+		this.numberResultsPerPage = numberResultsPerPage;
+	}
+	public int getCurrentIndex(){
+		return this.pageNumberModel.getObject() * numberResultsPerPage;
+	}
 }
