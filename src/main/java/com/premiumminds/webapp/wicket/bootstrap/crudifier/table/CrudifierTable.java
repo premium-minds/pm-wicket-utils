@@ -27,25 +27,24 @@ import com.premiumminds.webapp.wicket.bootstrap.crudifier.IObjectRenderer;
 public abstract class CrudifierTable<T> extends Panel {
 	private static final long serialVersionUID = -6553624504699750680L;
 	private static final ResourceReference CSS = new CssResourceReference(CrudifierTable.class, "CrudifierTable.css");
-	
+
 	private List<IColumn<T>> columns = new ArrayList<IColumn<T>>();
 	private RepeatingView headers = new RepeatingView("headers");
-	
+
 	private boolean clickable = false;
-	
+
 	private ListView<T> listView;
 	private WebMarkupContainer table;
-	
+
 	private Map<Class<?>, IObjectRenderer<?>> renderers;
 
-
-	public CrudifierTable(String id, Map<Class<?>, IObjectRenderer<?>> renderers) {
+	public CrudifierTable(String id, Map<Class<?>, IObjectRenderer<?>> renderers, boolean reuseItems) {
 		super(id);
-		
+
 		this.renderers = renderers;
-		
+
 		add(table = new WebMarkupContainer("table"));
-		
+
 		table.add(headers);
 
 		IModel<List<T>> modelList = new LoadableDetachableModel<List<T>>() {
@@ -56,7 +55,7 @@ public abstract class CrudifierTable<T> extends Panel {
 				return CrudifierTable.this.load(0, 0);
 			}
 		};
-		
+
 		table.add(listView = new ListView<T>("list", modelList) {
 			private static final long serialVersionUID = -2293426877086666745L;
 
@@ -71,29 +70,37 @@ public abstract class CrudifierTable<T> extends Panel {
 				CrudifierTable.this.populateItem(item);
 				return;
 			}
-		}.setReuseItems(true));
+		}.setReuseItems(reuseItems));
+	}
+
+	public CrudifierTable(String id, Map<Class<?>, IObjectRenderer<?>> renderers) {
+		this(id, renderers, true);
 	}
 
 	public CrudifierTable(String id){
 		this(id, new HashMap<Class<?>, IObjectRenderer<?>>());
 	}
-	
+
+	public CrudifierTable(String id, boolean reuseItems){
+		this(id, new HashMap<Class<?>, IObjectRenderer<?>>(), reuseItems);
+	}
+
 	@Override
 	protected void onConfigure() {
 		super.onConfigure();
-		
+
 		headers.removeAll();
 		for(IColumn<T> column : columns){
 			headers.add(new Label(headers.newChildId(), new StringResourceModel(column.getPropertyName()+".label", this, null, column.getPropertyName())));
 		}
 	}
-	
+
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 		response.render(CssHeaderItem.forReference(CSS));
 	}
-	
+
 	public void addColumn(IColumn<T> column){
 		columns.add(column);
 	}
@@ -121,13 +128,13 @@ public abstract class CrudifierTable<T> extends Panel {
 	}
 
 	protected abstract List<T> load(int page, int maxPerPage);
-	
+
 	protected void onSelected(AjaxRequestTarget target, IModel<T> model){ }
-	
+
 	public void refresh(){
 		listView.removeAll();
 	}
-	
+
 	public Map<Class<?>, IObjectRenderer<?>> getRenderers() {
 		return renderers;
 	}
