@@ -38,7 +38,7 @@ public abstract class CrudifierTable<T> extends Panel {
 
 	private Map<Class<?>, IObjectRenderer<?>> renderers;
 
-	public CrudifierTable(String id, Map<Class<?>, IObjectRenderer<?>> renderers, boolean reuseItems) {
+	public CrudifierTable(String id, Map<Class<?>, IObjectRenderer<?>> renderers) {
 		super(id);
 
 		this.renderers = renderers;
@@ -70,19 +70,11 @@ public abstract class CrudifierTable<T> extends Panel {
 				CrudifierTable.this.populateItem(item);
 				return;
 			}
-		}.setReuseItems(reuseItems));
-	}
-
-	public CrudifierTable(String id, Map<Class<?>, IObjectRenderer<?>> renderers) {
-		this(id, renderers, true);
+		}.setReuseItems(true));
 	}
 
 	public CrudifierTable(String id){
 		this(id, new HashMap<Class<?>, IObjectRenderer<?>>());
-	}
-
-	public CrudifierTable(String id, boolean reuseItems){
-		this(id, new HashMap<Class<?>, IObjectRenderer<?>>(), reuseItems);
 	}
 
 	@Override
@@ -141,5 +133,14 @@ public abstract class CrudifierTable<T> extends Panel {
 
 	public WebMarkupContainer getTableComponent(){
 		return table;
+	}
+	
+	public CrudifierTable<T> setReuseItems(boolean reuseItems){
+		listView.setReuseItems(reuseItems);
+		return this;
+	}
+	
+	public boolean getReuseItems(){
+		return listView.getReuseItems();
 	}
 }
