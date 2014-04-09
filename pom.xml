@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.premiumminds</groupId>
 	<artifactId>wicket-utils</artifactId>
-	<version>1.9.0</version>
+	<version>1.10.0</version>
 	<packaging>jar</packaging>
 
 	<name>wicket-utils</name>
@@ -63,6 +63,11 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.8.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3</version>
 		</dependency>
 
 		<dependency>
