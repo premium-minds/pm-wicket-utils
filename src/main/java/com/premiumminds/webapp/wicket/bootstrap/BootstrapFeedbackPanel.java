@@ -5,6 +5,8 @@ import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.util.visit.IVisitor;
+import org.apache.wicket.util.visit.IVisit;
 
 import com.premiumminds.webapp.wicket.UniqueFeedbackMessageFilter;
 
@@ -64,9 +66,9 @@ public class BootstrapFeedbackPanel extends FeedbackPanel {
 	 */
 	public BootstrapFeedbackPanel uniqueMessages(){
 		if(filter!=null){
-			setFilter(new AndComposedFeedbackMessageFilter(new UniqueFeedbackMessageFilter(), filter));
+			setFilter(new AndComposedFeedbackMessageFilter(new UniqueFeedbackMessageFilter(), new ExcludePopoverMessageFilter(), filter));
 		} else {
-			setFilter(new UniqueFeedbackMessageFilter());
+			setFilter(new AndComposedFeedbackMessageFilter(new UniqueFeedbackMessageFilter(), new ExcludePopoverMessageFilter()));
 		}
 		return this;
 	}
@@ -109,5 +111,29 @@ public class BootstrapFeedbackPanel extends FeedbackPanel {
 			}
 			return true;
 		}
+	}
+	
+	private class ExcludePopoverMessageFilter implements IFeedbackMessageFilter {
+		private static final long serialVersionUID = 1488859172984813599L;
+
+		@Override
+		public boolean accept(final FeedbackMessage message) {
+			if(BootstrapFeedbackPanel.this.getParent()!=null){
+				BootstrapFeedbackPopover innerAccepted = BootstrapFeedbackPanel.this.getParent()
+						.visitChildren(BootstrapFeedbackPopover.class, new IVisitor<BootstrapFeedbackPopover, BootstrapFeedbackPopover>() {
+
+					@Override
+					public void component(BootstrapFeedbackPopover object, IVisit<BootstrapFeedbackPopover> visit) {
+						if(object.getFilter().accept(message)){
+							visit.stop(object);
+						}
+					}
+				});
+				
+				return innerAccepted==null;
+			}
+			return true;
+		}
+		
 	}
 }

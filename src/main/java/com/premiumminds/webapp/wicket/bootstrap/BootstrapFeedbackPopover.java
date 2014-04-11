@@ -119,7 +119,7 @@ public class BootstrapFeedbackPopover extends WebMarkupContainer implements IFee
 								   + "'content': \""+StringEscapeUtils.escapeEcmaScript(sb.toString())+"\", "
 								   + "'template': '<div class=\"popover feedback-popover\"><div class=\"arrow\"></div><div class=\"popover-inner\"><h3 class=\"popover-title\"></h3><div class=\"popover-content\"><p></p></div></div></div>'"
 						+ "});";
-				script += "$(\"#"+component.getMarkupId()+"\").keypress(function(){ $(\"#"+this.getMarkupId()+"\").removeClass('error'); $(this).popover('destroy'); });";
+				script += "$(\"#"+component.getMarkupId()+"\").keypress(function(){ $(\"#"+this.getMarkupId()+"\").removeClass('has-error'); $(this).popover('destroy'); });";
 				response.render(OnDomReadyHeaderItem.forScript(script));
 			}
 		}
@@ -133,7 +133,7 @@ public class BootstrapFeedbackPopover extends WebMarkupContainer implements IFee
 	protected void onComponentTag(ComponentTag tag) {
 		super.onComponentTag(tag);
 		
-		if(model.getObject().size() > 0) tag.append("class", "error", " ");
+		if(model.getObject().size() > 0) tag.append("class", "has-error", " ");
 	}
 	
 	/**
