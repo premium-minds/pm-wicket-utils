@@ -27,6 +27,7 @@ public class BootstrapJodaDatepicker<T extends ReadableInstant> extends WebMarku
 		});
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onConfigure() {
 		super.onConfigure();

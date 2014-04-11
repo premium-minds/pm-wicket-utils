@@ -1,26 +1,17 @@
 package com.premiumminds.webapp.wicket.bootstrap;
 
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.feedback.FeedbackMessage;
-import org.apache.wicket.feedback.FeedbackMessagesModel;
-import org.apache.wicket.feedback.IFeedback;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.AbstractReadOnlyModel;
-import org.apache.wicket.model.IModel;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
-public class BootstrapFeedbackPanel extends Panel implements IFeedback {
+import com.premiumminds.webapp.wicket.UniqueFeedbackMessageFilter;
+
+public class BootstrapFeedbackPanel extends FeedbackPanel {
 	private static final long serialVersionUID = 918157933592698927L;
 
-	private final ListView<FeedbackMessage> messageListView;
+	private IFeedbackMessageFilter filter;
 
 	/**
 	 * Constructor. builds a feedback panel which filters messages based on the message
@@ -33,7 +24,6 @@ public class BootstrapFeedbackPanel extends Panel implements IFeedback {
 	 */
 	public BootstrapFeedbackPanel(String id, int level) {
 		this(id, new FeedbackMessageLevelFilter(level));
-		return;
 	}
 
 	/**
@@ -44,7 +34,6 @@ public class BootstrapFeedbackPanel extends Panel implements IFeedback {
 	 */
 	public BootstrapFeedbackPanel(String id, Component componentToFilter) {
 		this(id, new ComponentFeedbackMessageFilter(componentToFilter));
-		return;
 	}
 
 	public BootstrapFeedbackPanel(String id, final int level, final Component componentToFilter) {
@@ -54,64 +43,41 @@ public class BootstrapFeedbackPanel extends Panel implements IFeedback {
 		return;
 	}
 
-	public BootstrapFeedbackPanel(String id, IFeedbackMessageFilter filter) {
-		super(id);
-
-		FeedbackMessagesModel model = new FeedbackMessagesModel(this);
-		model.setFilter(filter);
-
-		messageListView = new ListView<FeedbackMessage>("message", model) {
-			private static final long serialVersionUID = -3957832180171180089L;
-
-			@Override
-			protected IModel<FeedbackMessage> getListItemModel(
-					final IModel<? extends List<FeedbackMessage>> listViewModel,
-					final int index) {
-				return new AbstractReadOnlyModel<FeedbackMessage>() {
-					private static final long serialVersionUID = -3342035734198486676L;
-
-					@Override
-					public FeedbackMessage getObject() {
-						if(index>= listViewModel.getObject().size()) return null;
-						else return listViewModel.getObject().get(index);
-					}
-				};
-			}
-			
-			@Override
-			protected void populateItem(ListItem<FeedbackMessage> item) {
-				Serializable serializable = item.getModel().getObject().getMessage();
-				item.getModel().getObject().markRendered();
-				Label label = new Label("msg", (serializable == null) ? "" : serializable.toString());
-				label.setEscapeModelStrings(BootstrapFeedbackPanel.this.getEscapeModelStrings());
-				item.add(label);
-			}
-		};
-		add(messageListView);
+	public BootstrapFeedbackPanel(String id) {
+		super(id, null);
 	}
 
-	public final boolean anyMessage()
-	{
-		List<FeedbackMessage> msgs = getCurrentMessages();
-		return !msgs.isEmpty();
-	}	
+	public BootstrapFeedbackPanel(String id, IFeedbackMessageFilter filter) {
+		super(id);
+		this.filter = filter;
+		uniqueMessages();
+	}
 	
 	@Override
 	protected void onConfigure() {
-		super.onConfigure();
-		
 		setVisible(anyMessage());
+	}
+
+	/**
+	 * Enable filter to only display unique feedback messages (enabled by default)
+	 * @return this panel for fluent api
+	 */
+	public BootstrapFeedbackPanel uniqueMessages(){
+		if(filter!=null){
+			setFilter(new AndComposedFeedbackMessageFilter(new UniqueFeedbackMessageFilter(), filter));
+		} else {
+			setFilter(new UniqueFeedbackMessageFilter());
+		}
+		return this;
 	}
 	
 	/**
-	 * Gets the currently collected messages for this panel.
-	 * 
-	 * @return the currently collected messages for this panel, possibly empty
+	 * Disable filter to allow displaying repeated feedback messages
+	 * @return this panel for fluent api
 	 */
-	protected final List<FeedbackMessage> getCurrentMessages()
-	{
-		final List<FeedbackMessage> messages = messageListView.getModelObject();
-		return Collections.unmodifiableList(messages);
+	public BootstrapFeedbackPanel allowRepeatedMessages(){
+		setFilter(filter);
+		return this;
 	}
 
 	private static class FeedbackMessageLevelFilter implements IFeedbackMessageFilter {
@@ -120,7 +86,6 @@ public class BootstrapFeedbackPanel extends Panel implements IFeedback {
 
 		public FeedbackMessageLevelFilter(int level) {
 			this.level = level;
-			return;
 		}
 
 		public boolean accept(FeedbackMessage m) {
@@ -131,11 +96,9 @@ public class BootstrapFeedbackPanel extends Panel implements IFeedback {
 	private static class AndComposedFeedbackMessageFilter implements IFeedbackMessageFilter {
 		private static final long serialVersionUID = 1L;
 		final protected IFeedbackMessageFilter[] filters;
-		;
 
 		protected AndComposedFeedbackMessageFilter(IFeedbackMessageFilter... filters) {
 			this.filters = filters;
-			return;
 		}
 		
 		public boolean accept(FeedbackMessage message) {
