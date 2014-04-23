@@ -1,7 +1,6 @@
 (function($, undefined){
 	var extensionMethods = {
 		placeOld: $.fn.datepicker.Constructor.prototype.place,
-		_triggerOld: $.fn.datepicker.Constructor.prototype._trigger,
 		place: function(){
 			this.placeOld();
 			var parentZIndexes = this.element.parents().map(function() {
@@ -11,10 +10,6 @@
 			this.picker.css({
 				zIndex: zIndex
 			});
-		},
-		_trigger: function(event, altdate){
-			if(event=='show' || event=='hide') return;
-			this._triggerOld(event, altdate);
 		}
 	}
 	
