@@ -77,6 +77,15 @@ public class BootstrapFeedbackPopover extends WebMarkupContainer implements IFee
 			}
 		};
 
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.apache.wicket.Component#onConfigure()
+	 */
+	@Override
+	protected void onConfigure() {
+		super.onConfigure();
+
 		model = new FeedbackMessagesModel(getPage(), filter);
 	}
 	
