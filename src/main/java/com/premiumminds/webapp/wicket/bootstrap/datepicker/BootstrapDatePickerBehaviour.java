@@ -17,6 +17,7 @@ public class BootstrapDatePickerBehaviour extends Behavior {
 	private static final ResourceReference DATE_PICKER_CSS = new CssResourceReference(BootstrapDatePickerBehaviour.class, "datepicker.css");
 	
 	private static final ResourceReference DATE_PICKER_JAVASCRIPT = new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "bootstrap-datepicker.js");
+	private static final ResourceReference DATE_PICKER_EXTENSION_JAVASCRIPT = new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "bootstrap-datepicker-extension.js");
 	
 	@Override
 	public void onConfigure(Component component) {
@@ -32,6 +33,7 @@ public class BootstrapDatePickerBehaviour extends Behavior {
 		if(component.isEnabledInHierarchy()){
 			response.render(CssReferenceHeaderItem.forReference(DATE_PICKER_CSS));
 			response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_JAVASCRIPT));
+			response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_EXTENSION_JAVASCRIPT));
 			
 			if(!component.getLocale().getLanguage().equals("en")){
 				response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "locales/bootstrap-datepicker."+component.getLocale().getLanguage()+".js")));
