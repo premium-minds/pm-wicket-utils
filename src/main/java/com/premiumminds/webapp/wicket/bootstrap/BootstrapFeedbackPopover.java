@@ -59,12 +59,12 @@ public class BootstrapFeedbackPopover extends WebMarkupContainer implements IFee
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.apache.wicket.Component#onConfigure()
+	 * @see org.apache.wicket.Component#onInitialize()
 	 */
 	@Override
-	protected void onConfigure() {
-		super.onConfigure();
-		
+	protected void onInitialize() {
+		super.onInitialize();
+
 		filter = new IFeedbackMessageFilter() {
 			private static final long serialVersionUID = -7726392072697648969L;
 
@@ -76,6 +76,15 @@ public class BootstrapFeedbackPopover extends WebMarkupContainer implements IFee
 				return false;
 			}
 		};
+
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.apache.wicket.Component#onConfigure()
+	 */
+	@Override
+	protected void onConfigure() {
+		super.onConfigure();
 
 		model = new FeedbackMessagesModel(getPage(), filter);
 	}
