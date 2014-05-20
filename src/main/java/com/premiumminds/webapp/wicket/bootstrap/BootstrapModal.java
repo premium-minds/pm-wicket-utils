@@ -1,0 +1,134 @@
+package com.premiumminds.webapp.wicket.bootstrap;
+
+import org.apache.wicket.Component;
+import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.ajax.AjaxEventBehavior;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
+
+
+/**
+ * A bootstrap Modal (<a href="http://getbootstrap.com/javascript/#modals">http://getbootstrap.com/javascript/#modals</a>)
+ * <p>
+ * <p>
+ * Java Code:
+ * <pre>
+ *    public abstract class ConfirmModal extends BootstrapModal{
+ *		public ConfirmModal(String id) {
+ *			super(id);
+ *
+ *			AjaxLink<Void> confirmBtn = new AjaxLink<Void>("closeOk") {
+ *				public void onClick(AjaxRequestTarget target) {
+ *					hide();
+ *					target.add(ConfirmModal.this);
+ *				}
+ *			};
+ *			add(confirmBtn);
+ *		}
+ *	}
+ * </pre>
+ * <p>
+ * <p>
+ * HTML ConfirmModal.html:
+ * <pre>
+ * &lt;wicket:extend&gt;
+ *		&lt;div class=&quot;modal-content&quot;&gt;
+ *			&lt;div class=&quot;modal-header&quot;&gt;		
+ *				&lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot; aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/button&gt;
+ *				&lt;h4 class=&quot;modal-title&quot;&gt;Exit&lt;/h4&gt;
+ *			&lt;/div&gt;
+ *			&lt;div class=&quot;modal-body&quot;&gt;
+ *				Do you really want to exit?
+ *			&lt;/div&gt;
+ *			&lt;div class=&quot;modal-footer&quot;&gt;
+ *		        &lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; data-dismiss=&quot;modal&quot; aria-hidden=&quot;true&quot;&gt;Cancel&lt;/button&gt;
+ *		        &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot;&gt;Confirm&lt;/button&gt;
+ *		        &lt;/div&gt;			
+ *		&lt;/div&gt;
+ *	&lt;/wicket:extend&gt;
+ * </pre>
+ */
+public abstract class BootstrapModal extends Panel{
+	private static final long serialVersionUID = 1L;
+	
+	private WebMarkupContainer container;
+
+	/**
+	 * Instantiates a new bootstrap modal, not visible. To show it see {@link #show()}.
+	 *
+	 * @param id the wicket:id
+	 */
+	public BootstrapModal(String id) {
+		super(id);
+		container = new WebMarkupContainer("container");
+		container.setVisible(false);
+		container.setOutputMarkupPlaceholderTag(true);
+		
+		add(new AjaxEventBehavior("hidden.bs.modal") {
+			private static final long serialVersionUID = 1096860362709362617L;
+
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				container.setVisible(false);
+				target.add(container);
+			}
+		});
+		add(new AjaxEventBehavior("shown.bs.modal") {
+			private static final long serialVersionUID = 6569358950560898308L;
+
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				container.setVisible(true);
+				target.add(container);
+			}
+		});
+
+		super.add(container);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.apache.wicket.Component#renderHead(org.apache.wicket.markup.head.IHeaderResponse)
+	 */
+	@Override
+	public void renderHead(IHeaderResponse response) {
+		super.renderHead(response);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("$('#"+BootstrapModal.this.getMarkupId()+"').modal({show: "+container.isVisible()+"});");
+		
+		response.render(OnDomReadyHeaderItem.forScript(sb.toString()));
+	}
+
+	/**
+	 * Show the modal. If the request is AJAX, you need to add the modal to the {@link AjaxRequestTarget}
+	 */
+	public void show(){
+		container.setVisible(true);
+	}
+	
+	/**
+	 * Show the modal. If the request is AJAX, you need to add the modal to the {@link AjaxRequestTarget}
+	 */
+	public void hide(){
+		container.setVisible(false);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.apache.wicket.MarkupContainer#add(org.apache.wicket.Component[])
+	 */
+	@Override
+	public MarkupContainer add(Component... components) {
+		return container.add(components);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.apache.wicket.MarkupContainer#addOrReplace(org.apache.wicket.Component[])
+	 */
+	@Override
+	public MarkupContainer addOrReplace(Component... components) {
+		return container.addOrReplace(components);
+	}
+}
