@@ -169,6 +169,11 @@
 					</includes>
 					<excludes>
 						<exclude>target/**</exclude>
+						<excludes>src/main/java/com/premiumminds/webapp/wicket/bootstrap/datepicker/locales/**</excludes>
+						<excludes>src/main/java/com/premiumminds/webapp/wicket/bootstrap/datepicker/**/*.css</excludes>
+						<excludes>src/main/java/com/premiumminds/webapp/wicket/bootstrap/datepicker/bootstrap-datepicker.js</excludes>
+						<excludes>src/main/java/com/premiumminds/webapp/wicket/datepicker/**/*.css</excludes>
+						<excludes>src/main/java/com/premiumminds/webapp/wicket/datepicker/**/*.js</excludes>
 					</excludes>
 					<mapping>
 						<yml>SCRIPT_STYLE</yml>
