@@ -1,14 +1,44 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>com.premiumminds</groupId>
-	<artifactId>wicket-utils</artifactId>
-	<version>1.10.1</version>
+	<artifactId>pm-wicket-utils</artifactId>
+	<version>1.11-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>wicket-utils</name>
-	<url>http://www.premiumminds.com</url>
+	<name>pm-wicket-utils</name>
+	<description>A library with Wicket Components, Behaviours and some other stuff</description>
+	<inceptionYear>2014</inceptionYear>
 
+	<organization>
+		<name>Premium Minds</name>
+		<url>http://www.premium-minds.com</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>GNU LESSER GENERAL PUBLIC LICENSE</name>
+			<url>http://www.gnu.org/licenses/lgpl.html</url>
+		</license>
+	</licenses>
+	
+	<url>https://github.com/premium-minds/pm-wicket-utils</url>
+
+	<scm>
+		<url>https://github.com/premium-minds/pm-wicket-utils</url>
+		<connection>scm:git:git@github.com:premium-minds/pm-wicket-utils.git</connection>
+		<developerConnection>scm:git:git@github.com:premium-minds/pm-wicket-utils.git</developerConnection>
+	    <tag>HEAD</tag>
+    </scm>
+
+	<developers>
+		<developer>
+			<name>André Camilo</name>
+			<organization>Premium Minds</organization>
+		</developer>
+	</developers>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -46,13 +76,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>persistence-api</artifactId>
-			<version>1.0.2</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
@@ -78,8 +101,8 @@
 
 		<dependency>
 			<groupId>com.premiumminds</groupId>
-			<artifactId>persistence-utils</artifactId>
-			<version>0.1.0</version>
+			<artifactId>pm-persistence-utils</artifactId>
+			<version>1.0</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -106,7 +129,7 @@
 					<execution>
 						<id>attach-sources</id>
 						<goals>
-							<goal>jar</goal>
+							<goal>jar-no-fork</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -114,7 +137,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
+				<version>2.9.1</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -123,6 +146,50 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<version>1.10.b1</version>
+				<configuration>
+					<header>licence-preamble.txt</header>
+					<strictCheck>true</strictCheck>
+					<failIfMissing>true</failIfMissing>
+					<includes>
+						<include>src/**</include>
+						<include>**/test/**</include>
+					</includes>
+					<excludes>
+						<exclude>target/**</exclude>
+					</excludes>
+					<mapping>
+						<yml>SCRIPT_STYLE</yml>
+					</mapping>
+					<properties>
+						<project-name>${project.name}</project-name>
+						<year>2014</year>
+						<owner>Premium Minds</owner>
+					</properties>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4.2</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<useReleaseProfile>false</useReleaseProfile>
+					<releaseProfiles>release</releaseProfiles>
+					<goals>deploy</goals>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.scm</groupId>
+						<artifactId>maven-scm-provider-gitexe</artifactId>
+						<version>1.8.1</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 
@@ -143,21 +210,57 @@
 				</excludes>
 			</resource>
 		</resources>
-
-		<finalName>${project.artifactId}</finalName>
 	</build>
-	<repositories>
-		<repository>
-			<id>premium-repository</id>
-			<name>premium-repository</name>
-			<url>http://maven.premium-minds.local/repo</url>
-		</repository>
-	</repositories>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<!-- OSS Sonatype stuff -->
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.2</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>premiumminds-nexus-staging</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<distributionManagement>
+
+		<snapshotRepository>
+			<id>premiumminds-nexus-snapshots</id>
+			<name>premiumminds-nexus-snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots </url>
+		</snapshotRepository>
+
 		<repository>
-			<id>premium-repository</id>
-			<name>premium-repository-releases</name>
-			<url>http://maven.premium-minds.local/libs-release-local</url>
+			<id>premiumminds-nexus-staging</id>
+			<name>premiumminds-nexus-staging</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2 </url>
 		</repository>
+
 	</distributionManagement>
 </project>
