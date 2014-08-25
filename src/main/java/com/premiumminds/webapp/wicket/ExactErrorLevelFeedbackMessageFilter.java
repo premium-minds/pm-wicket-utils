@@ -16,23 +16,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with pm-wicket-utils. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.webapp.wicket.behaviours;
+package com.premiumminds.webapp.wicket;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.OnLoadHeaderItem;
+import org.apache.wicket.feedback.FeedbackMessage;
+import org.apache.wicket.feedback.IFeedbackMessageFilter;
 
-public class DefaultFocusBehaviour extends Behavior {
-	private static final long serialVersionUID = 7102614107259820127L;
-	@Override
-	public void bind(Component component) {
-		super.bind(component);
-		component.setOutputMarkupId(true);
+/**
+ * Filter that matches EXACTLY according to the provided error level
+ * (cf. Wicket's ErrorLevelFeedbackMessageFilter)
+ * 
+ * Example use:
+ * 
+ * IFeedbackMessageFilter errorFilter =
+ *   new ExactErrorLevelFilter(FeedbackMessage.ERROR);
+ */
+public class ExactErrorLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
+	private static final long serialVersionUID = 1L;
+	
+	private int errorLevel;
+
+	public ExactErrorLevelFeedbackMessageFilter(int errorLevel){
+		this.errorLevel = errorLevel;
 	}
-	@Override
-	public void renderHead(Component component, IHeaderResponse response) {
-		  super.renderHead(component, response);
-		  response.render(OnLoadHeaderItem.forScript("document.getElementById('" + component.getMarkupId() + "').focus();"));
+
+	public boolean accept(FeedbackMessage message) {
+		return message.getLevel() == errorLevel;
 	}
+
 }
