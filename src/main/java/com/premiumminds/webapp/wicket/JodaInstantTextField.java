@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with pm-wicket-utils. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements;
+package com.premiumminds.webapp.wicket;
 
 import java.util.Locale;
 
