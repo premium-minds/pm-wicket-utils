@@ -25,7 +25,7 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.joda.time.ReadableInstant;
 
-import com.premiumminds.webapp.wicket.bootstrap.crudifier.form.elements.JodaInstantTextField;
+import com.premiumminds.webapp.wicket.JodaInstantTextField;
 import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBehaviour;
 
 public class BootstrapJodaDatepicker<T extends ReadableInstant> extends WebMarkupContainer {
