@@ -15,6 +15,9 @@ Add the following maven dependency to your project `pom.xml`:
 ```
 Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search;quick~pm-wicket-utils) for latest snapshots and releases.
 
+##Documentation
+- [Javadoc](http://premium-minds.github.io/pm-wicket-utils/apidocs/)
+
 ##Continuous Integration
 [![Build Status](https://travis-ci.org/premium-minds/pm-wicket-utils.png?branch=master)](https://travis-ci.org/premium-minds/pm-wicket-utils)
 
