@@ -387,24 +387,28 @@
 			var date = altdate || this.dates.get(-1),
 				local_date = this._utc_to_local(date);
 
-			this.element.trigger({
-				type: event,
-				date: local_date,
-				dates: $.map(this.dates, this._utc_to_local),
-				format: $.proxy(function(ix, format){
-					if (arguments.length === 0){
-						ix = this.dates.length - 1;
-						format = this.o.format;
-					}
-					else if (typeof ix === 'string'){
-						format = ix;
-						ix = this.dates.length - 1;
-					}
-					format = format || this.o.format;
-					var date = this.dates.get(ix);
-					return DPGlobal.formatDate(date, format, this.o.language);
-				}, this)
-			});
+			var event = {
+					type: event,
+					date: local_date,
+					dates: $.map(this.dates, this._utc_to_local),
+					format: $.proxy(function(ix, format){
+						if (arguments.length === 0){
+							ix = this.dates.length - 1;
+							format = this.o.format;
+						}
+						else if (typeof ix === 'string'){
+							format = ix;
+							ix = this.dates.length - 1;
+						}
+						format = format || this.o.format;
+						var date = this.dates.get(ix);
+						return DPGlobal.formatDate(date, format, this.o.language);
+					}, this)
+				};
+			
+			this.element.trigger(event);
+			this.element.find("input").trigger(event);
+			
 		},
 
 		show: function(){
