@@ -20,6 +20,9 @@ package com.premiumminds.webapp.wicket.bootstrap;
 
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
@@ -70,6 +73,28 @@ public class BootstrapFeedbackPanel extends FeedbackPanel {
 		uniqueMessages();
 	}
 	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		
+		setOutputMarkupPlaceholderTag(true);
+		
+		add(new WebMarkupContainer("close"){
+			private static final long serialVersionUID = 1566780832755857170L;
+
+			@Override
+			public void renderHead(IHeaderResponse response) {
+				super.renderHead(response);
+				
+				StringBuilder sb = new StringBuilder();
+				sb.append("$('#"+this.getMarkupId()+"').click(function(){");
+				sb.append("  $('#"+BootstrapFeedbackPanel.this.getMarkupId()+"').hide();");
+				sb.append("})");
+				
+				response.render(OnDomReadyHeaderItem.forScript(sb.toString()));
+			}
+		});
+	}
 	
 	/**
 	 * Enable filter to only display unique feedback messages (enabled by default)
