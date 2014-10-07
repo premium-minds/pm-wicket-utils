@@ -174,7 +174,7 @@ public class BootstrapHierarchizedDropDownChoice<T extends IHierarchyValue> exte
 		super.setOptionAttributes(buffer, choice, index, selected);
 		int depth = calculateDepth(choice);
 		buffer.append(" class=\"treedepth").append(depth).append("\"");
-		if(disableParents && choice.getChilds()!=null && !choice.getChilds().isEmpty())
+		if(disableParents && choice.getChildren()!=null && !choice.getChildren().isEmpty())
 			buffer.append(" disabled=\"disabled\"");
 	}
 	
@@ -196,8 +196,8 @@ public class BootstrapHierarchizedDropDownChoice<T extends IHierarchyValue> exte
 		ArrayList<T> newList = new ArrayList<T>();
 		for(T elem : choices){
 			newList.add(elem);
-			if(elem.getChilds()!=null && !elem.getChilds().isEmpty()){
-				newList.addAll((Collection<? extends T>) convertChoices(elem.getChilds()));
+			if(elem.getChildren()!=null && !elem.getChildren().isEmpty()){
+				newList.addAll((Collection<? extends T>) convertChoices(elem.getChildren()));
 			}
 		}
 		

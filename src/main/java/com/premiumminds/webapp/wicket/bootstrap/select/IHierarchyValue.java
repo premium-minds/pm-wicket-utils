@@ -23,6 +23,6 @@ import java.util.Collection;
 
 @SuppressWarnings("rawtypes")
 public interface IHierarchyValue<T extends IHierarchyValue> extends Serializable {
-	public Collection<T> getChilds();
+	public Collection<T> getChildren();
 	public T getParent();
 }
