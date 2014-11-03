@@ -59,10 +59,13 @@ public class PortugueseNIFValidator extends StringValidator {
        
         // mod 11
         float result = 0.0f;
-        for(int i = 0, j = 9; i < 9; i++, j--) {
+        for(int i = 0, j = 9; i < 8; i++, j--) {
             result += (j*numbers[i]);
         }
-       
-        return (result%11) == 0.0f;		
+        
+        float verification = 11-(result%11);
+        if (verification > 9) verification = verification%10; 
+        
+        return verification == numbers[8]  ;		
 	}
 }
