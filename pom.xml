@@ -1,6 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>com.premiumminds</groupId>
 	<artifactId>pm-wicket-utils</artifactId>
 	<version>1.12-SNAPSHOT</version>
@@ -21,15 +22,15 @@
 			<url>http://www.gnu.org/licenses/lgpl.html</url>
 		</license>
 	</licenses>
-	
+
 	<url>https://github.com/premium-minds/pm-wicket-utils</url>
 
 	<scm>
 		<url>https://github.com/premium-minds/pm-wicket-utils</url>
 		<connection>scm:git:git@github.com:premium-minds/pm-wicket-utils.git</connection>
 		<developerConnection>scm:git:git@github.com:premium-minds/pm-wicket-utils.git</developerConnection>
-	    <tag>HEAD</tag>
-    </scm>
+		<tag>HEAD</tag>
+	</scm>
 
 	<developers>
 		<developer>
@@ -37,7 +38,7 @@
 			<organization>Premium Minds</organization>
 		</developer>
 	</developers>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -58,13 +59,13 @@
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-core</artifactId>
-			<version>6.5.0</version>
+			<version>6.18.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-extensions</artifactId>
-			<version>6.5.0</version>
+			<version>6.18.0</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -74,6 +75,7 @@
 			<version>3.0</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
