@@ -114,13 +114,20 @@
 			<scope>test</scope>
 		</dependency>
 		
-
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>2.3</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.0</version>
+		</dependency>
+		
+		
 	</dependencies>
 	<build>
 		<plugins>
@@ -182,6 +189,7 @@
 						<excludes>src/main/java/com/premiumminds/webapp/wicket/bootstrap/datepicker/bootstrap-datepicker.js</excludes>
 						<excludes>src/main/java/com/premiumminds/webapp/wicket/datepicker/**/*.css</excludes>
 						<excludes>src/main/java/com/premiumminds/webapp/wicket/datepicker/**/*.js</excludes>
+						<excludes>src/main/java/com/premiumminds/webapp/wicket/repeaters/AbstractRepeater2.java</excludes>
 					</excludes>
 					<mapping>
 						<yml>SCRIPT_STYLE</yml>

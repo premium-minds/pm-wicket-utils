@@ -22,40 +22,46 @@ import org.apache.wicket.IGenericComponent;
 import org.apache.wicket.markup.html.list.AbstractItem;
 import org.apache.wicket.model.IModel;
 
-public class MapItem<K extends Number, V> extends AbstractItem implements IGenericComponent<V> {
-	private static final long serialVersionUID = 1613540034820483520L;
+/**
+ * Container that holds components in a {@link AjaxListSetView}.
+ * 
+ * @see AjaxListSetView
+ * @author acamilo
+ *
+ * @param <T> model object type
+ */
+public class ListSetItem<T> extends AbstractItem implements IGenericComponent<T> {
+	private static final long serialVersionUID = 1993267843582407117L;
 
-	private K key;
-	
-	public MapItem(K key, IModel<V> model) {
-		super(String.valueOf(key), model);
-		this.key = key;
-	}
-
-	public K getKey(){
-		return key;
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public IModel<V> getModel() {
-		return (IModel<V>) getDefaultModel();
-	}
-
-	@Override
-	public void setModel(IModel<V> model) {
-		throw new UnsupportedOperationException("can't change model");
-	}
-
-	@Override
-	public void setModelObject(V object) {
-		throw new UnsupportedOperationException("can't change model");
+	/**
+	 * @param id component id
+	 * @param model model for this item
+	 */
+	public ListSetItem(String id, IModel<T> model) {
+		super(id, model);
+		setOutputMarkupPlaceholderTag(true);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public V getModelObject() {
-		return (V) getDefaultModelObject();
+	public IModel<T> getModel() {
+		return (IModel<T>) getDefaultModel();
+	}
+
+	@Override
+	public void setModel(IModel<T> model) {
+		setDefaultModel(model);
+	}
+
+	@Override
+	public void setModelObject(T object) {
+		setDefaultModelObject(object);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public T getModelObject() {
+		return (T) getDefaultModelObject();
 	}
 
 }
