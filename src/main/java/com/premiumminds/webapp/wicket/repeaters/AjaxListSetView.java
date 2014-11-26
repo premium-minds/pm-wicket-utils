@@ -239,7 +239,7 @@ public abstract class AjaxListSetView<T extends Serializable> extends AbstractRe
 		@Override
 		public void onBeforeRespond(Map<String, Component> map, AjaxRequestTarget target) {
 			Set<String> toRemove = new HashSet<String>();
-			for(Map.Entry<String, Component> entry : map.entrySet()){
+			for(Map.Entry<String, Component> entry : new HashMap<String, Component>(map).entrySet()){
 				if(entry.getValue() instanceof AjaxListSetView){
 					AjaxListSetView<?> listView = (AjaxListSetView<?>) entry.getValue();
 					listView.updateAjax(target);
