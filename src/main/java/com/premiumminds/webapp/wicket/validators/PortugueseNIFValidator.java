@@ -66,6 +66,8 @@ public class PortugueseNIFValidator extends StringValidator {
         float verification = 11-(result%11);
         if (verification > 9) verification = verification%10; 
         
+		if(numbers[8] == 0) return (verification == 1 || verification == 0); 
+        
         return verification == numbers[8]  ;		
 	}
 }
