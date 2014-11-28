@@ -62,6 +62,15 @@ public class PortugueseNIFValidatorTest {
 		assertEquals(0, validatable.getErrors().size());
 	}
 	
+	@Test
+	public void testValidNif0TermWithMod1() {
+		IValidator<String> validator = new PortugueseNIFValidator();
+		
+		Validatable<String> validatable = new Validatable<String>("504646680");
+		validator.validate(validatable);
+		
+		assertEquals(0, validatable.getErrors().size());
+	}
 	
 	@Test
 	public void testInvalidNif() {
