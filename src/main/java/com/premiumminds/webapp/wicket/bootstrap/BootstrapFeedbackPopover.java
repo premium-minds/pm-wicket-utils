@@ -34,6 +34,8 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 
 /**
  * Display feedback messages of a {@link FormComponent} with a Bootstrap Popover on the component.
@@ -86,12 +88,19 @@ public class BootstrapFeedbackPopover extends WebMarkupContainer implements IFee
 		filter = new IFeedbackMessageFilter() {
 			private static final long serialVersionUID = -7726392072697648969L;
 
-			public boolean accept(FeedbackMessage msg) {
-				for(Component component : visitChildren(FormComponent.class)){
-					Component reporter = msg.getReporter(); 
-					if(reporter != null && reporter.equals(component)) return true;
-				}
-				return false;
+			public boolean accept(final FeedbackMessage msg) {
+				Boolean b = visitChildren(FormComponent.class, new IVisitor<FormComponent<?>, Boolean>() {
+					@Override
+					public void component(FormComponent<?> arg0, IVisit<Boolean> arg1) {
+						if (arg0.equals(msg.getReporter()))
+							arg1.stop(true);
+					}
+				});
+
+				if (b == null)
+					return false;
+
+				return b;
 			}
 		};
 

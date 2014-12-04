@@ -18,7 +18,6 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.feedback.FeedbackCollector;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.IFeedback;
@@ -28,6 +27,8 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 
 public class BootstrapControlGroupFeedback extends WebMarkupContainer implements IFeedback {
 	private static final long serialVersionUID = -4902896529648117240L;
@@ -45,11 +46,19 @@ public class BootstrapControlGroupFeedback extends WebMarkupContainer implements
 		filter = new IFeedbackMessageFilter() {
 			private static final long serialVersionUID = -7726392072697648969L;
 
-			public boolean accept(FeedbackMessage msg) {
-				for(Component component : visitChildren(FormComponent.class)){
-					if(component.equals(msg.getReporter())) return true;
-				}
-				return false;
+			public boolean accept(final FeedbackMessage msg) {
+				Boolean b = visitChildren(FormComponent.class, new IVisitor<FormComponent<?>, Boolean>() {
+					@Override
+					public void component(FormComponent<?> arg0, IVisit<Boolean> arg1) {
+						if (arg0.equals(msg.getReporter()))
+							arg1.stop(true);
+					}
+				});
+
+				if (b == null)
+					return false;
+
+				return b;
 			}
 		};
 	}

@@ -20,9 +20,10 @@ package com.premiumminds.webapp.wicket.bootstrap;
 
 import java.util.Collection;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 import org.joda.time.ReadableInstant;
 
 import com.premiumminds.webapp.wicket.JodaInstantTextField;
@@ -44,16 +45,17 @@ public class BootstrapJodaDatepicker<T extends ReadableInstant> extends WebMarku
 			}
 		});
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	protected void onConfigure() {
 		super.onConfigure();
-		
-		for(Component component : visitChildren(JodaInstantTextField.class)){
-			dateField = (JodaInstantTextField<T>) component;
-			break;
-		}
+
+		dateField = visitChildren(JodaInstantTextField.class, new IVisitor<JodaInstantTextField<T>, JodaInstantTextField<T>>() {
+			@Override
+			public void component(JodaInstantTextField<T> arg0, IVisit<JodaInstantTextField<T>> arg1) {
+				arg1.stop(arg0);
+			}
+		});
 	}
 	
 	@Override
