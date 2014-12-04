@@ -21,13 +21,14 @@ package com.premiumminds.webapp.wicket.bootstrap;
 import java.util.Collection;
 import java.util.Date;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.IGenericComponent;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 
 import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBehaviour;
 
@@ -87,10 +88,17 @@ public class BootstrapDatepicker extends WebMarkupContainer implements IGenericC
 	 * @return the date field
 	 */
 	public DateTextField getDateTextField(){
-		for(Component component : visitChildren(DateTextField.class)){
-			return (DateTextField) component;
-		}
-		throw new WicketRuntimeException("BootstrapDatepicker didn't have any DateTextField child!");
+		DateTextField component = visitChildren(DateTextField.class, new IVisitor<DateTextField, DateTextField>() {
+			@Override
+			public void component(DateTextField arg0, IVisit<DateTextField> arg1) {
+				arg1.stop(arg0);
+			}
+		});
+
+		if (component == null)
+			throw new WicketRuntimeException("BootstrapDatepicker didn't have any DateTextField child!");
+
+		return component;
 	}
 
 	/* (non-Javadoc)
