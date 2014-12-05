@@ -18,61 +18,70 @@
  */
 package com.premiumminds.webapp.wicket;
 
+import static org.junit.Assert.*;
+
 import java.util.Locale;
 
-import org.apache.wicket.Session;
-import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.request.Request;
-import org.apache.wicket.request.Response;
-import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Before;
+import org.apache.wicket.util.convert.ConversionException;
 import org.junit.Test;
 
-import com.premiumminds.webapp.wicket.FormatLabel;
+public class FormatLabelTest extends AbstractComponentTest {
+	private double tau = 6.28318530717958647692;
+	private double e = 2.71828182845904523536;
 
-public class FormatLabelTest {
-
-	private WicketTester tester;
-	private double tau = 6.28318530717958647692; 
-	
-	public class Page extends WebPage {
-
-		private static final long serialVersionUID = 2625516294774975788L;
-		
-		@Override
-		protected void onInitialize() {
-			super.onInitialize();
-
-			FormatLabel<Double> format = new FormatLabel<Double>("id", Model.of(tau));
-			add(format);
-		}
-	}
-	
-	@Before
-	public void setUp(){
-		tester = new WicketTester(new WebApplication() {
-			
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-			
-			@Override
-			public Session newSession(Request request, Response response) {
-				Session session = super.newSession(request, response);
-				session.setLocale(Locale.FRENCH);
-				return session;
-			}
-		});
-	}
-	
 	@Test
-	public void test(){
-		tester.startPage(new Page());
-		tester.assertRenderedPage(Page.class);
-		tester.assertModelValue("id", tau);
-		tester.assertLabel("id", "6,283 ºC");
+	public void testInitialization() {
+		FormatLabel<Double> fl = new FormatLabel<Double>("id", Model.of(tau));
+		getTester().getSession().setLocale(Locale.FRENCH);
+		startTest(fl);
+
+		getTester().assertModelValue(fl.getPageRelativePath(), tau);
+		getTester().assertLabel(fl.getPageRelativePath(), "6,283 ºC");
+	}
+
+	@Test
+	public void testNullModel() {
+		FormatLabel<Double> fl = new FormatLabel<Double>("id");
+		startTest(fl);
+
+		assertNull(fl.getDefaultModel());
+		getTester().assertModelValue(fl.getPageRelativePath(), null);
+		getTester().assertLabel(fl.getPageRelativePath(), "");
+	}
+
+	@Test
+	public void testConverterIsReadOnly() {
+		FormatLabel<Double> fl = new FormatLabel<Double>("id");
+		startTest(fl);
+
+		exception.expect(ConversionException.class);
+		fl.getConverter(Double.class).convertToObject("", fl.getLocale());
+	}
+
+	@Test
+	public void testConverterFailsForNullModel() {
+		FormatLabel<Double> fl = new FormatLabel<Double>("id");
+		startTest(fl);
+
+		exception.expect(RuntimeException.class);
+		fl.getConverter(Double.class).convertToString(null, fl.getLocale());
+	}
+
+	@Test
+	public void testIGenericComponentImplementation() {
+		IModel<Double> model = new Model<Double>(tau);
+		FormatLabel<Double> fl = new FormatLabel<Double>("id");
+		assertNull(fl.getModel());
+		assertNull(fl.getModelObject());
+
+		fl.setModel(model);
+		assertEquals(model, fl.getModel());
+		assertEquals((Double)tau,  fl.getModelObject());
+
+		fl.setModelObject(e);
+		assertEquals((Double)e, fl.getModelObject());
+		assertEquals(model, fl.getModel());
 	}
 }
