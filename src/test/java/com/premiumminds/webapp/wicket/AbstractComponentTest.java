@@ -208,6 +208,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 		HashSet<Method> aux = new HashSet<Method>(Arrays.asList(RequestTargetTester.class.getDeclaredMethods()));
 		aux.remove(getMethodHelper("addListener", AjaxRequestTarget.IListener.class));
 		aux.remove(getMethodHelper("respond", IRequestCycle.class));
+		aux.remove(getMethodHelper("detach", IRequestCycle.class));
 		return aux.toArray(new Method[aux.size()]);
 	}
 

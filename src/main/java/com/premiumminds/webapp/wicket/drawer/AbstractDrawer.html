@@ -1,0 +1,21 @@
+<wicket:head>
+	<link href="css/bootstrap/bootstrap-modaldrawer.css" rel="stylesheet" />
+
+	<script src="js/drawer/bootstrap-modal.js"></script>
+	<script src="js/drawer/bootstrap-modaldrawer.js"></script>
+	<script src="js/drawer/bootstrap-modalmanager.js"></script>
+</wicket:head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org">
+<body>
+	<wicket:panel>
+		<div class="modal-dialog">
+			<div class="modal-content modal-scroll/">
+				<div wicket:id="header" class="modal-header"></div>
+				<div wicket:id="content" class="modal-body"></div>
+				<div wicket:id="footer" class="modal-footer"></div>
+			</div>
+		</div>
+	</wicket:panel>
+</body>
+</html>
