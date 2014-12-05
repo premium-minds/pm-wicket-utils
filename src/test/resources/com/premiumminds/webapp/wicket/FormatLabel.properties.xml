@@ -22,6 +22,6 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-	<entry key="id.format">{0,number,#,###,#0.000} ºC</entry>
+	<entry key="format">{0,number,#,###,#0.000} ºC</entry>
 	
 </properties>
