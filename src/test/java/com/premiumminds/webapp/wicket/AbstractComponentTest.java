@@ -21,6 +21,8 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.easymock.EasyMockSupport;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 public abstract class AbstractComponentTest extends EasyMockSupport implements IContextProvider<AjaxRequestTarget, Page> {
 	private class RequestTargetTester implements AjaxRequestTarget {
@@ -130,7 +132,6 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 		public Page getPage() {
 			return inner.getPage();
 		}
-		
 	}
 
 	private static final Method[] methods = initMethods(); 
@@ -146,8 +147,12 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 			@Override
 			public Class<? extends Page> getHomePage() {
 				return null;
-			}};
+			}
+		};
 	}
+
+	@Rule
+	public ExpectedException exception = ExpectedException.none();
 
 	@Before
 	public void setUp() {
@@ -164,6 +169,10 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 	}
 
 	protected void startTest(Component subject) {
+		startTest(subject, true);
+	}
+
+	protected void startTest(Component subject, boolean mockRequest) {
 		if (!running) {
 			tester.startComponentInPage(subject);
 			target = createMockBuilder(RequestTargetTester.class)
@@ -171,7 +180,8 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 					.withConstructor(this, tester.getLastRenderedPage())
 					.createStrictMock();
 			orig = wicketApp.getAjaxRequestTargetProvider();
-			wicketApp.setAjaxRequestTargetProvider(this);
+			if (mockRequest)
+				wicketApp.setAjaxRequestTargetProvider(this);
 			running = true;
 		}
 	}
@@ -179,7 +189,6 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 	protected WicketTester getTester() {
 		return tester;
 	}
-
 
 	protected AjaxRequestTarget getTarget() throws TestNotStartedException {
 		if (!running)
