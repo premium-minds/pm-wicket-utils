@@ -1,3 +1,22 @@
+/**
+ * Copyright (C) 2014 Premium Minds.
+ *
+ * This file is part of pm-wicket-utils.
+ *
+ * pm-wicket-utils is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * pm-wicket-utils is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with pm-wicket-utils. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.premiumminds.webapp.wicket.drawer;
 
 import static org.easymock.EasyMock.*;
@@ -5,6 +24,7 @@ import static org.junit.Assert.*;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.easymock.Capture;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
@@ -29,8 +49,8 @@ public class DrawerManagerTest extends AbstractComponentTest {
 		}
 
 		@Override
-		public void onClose(AjaxRequestTarget target) {
-			super.onClose(target);
+		public void beforeClose(AjaxRequestTarget target) {
+			super.beforeClose(target);
 
 			mbOnCloseCalled = true;
 		}
@@ -90,7 +110,7 @@ public class DrawerManagerTest extends AbstractComponentTest {
 	public void testPushSingleDrawerWithCSS() {
 		DrawerManager m = new DrawerManager("test");
 		AbstractDrawer d = new TestDrawer();
-		m.push(d, null, "some-css-class");
+		m.push(d, "some-css-class");
 		startTest(m);
 
 		replayAll();
@@ -103,9 +123,9 @@ public class DrawerManagerTest extends AbstractComponentTest {
 
 	@Test
 	public void testPushMultipleDrawersWithAJAX() {
-		Capture<DrawerManager.ListItem> item1 = new Capture<DrawerManager.ListItem>();
-		Capture<DrawerManager.ListItem> item2 = new Capture<DrawerManager.ListItem>();
-		Capture<DrawerManager.ListItem> item3 = new Capture<DrawerManager.ListItem>();
+		Capture<Panel> item1 = new Capture<Panel>();
+		Capture<Panel> item2 = new Capture<Panel>();
+		Capture<Panel> item3 = new Capture<Panel>();
 		Capture<String> str1 = new Capture<String>();
 		Capture<String> str2 = new Capture<String>();
 		Capture<String> str2a = new Capture<String>();
@@ -247,11 +267,11 @@ public class DrawerManagerTest extends AbstractComponentTest {
 		m.push(d);
 		startTest(m);
 
-		getTarget().appendJavaScript("$('#"+d.getParent().getMarkupId()+"').removeClass('shown-modal');");
-		getTarget().add(capture(p));
 		getTarget().appendJavaScript("$('#"+d.getParent().getMarkupId()+"').unbind('hide-modal');");
 		getTarget().appendJavaScript("$('#"+d.getParent().getMarkupId()+"').data('modal-drawer').isShown=true;");
 		getTarget().appendJavaScript("$('#"+d.getParent().getMarkupId()+"').modaldrawer('hide');");
+		getTarget().appendJavaScript("$('#"+d.getParent().getMarkupId()+"').removeClass('shown-modal');");
+		getTarget().add(capture(p));
 		replayAll();
 
 		getTester().executeAjaxEvent(d.getParent(), "hide-modal");
@@ -273,13 +293,13 @@ public class DrawerManagerTest extends AbstractComponentTest {
 		m.push(d2);
 		startTest(m);
 
-		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').removeClass('shown-modal');");
-		getTarget().appendJavaScript("$('#"+d1.getParent().getMarkupId()+"').addClass('shown-modal');");
-		getTarget().appendJavaScript("$('#"+d1.getParent().getMarkupId()+"').removeClass('hidden-modal');");
-		getTarget().add(capture(p));
 		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').unbind('hide-modal');");
 		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').data('modal-drawer').isShown=true;");
 		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').modaldrawer('hide');");
+		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').removeClass('shown-modal');");
+		getTarget().add(capture(p));
+		getTarget().appendJavaScript("$('#"+d1.getParent().getMarkupId()+"').addClass('shown-modal');");
+		getTarget().appendJavaScript("$('#"+d1.getParent().getMarkupId()+"').removeClass('hidden-modal');");
 		replayAll();
 
 		getTester().executeAjaxEvent(d2.getParent(), "hide-modal");
@@ -309,7 +329,7 @@ public class DrawerManagerTest extends AbstractComponentTest {
 	}
 
 	@Test
-	public void testCloseDrawerEventForMultipDrawers() {
+	public void testCloseDrawerEventForMultipleDrawers() {
 		Capture<EmptyPanel> p2 = new Capture<EmptyPanel>();
 		Capture<EmptyPanel> p3 = new Capture<EmptyPanel>();
 		DrawerManager m = new DrawerManager("test");
@@ -321,17 +341,18 @@ public class DrawerManagerTest extends AbstractComponentTest {
 		m.push(d3);
 		startTest(m);
 
+		getTarget().appendJavaScript("$('#"+d3.getParent().getMarkupId()+"').unbind('hide-modal');");
+		getTarget().appendJavaScript("$('#"+d3.getParent().getMarkupId()+"').data('modal-drawer').isShown=true;");
+		getTarget().appendJavaScript("$('#"+d3.getParent().getMarkupId()+"').modaldrawer('hide');");
 		getTarget().appendJavaScript("$('#"+d3.getParent().getMarkupId()+"').removeClass('shown-modal');");
-		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').addClass('shown-modal');");
-		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').removeClass('hidden-modal');");
 		getTarget().add(capture(p3));
-		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').removeClass('shown-modal');");
-		getTarget().appendJavaScript("$('#"+d1.getParent().getMarkupId()+"').addClass('shown-modal');");
-		getTarget().appendJavaScript("$('#"+d1.getParent().getMarkupId()+"').removeClass('hidden-modal');");
-		getTarget().add(capture(p2));
 		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').unbind('hide-modal');");
 		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').data('modal-drawer').isShown=true;");
 		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').modaldrawer('hide');");
+		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').removeClass('shown-modal');");
+		getTarget().add(capture(p2));
+		getTarget().appendJavaScript("$('#"+d1.getParent().getMarkupId()+"').addClass('shown-modal');");
+		getTarget().appendJavaScript("$('#"+d1.getParent().getMarkupId()+"').removeClass('hidden-modal');");
 		replayAll();
 
 		getTester().executeAjaxEvent(d2.getParent(), "hide-modal");
@@ -358,22 +379,22 @@ public class DrawerManagerTest extends AbstractComponentTest {
 		m.push(d3);
 		startTest(m);
 
-		getTarget().appendJavaScript("$('#"+d3.getParent().getMarkupId()+"').removeClass('shown-modal');");
-		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').addClass('shown-modal');");
-		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').removeClass('hidden-modal');");
-		getTarget().add(capture(p));
 		getTarget().appendJavaScript("$('#"+d3.getParent().getMarkupId()+"').unbind('hide-modal');");
 		getTarget().appendJavaScript("$('#"+d3.getParent().getMarkupId()+"').data('modal-drawer').isShown=true;");
 		getTarget().appendJavaScript("$('#"+d3.getParent().getMarkupId()+"').modaldrawer('hide');");
+		getTarget().appendJavaScript("$('#"+d3.getParent().getMarkupId()+"').removeClass('shown-modal');");
+		getTarget().add(capture(p));
+		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').addClass('shown-modal');");
+		getTarget().appendJavaScript("$('#"+d2.getParent().getMarkupId()+"').removeClass('hidden-modal');");
 		replayAll();
 
 		getTester().executeAjaxEvent(d1.getParent(), "hide-modal");
 		verifyAll();
 
-		assertEquals(d1, m.getLast(AbstractDrawer.class));
+		assertEquals(d2, m.getLast(AbstractDrawer.class));
 		assertEquals(d2.getParent().getParent(), p.getValue().getParent());
 		assertTrue(d3.getOnCloseCalled());
-		assertFalse(d2.getOnCloseCalled());
+		assertTrue(d2.getOnCloseCalled());
 		assertFalse(d1.getOnCloseCalled());
 	}
 }
