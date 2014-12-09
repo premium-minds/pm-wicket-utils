@@ -20,7 +20,6 @@
 package com.premiumminds.webapp.wicket.drawer;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
@@ -31,9 +30,6 @@ public abstract class AbstractDrawer extends Panel {
 	private static final long serialVersionUID = -9059038999170018388L;
 
 	public static final String DRAWER_ID = "drawer";
-	public static final String HEADER_ID = "header";
-	public static final String CONTENT_ID = "content";
-	public static final String FOOTER_ID = "footer";
 
 	private DrawerManager manager;
 	private boolean allowClose = true; 
@@ -41,44 +37,6 @@ public abstract class AbstractDrawer extends Panel {
 	public AbstractDrawer() {
 		super(DRAWER_ID);
 		setOutputMarkupId(true);
-	}
-
-	/**
-	 * Override this method to provide header content for your drawer such as titles and subtitles
-	 * or a button control panel.
-	 * 
-	 * @param id
-	 * 			Make sure to use this id when creating the Panel to return
-	 * @return
-	 * 			The Panel which will contain the header content
-	 */
-	protected Panel getHeader(String id) {
-		return new EmptyPanel(id);
-	}
-
-	/**
-	 * Override this method to provide the main content for your drawer.
-	 * 
-	 * @param id
-	 * 			Make sure to use this id when creating the Panel to return
-	 * @return
-	 * 			The Panel which will contain the content
-	 */
-	protected Panel getContent(String id) {
-		return new EmptyPanel(id);
-	}
-
-	/**
-	 * Override this method to provide footer content for your drawer such as a copyright notice
-	 * or an OK button.
-	 * 
-	 * @param id
-	 * 			Make sure to use this id when creating the Panel to return
-	 * @return
-	 * 			The Panel which will contain the footer content
-	 */
-	protected Panel getFooter(String id) {
-		return new EmptyPanel(id);
 	}
 
 	/**
@@ -131,14 +89,5 @@ public abstract class AbstractDrawer extends Panel {
 	 */
 	public boolean isAllowClose() {
 		return allowClose;
-	}
-
-	@Override
-	protected void onInitialize() {
-		super.onInitialize();
-
-		add(getHeader(HEADER_ID));
-		add(getContent(CONTENT_ID));
-		add(getFooter(FOOTER_ID));
 	}
 }
