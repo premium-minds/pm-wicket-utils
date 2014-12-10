@@ -196,6 +196,8 @@
 						<excludes>src/main/java/com/premiumminds/webapp/wicket/datepicker/**/*.css</excludes>
 						<excludes>src/main/java/com/premiumminds/webapp/wicket/datepicker/**/*.js</excludes>
 						<excludes>src/main/java/com/premiumminds/webapp/wicket/repeaters/AbstractRepeater2.java</excludes>
+                        <excludes>src/main/java/com/premiumminds/webapp/wicket/drawer/bootstrap-modalmanager.js</excludes>
+                        <excludes>src/main/java/com/premiumminds/webapp/wicket/drawer/bootstrap-modaldrawer.js</excludes>
 					</excludes>
 					<mapping>
 						<yml>SCRIPT_STYLE</yml>
