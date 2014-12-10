@@ -68,7 +68,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 		
 		pagesToShow = Math.max(3, pagesToShow);
 		pageNumberModel = new Model<Integer>(0);
-		
+		totalResults = new Model<Integer>(100); // This recreates the original default of ten pages - JMMM
+
 		add(new SquaresContainer("first"){
 			@Override
 			protected void onConfigure() {
