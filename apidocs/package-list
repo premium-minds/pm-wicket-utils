@@ -4,6 +4,7 @@ com.premiumminds.webapp.wicket.bootstrap
 com.premiumminds.webapp.wicket.bootstrap.datepicker
 com.premiumminds.webapp.wicket.bootstrap.select
 com.premiumminds.webapp.wicket.datepicker
+com.premiumminds.webapp.wicket.drawer
 com.premiumminds.webapp.wicket.persistence
 com.premiumminds.webapp.wicket.repeaters
 com.premiumminds.webapp.wicket.validators
