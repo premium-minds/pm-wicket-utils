@@ -42,8 +42,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
-import com.premiumminds.webapp.wicket.TestNotStartedException;
-
 public abstract class AbstractComponentTest extends EasyMockSupport implements IContextProvider<AjaxRequestTarget, Page> {
 	private class RequestTargetTester implements AjaxRequestTarget {
 		private AjaxRequestTarget inner;
