@@ -27,6 +27,8 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.util.convert.ConversionException;
 import org.junit.Test;
 
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+
 public class FormatLabelTest extends AbstractComponentTest {
 	private double tau = 6.28318530717958647692;
 	private double e = 2.71828182845904523536;

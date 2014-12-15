@@ -28,6 +28,8 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.Model;
 import org.junit.Test;
 
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+
 public class AjaxComponentFeedbackPanelTest extends AbstractComponentTest {
 	private static final String msg = "Message!";
 

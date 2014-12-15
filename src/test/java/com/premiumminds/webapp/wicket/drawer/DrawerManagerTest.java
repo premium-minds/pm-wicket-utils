@@ -31,7 +31,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.premiumminds.webapp.wicket.AbstractComponentTest;
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 
 public class DrawerManagerTest extends AbstractComponentTest {
 	//Some tests are highly brittle, as they treat AJAX communication details (which should be
