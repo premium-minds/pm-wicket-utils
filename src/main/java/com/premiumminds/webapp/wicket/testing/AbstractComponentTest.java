@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with pm-wicket-utils. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.webapp.wicket;
+package com.premiumminds.webapp.wicket.testing;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -41,6 +41,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
+
+import com.premiumminds.webapp.wicket.TestNotStartedException;
 
 public abstract class AbstractComponentTest extends EasyMockSupport implements IContextProvider<AjaxRequestTarget, Page> {
 	private class RequestTargetTester implements AjaxRequestTarget {

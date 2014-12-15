@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.premiumminds.webapp.wicket.AbstractComponentTest;
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 
 public class DrawerTest extends AbstractComponentTest {
 	private class TestDrawer extends AbstractDrawer {
