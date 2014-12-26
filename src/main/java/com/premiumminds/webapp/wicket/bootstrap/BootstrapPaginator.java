@@ -18,6 +18,7 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.IGenericComponent;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -32,12 +33,31 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 
 /**
+ * This component creates a paginator component using the bootstrap pagination element.
+ * 
+ * <p>
+ * Example:
+ * 
+ * <pre>
+ * &lt;nav&gt;
+ *   &lt;ul wicket:id=&quot;paginator&quot; class=&quot;pagination&quot;&gt;&lt;/ul&gt;
+ * &lt;/nav&gt;
+ * </pre>
+ * 
+ * <p>
+ * The related Java code:
+ * 
+ * <pre>
+ * new BootstrapPaginator(&quot;paginator&quot;, Model.of(2000)) {
+ *     public void onPageChange(AjaxRequestTarget target, IModel&lt;Integer&gt; page) {
+ *        ...
+ *     }
+ * }
+ * </pre>
  * 
  * @author acamilo
- * 
- * @version 1.4.1 - properties added to change the string (first, next, previous, last and elipsis)
+ * @see <a href="http://getbootstrap.com/components/#pagination">bootstrap pagination</a>
  */
-@SuppressWarnings("serial")
 public abstract class BootstrapPaginator extends Panel implements IGenericComponent<Integer> {
 	private static final long serialVersionUID = -5991811031611368885L;
 	
@@ -56,33 +76,58 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 	
 	
 	private int pagesToShow = 5;
-	private IModel<Integer> pageNumberModel;
 	private IModel<Integer> totalResults;
-	private int numberResultsPerPage = 10;
+	private int numberResultsPerPage;
 	
-	private int threshold=0;
+	private boolean stripTags; // hack to not render wicket tags
 
+	/**
+	 * @deprecated As of release 2.6, replaced by {@link #BootstrapPaginator(String, IModel)}
+	 */
+	@Deprecated
 	public BootstrapPaginator(String id) {
-		super(id);
+		this(id, Model.of(100), 20);
+	}
+	
+	/**
+	 * Creates a paginator with 20 results per page by default
+	 * 
+	 * @param id component id
+	 * @param totalResults model for total results
+	 */
+	public BootstrapPaginator(String id, IModel<Integer> totalResults){
+		this(id, totalResults, 20);
+	}
+
+	/**
+	 * Creates a paginator
+	 * 
+	 * @param id component id
+	 * @param totalResults model for total results
+	 * @param resultsPerPage number of results per page
+	 */
+	@SuppressWarnings("serial")
+	public BootstrapPaginator(String id, IModel<Integer> totalResults, int resultsPerPage){
+		super(id, Model.of(0));
+		stripTags = Application.get().getMarkupSettings().getStripWicketTags();
 		setOutputMarkupId(true);
 		
-		pagesToShow = Math.max(3, pagesToShow);
-		pageNumberModel = new Model<Integer>(0);
-		totalResults = new Model<Integer>(100); // This recreates the original default of ten pages - JMMM
+		this.totalResults = totalResults;
+		this.numberResultsPerPage = resultsPerPage;
 
 		add(new SquaresContainer("first"){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setEnabled(pageNumberModel.getObject()>0);
-				setVisible(showFirstButton && (!hiddenFirstButton || threshold>0));
+				setEnabled(getModelObject()>0);
+				setVisible(showFirstButton && (!hiddenFirstButton || getThreshold()>0));
 			}
 		}.add(new AjaxLink<Void>("link"){
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				setPage(0);
+				BootstrapPaginator.this.setModelObject(0);
 				target.add(BootstrapPaginator.this);
-				onPageChange(target, pageNumberModel);
+				onPageChange(target, BootstrapPaginator.this.getModel());
 			}
 			
 		}));
@@ -90,15 +135,15 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setEnabled(pageNumberModel.getObject()>0);
-				setVisible(showPreviousButton  && (!hiddenPreviousButton || pageNumberModel.getObject()>0));
+				setEnabled(BootstrapPaginator.this.getModelObject()>0);
+				setVisible(showPreviousButton  && (!hiddenPreviousButton || BootstrapPaginator.this.getModelObject()>0));
 			}
 		}.add(new AjaxLink<Void>("link"){
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				setPage(pageNumberModel.getObject()-1);
+				BootstrapPaginator.this.setModelObject(BootstrapPaginator.this.getModelObject()-1);
 				target.add(BootstrapPaginator.this);
-				onPageChange(target, pageNumberModel);
+				onPageChange(target, BootstrapPaginator.this.getModel());
 			}
 			
 		}));
@@ -106,15 +151,15 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setEnabled(pageNumberModel.getObject()<getTotalPages()-1);
-				setVisible(showNextButton  && (!hiddenNextButton || pageNumberModel.getObject()<(getTotalPages()-1)));
+				setEnabled(BootstrapPaginator.this.getModelObject()<getTotalPages()-1);
+				setVisible(showNextButton  && (!hiddenNextButton || BootstrapPaginator.this.getModelObject()<(getTotalPages()-1)));
 			}
 		}.add(new AjaxLink<Void>("link"){
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				setPage(pageNumberModel.getObject()+1);
+				BootstrapPaginator.this.setModelObject(BootstrapPaginator.this.getModelObject()+1);
 				target.add(BootstrapPaginator.this);
-				onPageChange(target, pageNumberModel);
+				onPageChange(target, BootstrapPaginator.this.getModel());
 			}
 			
 		}));
@@ -122,15 +167,15 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setEnabled(pageNumberModel.getObject()<getTotalPages()-1);
-				setVisible(showLastButton  && (!hiddenLastButton || threshold<(getTotalPages()-pagesToShow)));
+				setEnabled(BootstrapPaginator.this.getModelObject()<getTotalPages()-1);
+				setVisible(showLastButton  && (!hiddenLastButton || getThreshold()<(getTotalPages()-pagesToShow)));
 			}
 		}.add(new AjaxLink<Void>("link"){
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				setPage(getTotalPages()-1);
+				BootstrapPaginator.this.setModelObject(getTotalPages()-1);
 				target.add(BootstrapPaginator.this);
-				onPageChange(target, pageNumberModel);
+				onPageChange(target, BootstrapPaginator.this.getModel());
 			}
 			
 		}));
@@ -138,14 +183,14 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setVisible(showMorePagesInformation && threshold>0);
+				setVisible(showMorePagesInformation && getThreshold()>0);
 			}
 		});
 		add(new WebMarkupContainer("nextPages"){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setVisible(showMorePagesInformation && threshold<(getTotalPages()-pagesToShow));
+				setVisible(showMorePagesInformation && getThreshold()<(getTotalPages()-pagesToShow));
 			}
 		});
 		
@@ -160,11 +205,12 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			
 			@Override
 			protected void populateItem(final LoopItem item) {
+				final int threshold = getThreshold();
 				item.add(AttributeModifier.append("class", new LoadableDetachableModel<String>() {
 
 					@Override
 					protected String load() {
-						return item.getIndex()+threshold==pageNumberModel.getObject() ? "active" : "";
+						return item.getIndex()+getThreshold()==BootstrapPaginator.this.getModelObject() ? "active" : "";
 					}
 				}));
 				item.add(new AjaxLink<Void>("link") {
@@ -176,9 +222,9 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						setPage(item.getIndex()+threshold);
+						BootstrapPaginator.this.setModelObject(item.getIndex()+threshold);
 						target.add(BootstrapPaginator.this);
-						onPageChange(target, pageNumberModel);
+						onPageChange(target, BootstrapPaginator.this.getModel());
 					}
 				}.add(new Label("label", new LoadableDetachableModel<Integer>() {
 
@@ -191,17 +237,19 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 		});
 	}
 	
-	private void setPage(int page){
-		pageNumberModel.setObject(page);
-		if(page>pagesToShow-2) threshold=(int) Math.max(Math.min(page-(Math.floor(pagesToShow/2)), getTotalPages()-pagesToShow), 0);
-		if(page>getTotalPages()-pagesToShow) threshold=getTotalPages()-pagesToShow;
-		if(page<pagesToShow-1) threshold=0;
+	private int getThreshold(){
+		if(getModelObject()>pagesToShow-2) return (int) Math.max(Math.min(getModelObject()-(Math.floor(pagesToShow/2)), getTotalPages()-pagesToShow), 0);
+		if(getModelObject()>getTotalPages()-pagesToShow) return getTotalPages()-pagesToShow;
+		return 0;
 	}
 	
+	@SuppressWarnings("serial")
 	private class SquaresContainer extends WebMarkupContainer {
 		public SquaresContainer(String id) {
 			super(id);
 			add(AttributeModifier.append("class", new LoadableDetachableModel<String>() {
+				private static final long serialVersionUID = 4330457477794180592L;
+
 				@Override
 				protected String load() {
 					return isEnabled() ? "" : "disabled";
@@ -211,124 +259,248 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 		
 	}
 
+	// hack to remove wicket:panel tag from output
+	@Override
+	protected void onBeforeRender() {
+		Application.get().getMarkupSettings().setStripWicketTags(true);
+		super.onBeforeRender();
+	}
+	
+	// hack to remove wicket:panel tag from output
+	@Override
+	protected void onAfterRender() {
+		Application.get().getMarkupSettings().setStripWicketTags(stripTags);
+		super.onAfterRender();
+	}
+	
+	/**
+	 * Get the model with the number of the current page
+	 * 
+	 * @return model of the current page
+	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public IModel<Integer> getModel() {
-		return pageNumberModel;
+		return (IModel<Integer>) getDefaultModel();
 	}
 
+	/**
+	 * Get the number of the current page
+	 * 
+	 * @return the current page
+	 */
 	@Override
 	public Integer getModelObject() {
-		return pageNumberModel.getObject();
+		return (Integer) getDefaultModelObject();
 	}
 
+	/**
+	 * Set the model with the number of the current page
+	 * 
+	 * @param model model of the current page
+	 */
 	@Override
 	public void setModel(IModel<Integer> model) {
-		pageNumberModel=model;
-		setPage(pageNumberModel.getObject());
+		setDefaultModel(model);
 	}
 
+	/**
+	 * Set the number of the current page
+	 * 
+	 * @param page current page
+	 */
 	@Override
 	public void setModelObject(Integer page) {
-		pageNumberModel.setObject(page);
-		setPage(pageNumberModel.getObject());
+		setDefaultModelObject(page);
 	}
 
+	/**
+	 * Return if the goto first page button is shown
+	 */
 	public boolean isShowFirstButton() {
 		return showFirstButton;
 	}
 
+	/**
+	 * Sets whether to show the goto first page option
+	 */
 	public void setShowFirstButton(boolean showFirstButton) {
 		this.showFirstButton = showFirstButton;
 	}
 
+	/**
+	 * Return if the goto last page button is shown
+	 */
 	public boolean isShowLastButton() {
 		return showLastButton;
 	}
 
+	/**
+	 * Sets whether to show the goto last page option
+	 * 
+	 * @param showLastButton if true show the goto last page option
+	 */
 	public void setShowLastButton(boolean showLastButton) {
 		this.showLastButton = showLastButton;
 	}
 
+	/**
+	 * Return if the goto next page button is shown
+	 */
 	public boolean isShowNextButton() {
 		return showNextButton;
 	}
 
+	/**
+	 * Sets whether to show the goto next page option
+	 */
 	public void setShowNextButton(boolean showNextButton) {
 		this.showNextButton = showNextButton;
 	}
 
+	/**
+	 * Return if the goto previous page button is shown 
+	 */
 	public boolean isShowPreviousButton() {
 		return showPreviousButton;
 	}
 
+	/**
+	 * Sets whether to show the goto previous page option
+	 */
 	public void setShowPreviousButton(boolean showPreviousButton) {
 		this.showPreviousButton = showPreviousButton;
 	}
 
+	/**
+	 * Return the number of pages to show on the pagination component 
+	 */
 	public int getPagesToShow() {
 		return pagesToShow;
 	}
 
+	/**
+	 * Sets the number of pages to show on the pagination component 
+	 */
 	public void setPagesToShow(int pagesToShow) {
 		this.pagesToShow = pagesToShow;
-		setPage(pageNumberModel.getObject());
 	}
 
+	/**
+	 * Get the total of pages shown
+	 * 
+	 * @return totalResults / numberOfResultsPerPage
+	 */
 	public int getTotalPages() {
 		return (int) Math.ceil(totalResults.getObject()/ (double) numberResultsPerPage);
 	}
 
+	/**
+	 * Return if the goto first page button is hidden when it's not needed
+	 */
 	public boolean isHiddenFirstButton() {
 		return hiddenFirstButton;
 	}
 
+	/**
+	 * Sets if the goto first page button should be hidden when it's not needed
+	 */
 	public void setHiddenFirstButton(boolean hiddenFirstButton) {
 		this.hiddenFirstButton = hiddenFirstButton;
 	}
 
+	/**
+	 * Return if the goto last page button is hidden when it's not needed
+	 */
 	public boolean isHiddenLastButton() {
 		return hiddenLastButton;
 	}
 
+	/**
+	 * Sets if the goto last page button should be hidden when it's not needed
+	 */
 	public void setHiddenLastButton(boolean hiddenLastButton) {
 		this.hiddenLastButton = hiddenLastButton;
 	}
 
+	/**
+	 * Return if the goto previous page button is hidden when it's not needed
+	 */
 	public boolean isHiddenPreviousButton() {
 		return hiddenPreviousButton;
 	}
 
+	/**
+	 * Sets if the goto previous page button should be hidden when it's not needed
+	 */
 	public void setHiddenPreviousButton(boolean hiddenPreviousButton) {
 		this.hiddenPreviousButton = hiddenPreviousButton;
 	}
 
+	/**
+	 * Return if the goto next page button is hidden when it's not needed
+	 */
 	public boolean isHiddenNextButton() {
 		return hiddenNextButton;
 	}
 
+	/**
+	 * Sets if the goto next page button should be hidden when it's not needed
+	 */
 	public void setHiddenNextButton(boolean hiddenNextButton) {
 		this.hiddenNextButton = hiddenNextButton;
 	}
 
-	
+	/**
+	 * This method is called every time the current page changes
+	 * 
+	 * @param target ajax target (paginator was already added)
+	 * @param page the new current page
+	 */
 	public abstract void onPageChange(AjaxRequestTarget target, IModel<Integer> page);
 
+	/**
+	 * Get the model with the total number of results
+	 * 
+	 * @return model with number of results
+	 */
 	public IModel<Integer> getTotalResults() {
 		return totalResults;
 	}
 
+	/**
+	 * Set the model with the total number of results
+	 * 
+	 * @param totalResults model with the number of results
+	 */
 	public void setTotalResults(IModel<Integer> totalResults) {
 		this.totalResults = totalResults;
 	}
 
+	/**
+	 * Get the number of results per page that the paginator uses to calculate how many pages should exist
+	 * 
+	 * @return number of results per page
+	 */
 	public int getNumberResultsPerPage() {
 		return numberResultsPerPage;
 	}
 
+	/**
+	 * Set the number of results per page that the paginator uses to calculate how many pages should exist
+	 * 
+	 * @param numberResultsPerPage number of results per page
+	 */
 	public void setNumberResultsPerPage(int numberResultsPerPage) {
 		this.numberResultsPerPage = numberResultsPerPage;
 	}
+	
+	/**
+	 * Get the first first index for the current page
+	 * 
+	 * @return page * numberOfResultsPerPage
+	 */
 	public int getCurrentIndex(){
-		return this.pageNumberModel.getObject() * numberResultsPerPage;
+		return getModelObject() * numberResultsPerPage;
 	}
 }
