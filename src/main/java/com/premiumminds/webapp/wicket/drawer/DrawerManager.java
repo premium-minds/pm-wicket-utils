@@ -27,6 +27,7 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
@@ -34,6 +35,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.resource.JQueryPluginResourceReference;
 
@@ -46,6 +48,7 @@ public class DrawerManager extends Panel {
 
 	private static final ResourceReference DRAWER_JAVASCRIPT = new JQueryPluginResourceReference(DrawerManager.class, "bootstrap-modaldrawer.js");
 	private static final ResourceReference MANAGER_JAVASCRIPT = new JQueryPluginResourceReference(DrawerManager.class, "bootstrap-modalmanager.js");
+	private static final ResourceReference DRAWER_CSS = new CssResourceReference(DrawerManager.class, "bootstrap-modaldrawer.css");
 	
 	private static class ListItem extends Panel {
 		private static final long serialVersionUID = 3805629765663003401L;
@@ -303,6 +306,7 @@ public class DrawerManager extends Panel {
 
 		response.render(JavaScriptHeaderItem.forReference(DRAWER_JAVASCRIPT));
 		response.render(JavaScriptHeaderItem.forReference(MANAGER_JAVASCRIPT));
+		response.render(CssHeaderItem.forReference(DRAWER_CSS));
 
 		Iterator<ListItem> iter = drawers.descendingIterator();
 		WebMarkupContainer drawer;

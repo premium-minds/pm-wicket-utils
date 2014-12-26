@@ -246,7 +246,7 @@
 		createContainer: function (modal) {
 			var $container;
 
-			$container = $('<div class="modal-scrollable">')
+			$container = $('<div class="stack modal-scrollable">')
 				.css('z-index', getzIndex('modal', this.getOpenModals().length))
 				.appendTo(this.$element);
 
@@ -373,8 +373,8 @@
 		return function (type, pos) {
 
 			if (typeof zIndexFactor === 'undefined'){
-				var $baseModal = $('<div class="modal hide" />').appendTo('body'),
-					$baseBackdrop = $('<div class="modal-backdrop hide" />').appendTo('body');
+				var $baseModal = $('<div class="stack modal hide" />').appendTo('body'),
+					$baseBackdrop = $('<div class="stack modal-backdrop hide" />').appendTo('body');
 
 				baseIndex['modal'] = +$baseModal.css('z-index');
 				baseIndex['backdrop'] = +$baseBackdrop.css('z-index');
