@@ -63,6 +63,7 @@ public class BootstrapPaginatorTest {
 			}
 		};
 		paginator.setTotalResults(Model.of(100));
+		paginator.setNumberResultsPerPage(10);
 		tester.startComponentInPage(paginator);
 		
 		tester.clickLink("paginator:last:link");
@@ -159,6 +160,7 @@ public class BootstrapPaginatorTest {
 			}
 		};
 		paginator.setTotalResults(Model.of(100));
+		paginator.setNumberResultsPerPage(10);
 		tester.startComponentInPage(paginator);
 		tester.clickLink("paginator:page:4:link");
 		assertEquals(4, (int) pageBox.value);
