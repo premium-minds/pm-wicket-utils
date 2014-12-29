@@ -263,16 +263,16 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	// hack to remove wicket:panel tag from output
 	@Override
-	protected void onBeforeRender() {
+	protected void onRender() {
 		Application.get().getMarkupSettings().setStripWicketTags(true);
-		super.onBeforeRender();
+		super.onRender();
 	}
 	
 	// hack to remove wicket:panel tag from output
 	@Override
-	protected void onAfterRender() {
+	protected void onAfterRenderChildren() {
+		super.onAfterRenderChildren();
 		Application.get().getMarkupSettings().setStripWicketTags(stripTags);
-		super.onAfterRender();
 	}
 	
 	/**
