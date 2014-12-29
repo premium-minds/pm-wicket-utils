@@ -238,8 +238,10 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 	}
 	
 	private int getThreshold(){
+		if(getTotalPages()<=getModelObject()) setModelObject(0);
+		
 		if(getModelObject()>pagesToShow-2) return (int) Math.max(Math.min(getModelObject()-(Math.floor(pagesToShow/2)), getTotalPages()-pagesToShow), 0);
-		if(getModelObject()>getTotalPages()-pagesToShow) return getTotalPages()-pagesToShow;
+		if(getModelObject()>getTotalPages()-pagesToShow) return Math.max(getTotalPages()-pagesToShow, 0);
 		return 0;
 	}
 	
