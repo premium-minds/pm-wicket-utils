@@ -20,87 +20,119 @@ package com.premiumminds.webapp.wicket.bootstrap;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import org.apache.wicket.Page;
-import org.apache.wicket.Session;
+import org.apache.wicket.Component;
+import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.request.Request;
-import org.apache.wicket.request.Response;
-import org.apache.wicket.util.tester.TagTester;
-import org.apache.wicket.util.tester.WicketTester;
+import org.apache.wicket.markup.IMarkupFragment;
+import org.apache.wicket.markup.MarkupFragment;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.junit.Test;
 
-import com.premiumminds.webapp.wicket.bootstrap.BootstrapDatepicker;
-import com.premiumminds.webapp.wicket.bootstrap.SpecialDate;
+import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBehaviour;
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 
-public class BootstrapDatepickerTest {
-	
-	private BootstrapDatepicker component;
-	private DateTextField field;
+public class BootstrapDatepickerTest extends AbstractComponentTest {
+	private class TestBootstrapDatepicker extends BootstrapDatepicker {
+		private static final long serialVersionUID = 1L;
+
+		private DateTextField field;
+
+		public TestBootstrapDatepicker(String id) {
+			super(id);
+
+			field = new DateTextField("input");
+		}
+
+		@Override
+		protected void onInitialize() {
+			super.onInitialize();
+			add(field);
+		}
+
+		@Override
+		public IMarkupFragment getMarkup() {
+			IMarkupFragment all = getAssociatedMarkup();
+			for (int i = 0; i < all.size(); i++ ) {
+				if (!all.get(i).toString().startsWith("<!--"))
+					return new MarkupFragment(all,  i);
+			}
+
+			return all;
+		}
+
+		public Component getInnerField() {
+			return field;
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	private Date christmas = new Date(110, 11, 25);
+	@SuppressWarnings("deprecation")
+	private Date newYear = new Date(110, 0, 1);
 
 	@Test
-	public void testRender() {
-		WicketTester tester = createTester(true);
-		
-		TagTester tag = tester.getTagByWicketId("datepicker");
-		
-		assertTrue(tag.hasAttribute("data-date-format"));
-		assertEquals(field.getTextFormat().toLowerCase(), tag.getAttribute("data-date-format"));
-	}
-	
-	@Test
-	public void testLanguage(){
-		WicketTester tester = createTester(false);
-		
-		TagTester tag = tester.getTagByWicketId("datepicker");
-		
-		assertTrue(tag.hasAttribute("data-date-language"));
-		assertEquals("fr", tag.getAttribute("data-date-language"));
-		
-		// would be cool to test if js file was also included
-	}
-	
-	
-	private WicketTester createTester(boolean enabled){
-		WicketTester tester = new WicketTester(new WebApplication() {
-			
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-			
-			@Override
-			public Session newSession(Request request, Response response) {
-				Session session = super.newSession(request, response);
-				session.setLocale(Locale.FRENCH);
-				return session;
-			}
-		}){
-			@Override
-			protected String createPageMarkup(String componentId) {
-				return "<div class=\"date\" wicket:id=\"datepicker\">"+
-						"	<input size=\"16\" type=\"text\" class=\"input-small\" wicket:id=\"input\">"+
-						"	<span class=\"add-on\"><i class=\"icon-calendar\"></i></span>"+
-						"</div>";
-			}
-		};
-		
-		component = new BootstrapDatepicker("datepicker") {
+	public void testDatepickerInvokeSpecialDates() {
+		final List<SpecialDate> list = Arrays.asList(new SpecialDate(christmas, "holiday", "Christmas"));
+
+		BootstrapDatepicker picker = new BootstrapDatepicker("picker") {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public List<SpecialDate> getSpecialDates() {
-				return null;
+			public Collection<SpecialDate> getSpecialDates() {
+				return list;
 			}
-			
 		};
+
+		List<? extends Behavior> behaviors = picker.getBehaviors();
+		assertEquals(1, behaviors.size());
+		assertTrue(behaviors.get(0) instanceof BootstrapDatePickerBehaviour);
+		assertEquals(list, ((BootstrapDatePickerBehaviour)behaviors.get(0)).getSpecialDates());
+	}
+
+	@Test
+	public void testDatepickerLifecycle() {
+		TestBootstrapDatepicker picker = new TestBootstrapDatepicker("picker");
+
+		startTest(picker);
+
+		getTester().assertComponent(picker.getPageRelativePath(), TestBootstrapDatepicker.class);
+		getTester().assertComponent(picker.getInnerField().getPageRelativePath(), DateTextField.class);
+		assertEquals(picker.getInnerField(), picker.getDateTextField());
+	}
+
+	@Test
+	public void testLifecycleWithoutDateField() {
+		exception.expect(WicketRuntimeException.class);
+
+		BootstrapDatepicker picker = new BootstrapDatepicker("picker");
+
+		startTest(picker);
 		
-		component.add(field = new DateTextField("input"));
-		
-		tester.startComponentInPage(component);
-		return tester;
+	}
+
+	@Test
+	public void testIGenericComponentImplementation() {
+		IModel<Date> model = new Model<Date>(christmas);
+		BootstrapDatepicker picker = new TestBootstrapDatepicker("picker");
+
+		startTest(picker);
+
+		assertNull(picker.getModel());
+		assertNull(picker.getModelObject());
+
+		picker.setModel(model);
+		assertEquals(model, picker.getModel());
+		assertEquals(christmas,  picker.getModelObject());
+
+		picker.setModelObject(newYear);
+		assertEquals(newYear, picker.getModelObject());
+		assertEquals(model, picker.getModel());
 	}
 }
