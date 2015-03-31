@@ -203,10 +203,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 	 */
 	@After
 	public void tearDown() {
-		if (running) {
-			running = false;
-			wicketApp.setAjaxRequestTargetProvider(orig);
-		}
+		resetTest();
 	}
 
 	/**
@@ -305,6 +302,16 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 			throw new TestNotStartedException();
 
 		return target;
+	}
+
+	/**
+	 * Resets the test. Useful for running multiple components in the same test method.
+	 */
+	protected void resetTest() {
+		if (running) {
+			running = false;
+			wicketApp.setAjaxRequestTargetProvider(orig);
+		}
 	}
 
 	/**
