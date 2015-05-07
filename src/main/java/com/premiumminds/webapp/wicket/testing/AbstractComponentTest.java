@@ -170,12 +170,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 	private boolean running;
 
 	public AbstractComponentTest() {
-		wicketApp = new WebApplication() {
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-		};
+		wicketApp = createApp();
 	}
 
 	/**
@@ -193,7 +188,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 	 */
 	@Before
 	public void setUp() {
-		tester = new ExtendedWicketTester(wicketApp);
+		tester = createTester(wicketApp);
 		running = false;
 	}
 
@@ -204,6 +199,33 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 	@After
 	public void tearDown() {
 		resetTest();
+	}
+
+	/**
+	 * Creates an instance of a Wicket {@link WebApplication} in which to run the tests. Can be overriden if specific functionality is
+	 * needed in the app, such as a specific home page. Note that this method is only called once, in the test constructor.
+	 * 
+	 * @return An instance of a {@link WebApplication}.
+	 */
+	protected WebApplication createApp() {
+		return new WebApplication() {
+			@Override
+			public Class<? extends Page> getHomePage() {
+				return null;
+			}
+		};
+	}
+
+	/**
+	 * Creates the Wicket tester object that will support the tests. Can be overriden if additional functionality is required
+	 * in the tester, such as replacing the default page for component tests.
+	 * 
+	 * @param app
+	 * 			The Wicket application that the tester will associate with the pages and components created
+	 * @return A new instance of the tester
+	 */
+	protected ExtendedWicketTester createTester(WebApplication app) {
+		return new ExtendedWicketTester(app);
 	}
 
 	/**
