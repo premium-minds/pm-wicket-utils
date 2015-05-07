@@ -47,7 +47,7 @@ public class PortugueseNIFValidator extends StringValidator {
 		}
 	}
 
-	private boolean isNIFValid(String number){
+	public static boolean isNIFValid(String number){
 		// 9 digits required
         if(number.length() != 9) return false;
         // start with 1, 2, 5, 6, 8 or 9
