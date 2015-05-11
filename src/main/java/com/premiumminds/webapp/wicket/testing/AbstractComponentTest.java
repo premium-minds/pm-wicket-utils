@@ -314,10 +314,12 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 	}
 
 	/**
-	 * @return A reference to the mock Ajax request target object created by {@link #startTest(Component)}
-	 * or {@link #startTest(Component, boolean)}. The returned object is useless if <tt>startTest</tt> is called with
-	 * <tt>mockRequest</tt>=<tt>false</tt>, but it is guaranteed not to be <tt>null</tt>.
-	 * @throws TestNotStartedException if this method is called before those methods.
+	 * @return A reference to the mock Ajax request target object created by {@link #startTest(Component)},
+	 * {@link #startTest(Component, boolean)}, {@link #startFormComponentTest(Component, String)}
+	 * or {@link #startFormComponentTest(Component, String, boolean)}.
+	 * The object returned is always the mock target, regardless of whether requests are currently being mocked or not.
+	 * @throws TestNotStartedException if this method is called before any of those methods,
+	 * or if {@link #resetTest()} is called.
 	 */
 	protected AjaxRequestTarget getTarget() throws TestNotStartedException {
 		if (!running)
@@ -327,12 +329,30 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 	}
 
 	/**
+	 * Optionally creates and injects a mock AJAX request target for the component to interact with.
+	 * Note that {@link AjaxRequestTarget#addListener(IListener)}, {@link AjaxRequestTarget#respond(IRequestCycle)}
+	 * and {@link AjaxRequestTarget#detach(IRequestCycle)} are ignored by the mock, as they are used by the wicket
+	 * framework itself.
+	 * 
+	 * @param mockRequests
+	 * 				If the parameter is true, a mock request is created. Use this to verify the component's calls into Ajax.
+	 * 				If the parameter is false, a mock request is not created and the default request created by the wicket
+	 *              framework is used instead. Use this to call into the component from Ajax.
+	 */
+	protected void mockRequest(boolean mockRequest) {
+		if (mockRequest)
+			wicketApp.setAjaxRequestTargetProvider(this);
+		else
+			wicketApp.setAjaxRequestTargetProvider(orig);
+	}
+
+	/**
 	 * Resets the test. Useful for running multiple components in the same test method.
 	 */
 	protected void resetTest() {
 		if (running) {
 			running = false;
-			wicketApp.setAjaxRequestTargetProvider(orig);
+			mockRequest(false);
 		}
 	}
 
@@ -353,8 +373,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 				.withConstructor(this, tester.getLastRenderedPage())
 				.createStrictMock();
 		orig = wicketApp.getAjaxRequestTargetProvider();
-		if (mockRequest)
-			wicketApp.setAjaxRequestTargetProvider(this);
+		mockRequest(mockRequest);
 		running = true;
 	}
 
