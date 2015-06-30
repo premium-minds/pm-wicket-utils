@@ -49,25 +49,32 @@ public class PortugueseNIFValidator extends StringValidator {
 
 	public static boolean isNIFValid(String number){
 		// 9 digits required
-        if(number.length() != 9) return false;
-        // start with 1, 2, 5, 6, 8 or 9
-        if(!"125689".contains(Character.toString(number.charAt(0)))) return false;
+		if(number.length() != 9) {
+			return false;
+		}
+		// start with 1, 2, 5, 6, 8 or 9
+		if(!"125689".contains(Character.toString(number.charAt(0)))){
+			return false;
+		}
 
-        int[] numbers = new int[9];
-        char[] chars = number.toCharArray();
-        for(int i = 0; i < 9; i++) numbers[i] = Integer.parseInt(Character.toString(chars[i]));
-       
-        // mod 11
-        float result = 0.0f;
-        for(int i = 0, j = 9; i < 8; i++, j--) {
-            result += (j*numbers[i]);
-        }
-        
-        float verification = 11-(result%11);
-        if (verification > 9) verification = verification%10; 
-        
-		if(numbers[8] == 0) return (verification == 1 || verification == 0); 
-        
-        return verification == numbers[8]  ;		
+		int[] numbers = new int[9];
+		char[] chars = number.toCharArray();
+		for(int i = 0; i < 9; i++) {
+			numbers[i] = Integer.parseInt(Character.toString(chars[i]));
+		}
+
+		// A soma ponderada de todos os algarismos, incluindo o controlo, deve ser 11
+		int result = 0;
+		for(int i = 0, j = 9; i < 8; i++, j--) {
+			result += (j*numbers[i]);
+		}
+
+		// Caso especial, se a soma parcial for igual a 1 modulo 11, 
+		// então deveriamos juntar 10, mas 10 não se representa com um digito só...
+		if (result % 11 == 1) {
+			return numbers[8] == 0;
+		}
+
+		return (result + numbers[8]) % 11 == 0;
 	}
 }
