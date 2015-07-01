@@ -63,14 +63,16 @@ public class PortugueseNIFValidator extends StringValidator {
 			numbers[i] = Integer.parseInt(Character.toString(chars[i]));
 		}
 
-		// A soma ponderada de todos os algarismos, incluindo o controlo, deve ser 11
+		// The weighted sum of all digits, including the control digit, should be multiple of 11
 		int result = 0;
 		for(int i = 0, j = 9; i < 8; i++, j--) {
 			result += (j*numbers[i]);
 		}
 
-		// Caso especial, se a soma parcial for igual a 1 modulo 11, 
-		// então deveriamos juntar 10, mas 10 não se representa com um digito só...
+		// The infamous bug:
+		// When the weighted sum of all digits, excluding the control digit,
+		// equals 1 module 11, the control digit should be 10 (sic).
+		// Then, we replace 10 by 0:
 		if (result % 11 == 1) {
 			return numbers[8] == 0;
 		}
