@@ -49,25 +49,34 @@ public class PortugueseNIFValidator extends StringValidator {
 
 	public static boolean isNIFValid(String number){
 		// 9 digits required
-        if(number.length() != 9) return false;
-        // start with 1, 2, 5, 6, 8 or 9
-        if(!"125689".contains(Character.toString(number.charAt(0)))) return false;
+		if(number.length() != 9) {
+			return false;
+		}
+		// start with 1, 2, 5, 6, 8 or 9
+		if(!"125689".contains(Character.toString(number.charAt(0)))){
+			return false;
+		}
 
-        int[] numbers = new int[9];
-        char[] chars = number.toCharArray();
-        for(int i = 0; i < 9; i++) numbers[i] = Integer.parseInt(Character.toString(chars[i]));
-       
-        // mod 11
-        float result = 0.0f;
-        for(int i = 0, j = 9; i < 8; i++, j--) {
-            result += (j*numbers[i]);
-        }
-        
-        float verification = 11-(result%11);
-        if (verification > 9) verification = verification%10; 
-        
-		if(numbers[8] == 0) return (verification == 1 || verification == 0); 
-        
-        return verification == numbers[8]  ;		
+		int[] numbers = new int[9];
+		char[] chars = number.toCharArray();
+		for(int i = 0; i < 9; i++) {
+			numbers[i] = Integer.parseInt(Character.toString(chars[i]));
+		}
+
+		// The weighted sum of all digits, including the control digit, should be multiple of 11
+		int result = 0;
+		for(int i = 0, j = 9; i < 8; i++, j--) {
+			result += (j*numbers[i]);
+		}
+
+		// The infamous bug:
+		// When the weighted sum of all digits, excluding the control digit,
+		// equals 1 module 11, the control digit should be 10 (sic).
+		// Then, we replace 10 by 0:
+		if (result % 11 == 1) {
+			return numbers[8] == 0;
+		}
+
+		return (result + numbers[8]) % 11 == 0;
 	}
 }

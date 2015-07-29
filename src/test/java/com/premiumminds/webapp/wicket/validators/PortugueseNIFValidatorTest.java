@@ -82,6 +82,14 @@ public class PortugueseNIFValidatorTest {
 		assertEquals(1, validatable.getErrors().size());
 	}
 
-
+	@Test
+	public void testAnotherInvalidNif() {
+		IValidator<String> validator = new PortugueseNIFValidator();
+		
+		Validatable<String> validatable = new Validatable<String>("505646780");
+		validator.validate(validatable);
+		
+		assertEquals(1, validatable.getErrors().size());
+	}
 
 }
