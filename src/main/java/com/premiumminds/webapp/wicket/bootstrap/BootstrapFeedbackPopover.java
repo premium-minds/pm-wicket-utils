@@ -39,8 +39,8 @@ import org.apache.wicket.util.visit.IVisitor;
 
 /**
  * Display feedback messages of a {@link FormComponent} with a Bootstrap Popover on the component.
- * <p>
- * <p>
+ * <p>&nbsp;</p>
+ * <p>&nbsp;</p>
  * Example:
  *	<pre>
  *	&lt;div class="control-group" wicket:id="feedback"&gt;
@@ -48,15 +48,15 @@ import org.apache.wicket.util.visit.IVisitor;
  *  &lt;/div&gt;
  *	</pre>
  * 
- * <p>
+ * <p>&nbsp;</p>
  * Java code:
  * <pre>
  *   add(new BootstrapFeedbackPopover("feedback").add(new TextField&lt;String&gt;("input")));
  * </pre>
  * 
- * <p>
+ * <p>&nbsp;</p>
  * <strong>NOTE:</strong> this popover has a special html class 'feedback-popover' to create custom css.
- * <p>
+ * <p>&nbsp;</p>
  * @author acamilo
  */
 public class BootstrapFeedbackPopover extends WebMarkupContainer implements IFeedback {

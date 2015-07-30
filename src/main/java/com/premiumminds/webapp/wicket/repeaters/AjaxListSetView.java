@@ -38,8 +38,9 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 /**
- * An AjaxListSetView is a repeater that makes it easy to display/work with {@link ListOrderedSet}s (collection with unique values, but with {@link List} order). 
- * This repeater is great when you have {@link FormComponent}s for each row and want to change the list through AJAX, because only new elements of the list are
+ * 
+ * An AjaxListSetView is a repeater that makes it easy to display/work with ListOrderedSets (collection with unique values, but with List order). 
+ * This repeater is great when you have FormComponents for each row and want to change the list through AJAX, because only new elements of the list are
  * created in the DOM, the rest is just reordered.
  * <p>
  * Example:
@@ -178,7 +179,7 @@ public abstract class AjaxListSetView<T extends Serializable> extends AbstractRe
 
 	/**
 	 * Populate a given item.
-	 * <p>
+	 * <p>&nbsp;</p>
 	 * <b>be careful</b> to add any components to the list item. So, don't do:
 	 * 
 	 * <pre>
@@ -191,7 +192,7 @@ public abstract class AjaxListSetView<T extends Serializable> extends AbstractRe
 	 * item.add(new Label(&quot;foo&quot;, &quot;bar&quot;));
 	 * </pre>
 	 * 
-	 * </p>
+	 * <p>&nbsp;</p>
 	 * 
 	 * @param item
 	 *            The item to populate

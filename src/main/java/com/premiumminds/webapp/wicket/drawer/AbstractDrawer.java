@@ -85,7 +85,7 @@ public abstract class AbstractDrawer extends Panel {
 	/**
 	 * @return
 	 * 			The current value of the flag that controls whether the drawer can be
-	 * 			closed from the browser. See {@link #setAllowClose()}.
+	 * 			closed from the browser. See {@link #setAllowClose(boolean allowClose)}.
 	 */
 	public boolean isAllowClose() {
 		return allowClose;

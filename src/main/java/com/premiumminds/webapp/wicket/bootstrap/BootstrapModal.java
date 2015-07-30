@@ -30,15 +30,15 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 /**
  * A bootstrap Modal (<a href="http://getbootstrap.com/javascript/#modals">http://getbootstrap.com/javascript/#modals</a>)
- * <p>
- * <p>
+ * <p>&nbsp;</p>
+ * <p>&nbsp;</p>
  * Java Code:
  * <pre>
  *    public abstract class ConfirmModal extends BootstrapModal{
  *		public ConfirmModal(String id) {
  *			super(id);
  *
- *			AjaxLink<Void> confirmBtn = new AjaxLink<Void>("closeOk") {
+ *			AjaxLink&lt;Void&gt; confirmBtn = new AjaxLink&lt;Void&gt;("closeOk") {
  *				public void onClick(AjaxRequestTarget target) {
  *					hide();
  *					target.add(ConfirmModal.this);
@@ -48,8 +48,8 @@ import org.apache.wicket.markup.html.panel.Panel;
  *		}
  *	}
  * </pre>
- * <p>
- * <p>
+ * <p>&nbsp;</p>
+ * <p>&nbsp;</p>
  * HTML ConfirmModal.html:
  * <pre>
  * &lt;wicket:extend&gt;

@@ -82,6 +82,10 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 	private boolean stripTags; // hack to not render wicket tags
 
 	/**
+	 * Creates a paginator with 20 results per page by default
+	 * 
+	 * @param id component id
+	 * 
 	 * @deprecated As of release 2.6, replaced by {@link #BootstrapPaginator(String, IModel)}
 	 */
 	@Deprecated
@@ -318,6 +322,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Return if the goto first page button is shown
+	 * 
+	 * @return true if the goto first page button is shown
 	 */
 	public boolean isShowFirstButton() {
 		return showFirstButton;
@@ -325,6 +331,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Sets whether to show the goto first page option
+	 * 
+	 * @param showFirstButton whether to show the goto first page option
 	 */
 	public void setShowFirstButton(boolean showFirstButton) {
 		this.showFirstButton = showFirstButton;
@@ -332,6 +340,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Return if the goto last page button is shown
+	 * 
+	 * @return true if the goto last page button is shown
 	 */
 	public boolean isShowLastButton() {
 		return showLastButton;
@@ -348,6 +358,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Return if the goto next page button is shown
+	 * 
+	 * @return true if the goto next page button is shown
 	 */
 	public boolean isShowNextButton() {
 		return showNextButton;
@@ -355,13 +367,17 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Sets whether to show the goto next page option
+	 * 
+	 * @param showNextButton whether to show the goto next page option
 	 */
 	public void setShowNextButton(boolean showNextButton) {
 		this.showNextButton = showNextButton;
 	}
 
 	/**
-	 * Return if the goto previous page button is shown 
+	 * Return if the goto previous page button is shown
+	 *  
+	 * @return true if the goto previous page button is shown
 	 */
 	public boolean isShowPreviousButton() {
 		return showPreviousButton;
@@ -369,6 +385,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Sets whether to show the goto previous page option
+	 * 
+	 * @param showPreviousButton whether to show the goto previous page option
 	 */
 	public void setShowPreviousButton(boolean showPreviousButton) {
 		this.showPreviousButton = showPreviousButton;
@@ -376,6 +394,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Return the number of pages to show on the pagination component 
+	 *  
+	 * @return integer with the number of pages to show on the pagination component
 	 */
 	public int getPagesToShow() {
 		return pagesToShow;
@@ -383,6 +403,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Sets the number of pages to show on the pagination component 
+	 * 
+	 * @param pagesToShow number of pages to show on the pagination component
 	 */
 	public void setPagesToShow(int pagesToShow) {
 		this.pagesToShow = pagesToShow;
@@ -399,6 +421,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Return if the goto first page button is hidden when it's not needed
+	 * 
+	 * @return true if the goto first page button is hidden when it's not needed
 	 */
 	public boolean isHiddenFirstButton() {
 		return hiddenFirstButton;
@@ -406,6 +430,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Sets if the goto first page button should be hidden when it's not needed
+	 * 
+	 * @param hiddenFirstButton if the goto first page button should be hidden when it's not needed
 	 */
 	public void setHiddenFirstButton(boolean hiddenFirstButton) {
 		this.hiddenFirstButton = hiddenFirstButton;
@@ -413,6 +439,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Return if the goto last page button is hidden when it's not needed
+	 * 
+	 * @return true if the goto last page button is hidden when it's not needed
 	 */
 	public boolean isHiddenLastButton() {
 		return hiddenLastButton;
@@ -420,6 +448,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Sets if the goto last page button should be hidden when it's not needed
+	 * 
+	 * @param hiddenLastButton if the goto last page button should be hidden when it's not needed
 	 */
 	public void setHiddenLastButton(boolean hiddenLastButton) {
 		this.hiddenLastButton = hiddenLastButton;
@@ -427,6 +457,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Return if the goto previous page button is hidden when it's not needed
+	 * 
+	 * @return true if the goto previous page button is hidden when it's not needed
 	 */
 	public boolean isHiddenPreviousButton() {
 		return hiddenPreviousButton;
@@ -434,6 +466,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Sets if the goto previous page button should be hidden when it's not needed
+	 * 
+	 * @param hiddenPreviousButton if the goto previous page button should be hidden when it's not needed
 	 */
 	public void setHiddenPreviousButton(boolean hiddenPreviousButton) {
 		this.hiddenPreviousButton = hiddenPreviousButton;
@@ -441,6 +475,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Return if the goto next page button is hidden when it's not needed
+	 * 
+	 * @return true if the goto next page button is hidden when it's not needed
 	 */
 	public boolean isHiddenNextButton() {
 		return hiddenNextButton;
@@ -448,6 +484,8 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 
 	/**
 	 * Sets if the goto next page button should be hidden when it's not needed
+	 * 
+	 * @param hiddenNextButton if the goto next page button should be hidden when it's not needed
 	 */
 	public void setHiddenNextButton(boolean hiddenNextButton) {
 		this.hiddenNextButton = hiddenNextButton;

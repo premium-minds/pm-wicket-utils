@@ -52,6 +52,11 @@ public class BootstrapFeedbackPanel extends FeedbackPanel {
 	/**
 	 * Constructor. Builds a feedback panel which filters messages based on the component
 	 * 
+	 * @param id
+	 * 				the component id
+	 * @param componentToFilter
+	 * 				catch only feedback from this component
+	 *
 	 * @see org.apache.wicket.markup.html.panel.ComponentFeedbackPanel
 	 * 
 	 */
@@ -59,6 +64,18 @@ public class BootstrapFeedbackPanel extends FeedbackPanel {
 		this(id, new ComponentFeedbackMessageFilter(componentToFilter));
 	}
 
+	/**
+	 * Constructor. Builds a feedback panel which filters messages based on the component
+	 * 
+	 * @param id
+	 * 				the component id
+	 * @param level
+	 * 				the message level
+	 * @param componentToFilter
+	 * 				catch only feedback from this component
+	 * 
+	 * @see org.apache.wicket.markup.html.panel.ComponentFeedbackPanel
+	 */
 	public BootstrapFeedbackPanel(String id, final int level, final Component componentToFilter) {
 		this(id, new AndComposedFeedbackMessageFilter(
 					new ComponentFeedbackMessageFilter(componentToFilter),
@@ -66,10 +83,27 @@ public class BootstrapFeedbackPanel extends FeedbackPanel {
 		return;
 	}
 
+	/**
+	 * Constructor. Builds a feedback panel which filters messages based on the component
+	 * 
+	 * @param id
+	 * 				the component id
+	 * @see org.apache.wicket.markup.html.panel.ComponentFeedbackPanel
+	 */
 	public BootstrapFeedbackPanel(String id) {
 		super(id, null);
 	}
 
+	/**
+	 * Constructor. Builds a feedback panel which filters messages based on the component
+	 * 
+	 * @param id
+	 * 				the component id
+	 * @param filter
+	 * 				filter to be applied to each message
+	 * 
+	 * @see org.apache.wicket.markup.html.panel.ComponentFeedbackPanel
+	 */
 	public BootstrapFeedbackPanel(String id, IFeedbackMessageFilter filter) {
 		super(id);
 		this.filter = filter;

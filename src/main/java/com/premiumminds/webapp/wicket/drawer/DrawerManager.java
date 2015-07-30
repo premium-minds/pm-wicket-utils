@@ -181,7 +181,7 @@ public class DrawerManager extends Panel {
 	/**
 	 * Pops a series of open drawers from the stack and closes them, displaying the one underneath, or the main page.
 	 * This method requires an AJAX request. DrawerManager does not support closing drawers during page construction.
-	 * Note that this code sets each drawer's allow close flag to true. See {@link AsbtractDrawer} for more information.
+	 * Note that this code sets each drawer's allow close flag to true. See {@link AbstractDrawer} for more information.
 	 * 
 	 * @param drawer
 	 * 			The last drawer to be closed. This drawer and all the ones above it are closed.
@@ -225,6 +225,7 @@ public class DrawerManager extends Panel {
 	/**
 	 * @param drawerClass
 	 * 			The expected class of the topmost open drawer.
+	 * @param <T> drawer type
 	 * @return
 	 * 			A reference to the topmost open drawer, or null if there isn't one.
 	 * 			If the topmost open drawer cannot be cast to the class in the first argument,

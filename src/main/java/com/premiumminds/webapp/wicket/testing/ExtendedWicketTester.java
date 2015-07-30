@@ -41,7 +41,7 @@ import org.apache.wicket.util.tester.WicketTester;
 /**
  * A helper class to ease unit testing of Wicket form components without the need for a servlet
  * container. The class adds methods to start a component in a form, which have the same functionality as
- * {@link BaseWicketTester#startComponentInPage} and variants.
+ * {@link #startComponentInPage(Component)} and variants.
  */
 public class ExtendedWicketTester extends WicketTester {
 	private ComponentInForm componentInForm;
@@ -179,7 +179,7 @@ public class ExtendedWicketTester extends WicketTester {
 
 	/**
 	 * Process a component. A web page will be automatically created with markup created by the
-	 * {@link #createFormPageMarkup(String)}.
+	 * {@link #createFormPageMarkup(String, String)}.
 	 * <p>
 	 *     <strong>Note</strong>: the component id is set by the user. To
 	 *     reach any of its children use this id + their relative path to the component itself. For example
@@ -204,7 +204,7 @@ public class ExtendedWicketTester extends WicketTester {
 	/**
 	 * Process a component. A web page will be automatically created with the {@code pageMarkup}
 	 * provided. In case {@code pageMarkup} is null, the markup will be automatically created with
-	 * {@link #createFormPageMarkup(String)}.
+	 * {@link #createFormPageMarkup(String, String)}.
 	 * <p>
 	 *     <strong>Note</strong>: the component id is set by the user. To
 	 *     reach any of its children use this id + their relative path to the component itself. For example
@@ -302,6 +302,8 @@ public class ExtendedWicketTester extends WicketTester {
 	 * 
 	 * @param componentId
 	 *            the id of the component to be tested
+	 * @param inputType
+	 * 			  the form input type ('text', 'checkbox', 'password', etc)
 	 * @return the markup for the {@link Page} as {@link String}. Cannot be {@code null}.
 	 */
 	protected String createFormPageMarkup(final String componentId, final String inputType)

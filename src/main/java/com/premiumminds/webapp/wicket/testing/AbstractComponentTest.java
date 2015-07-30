@@ -334,7 +334,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 	 * and {@link AjaxRequestTarget#detach(IRequestCycle)} are ignored by the mock, as they are used by the wicket
 	 * framework itself.
 	 * 
-	 * @param mockRequests
+	 * @param mockRequest
 	 * 				If the parameter is true, a mock request is created. Use this to verify the component's calls into Ajax.
 	 * 				If the parameter is false, a mock request is not created and the default request created by the wicket
 	 *              framework is used instead. Use this to call into the component from Ajax.
