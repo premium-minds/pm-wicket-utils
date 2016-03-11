@@ -85,9 +85,9 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 			}
 		}); 
 		
-		listView = new ListView<T>("list", new LoadableDetachableModel<List<? extends T>>(){
+		listView = new ListView<T>("list", new LoadableDetachableModel<List<T>>(){
 				@Override
-				protected List<? extends T> load() {
+				protected List<T> load() {
 					return getModel().getObject();
 				}
 			})
@@ -182,8 +182,8 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public PageableListModel<? extends List<? extends T>> getModel(){
-		return (PageableListModel<? extends List<? extends T>>) getDefaultModel();
+	public PageableListModel<List<T>> getModel(){
+		return (PageableListModel<List<T>>) getDefaultModel();
 	}
 
 	public void setModel(PageableListModel<? extends List<? extends T>> model){

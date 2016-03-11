@@ -29,9 +29,11 @@ import org.apache.commons.collections4.IteratorUtils;
 import org.apache.commons.collections4.Transformer;
 import org.apache.commons.collections4.set.ListOrderedSet;
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.AjaxRequestTarget.IJavaScriptResponse;
 import org.apache.wicket.ajax.AjaxRequestTarget.IListener;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.model.IModel;
@@ -255,6 +257,10 @@ public abstract class AjaxListSetView<T extends Serializable> extends AbstractRe
 
 		@Override
 		public void onAfterRespond(Map<String, Component> map, IJavaScriptResponse response) {
+		}
+
+		@Override
+		public void updateAjaxAttributes(AbstractDefaultAjaxBehavior behavior, AjaxRequestAttributes attributes) {
 		}
 		
 	}
