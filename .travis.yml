@@ -6,6 +6,9 @@ language: java
 jdk:
     - openjdk7
 
+after_success:
+    - "./share/deploy/deploy-snapshot.sh"
+
 notifications:
     email:
         recipients:
