@@ -2,6 +2,7 @@ com.premiumminds.webapp.wicket
 com.premiumminds.webapp.wicket.behaviours
 com.premiumminds.webapp.wicket.bootstrap
 com.premiumminds.webapp.wicket.bootstrap.datepicker
+com.premiumminds.webapp.wicket.bootstrap.datetimepicker
 com.premiumminds.webapp.wicket.bootstrap.select
 com.premiumminds.webapp.wicket.datepicker
 com.premiumminds.webapp.wicket.drawer
