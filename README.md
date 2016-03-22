@@ -10,10 +10,17 @@ Add the following maven dependency to your project `pom.xml`:
 <dependency>
    <groupId>com.premiumminds</groupId>
    <artifactId>pm-wicket-utils</artifactId>
-   <version>2.7</version>
+   <version>3.0</version>
 </dependency>
 ```
 Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search;quick~pm-wicket-utils) for latest snapshots and releases.
+
+If you use old versions of wicket, here is a compatibility table:
+
+Wicket | pm-wicket-utils |
+| ------------- | ------------- |
+6.x | 2.8 |
+7.x | 3.0 |
 
 ##Documentation
 - [Wiki](https://github.com/premium-minds/pm-wicket-utils/wiki)
