@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 Premium Minds.
+ * Copyright (C) 2016 Premium Minds.
  *
  * This file is part of pm-wicket-utils.
  *
@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with pm-wicket-utils. If not, see <http://www.gnu.org/licenses/>.
  */
-
 .stack.modal-backdrop {
   z-index: 1040;
   position: fixed;
