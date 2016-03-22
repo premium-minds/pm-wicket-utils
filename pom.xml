@@ -182,7 +182,7 @@
 				<artifactId>maven-license-plugin</artifactId>
 				<version>1.10.b1</version>
 				<configuration>
-					<header>share/deploy/licence-preamble.txt</header>
+					<header>share/licence-preamble.txt</header>
 					<strictCheck>true</strictCheck>
 					<failIfMissing>true</failIfMissing>
 					<includes>
@@ -199,6 +199,9 @@
 						<excludes>src/main/java/com/premiumminds/webapp/wicket/repeaters/AbstractRepeater2.java</excludes>
                         <excludes>src/main/java/com/premiumminds/webapp/wicket/drawer/bootstrap-modalmanager.js</excludes>
                         <excludes>src/main/java/com/premiumminds/webapp/wicket/drawer/bootstrap-modaldrawer.js</excludes>
+						<excludes>src/main/java/com/premiumminds/webapp/wicket/bootstrap/datetimepicker/locales/**</excludes>
+						<excludes>src/main/java/com/premiumminds/webapp/wicket/bootstrap/datetimepicker/**/*.js</excludes>
+						<excludes>src/main/java/com/premiumminds/webapp/wicket/bootstrap/datetimepicker/**/*.css</excludes>
 					</excludes>
 					<mapping>
 						<yml>SCRIPT_STYLE</yml>
