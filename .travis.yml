@@ -9,6 +9,9 @@ jdk:
 after_success:
     - "./share/deploy/deploy-snapshot.sh"
 
+after_success:
+    - "./share/deploy/deploy-snapshot.sh"
+
 notifications:
     email:
         recipients:

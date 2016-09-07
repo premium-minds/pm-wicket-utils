@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Copyright (C) 2016 Premium Minds.
@@ -19,7 +19,9 @@
     along with pm-wicket-utils. If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<wicket:panel>
- 	<a href="#" wicket:id="link">click me</a>
-	<div wicket:id="label">qwerty</div>
-</wicket:panel>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>	
+	<entry key="true">Sim</entry>
+	<entry key="false">Não</entry>
+	<entry key="null">Escolha</entry>
+</properties>
