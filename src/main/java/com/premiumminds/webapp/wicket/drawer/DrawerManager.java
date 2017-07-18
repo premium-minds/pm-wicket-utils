@@ -25,6 +25,7 @@ import java.util.Iterator;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -78,6 +79,11 @@ public class DrawerManager extends Panel {
 				@Override
 				protected void onEvent(AjaxRequestTarget target) {
 					manager.eventPop(ListItem.this.drawer, target);
+				}
+				@Override
+				protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+					super.updateAjaxAttributes(attributes);
+					attributes.setPreventDefault(true);
 				}
 			});
 		}

@@ -40,7 +40,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>7.2.0</wicket.version>
+		<wicket.version>7.7.0</wicket.version>
 	</properties>
 
 	<dependencies>
