@@ -26,7 +26,7 @@ Wicket | pm-wicket-utils |
 - [Wiki](https://github.com/premium-minds/pm-wicket-utils/wiki)
 - [Javadoc](http://premium-minds.github.io/pm-wicket-utils/apidocs/)
 
-##Continuous Integration
+## Continuous Integration
 [![Build Status](https://travis-ci.org/premium-minds/pm-wicket-utils.png?branch=master)](https://travis-ci.org/premium-minds/pm-wicket-utils)
 
 CI is hosted by [travis-ci.org](https://travis-ci.org/)
