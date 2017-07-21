@@ -17,4 +17,4 @@
 # along with pm-wicket-utils. If not, see <http://www.gnu.org/licenses/>.
 #
 
-initializer=com.premiumminds.webapp.wicket.Initializer
+com.premiumminds.webapp.wicket.Initializer
