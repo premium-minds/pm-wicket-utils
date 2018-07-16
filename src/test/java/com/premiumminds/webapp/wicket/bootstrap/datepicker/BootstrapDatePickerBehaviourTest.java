@@ -18,8 +18,11 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap.datepicker;
 
-import static org.junit.Assert.*;
 import static org.hamcrest.text.MatchesPattern.matchesPattern;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +34,6 @@ import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.resource.JQueryResourceReference;
 import org.apache.wicket.util.tester.TagTester;
-import org.hamcrest.text.MatchesPattern;
 import org.junit.Test;
 
 import com.premiumminds.webapp.wicket.bootstrap.SpecialDate;
@@ -68,7 +70,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> css = TagTester.createTagsByAttribute(head.getValue(), "type", "text/css", false);
@@ -92,7 +94,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> scripts = TagTester.createTagsByAttribute(head.getValue(), "type", "text/javascript", false);
@@ -123,7 +125,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> scripts = TagTester.createTagsByAttribute(head.getValue(), "type", "text/javascript", false);
@@ -163,7 +165,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> scripts = TagTester.createTagsByAttribute(head.getValue(), "type", "text/javascript", false);
@@ -206,7 +208,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> scripts = TagTester.createTagsByAttribute(head.getValue(), "type", "text/javascript", false);
@@ -247,7 +249,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> scripts = TagTester.createTagsByAttribute(head.getValue(), "type", "text/javascript", false);
@@ -278,7 +280,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		assertNull(TagTester.createTagByAttribute(doc, "head"));
+		assertNull(TagTester.createTagByName(doc, "head"));
 
 		TagTester elem = TagTester.createTagByAttribute(doc, "wicket:id", "field");
 		assertNull(elem.getAttribute("data-date-language"));
