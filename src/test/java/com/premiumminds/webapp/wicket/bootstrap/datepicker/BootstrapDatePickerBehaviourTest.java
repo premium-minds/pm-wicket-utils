@@ -19,6 +19,7 @@
 package com.premiumminds.webapp.wicket.bootstrap.datepicker;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.text.MatchesPattern.matchesPattern;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +31,7 @@ import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.resource.JQueryResourceReference;
 import org.apache.wicket.util.tester.TagTester;
+import org.hamcrest.text.MatchesPattern;
 import org.junit.Test;
 
 import com.premiumminds.webapp.wicket.bootstrap.SpecialDate;
@@ -72,7 +74,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		List<TagTester> css = TagTester.createTagsByAttribute(head.getValue(), "type", "text/css", false);
 		assertEquals(1, css.size());
 		assertEquals("link", css.get(0).getName());
-		assertTrue(css.get(0).getAttribute("href").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/datepicker(.*)\\.css"));
+		assertThat(css.get(0).getAttribute("href"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/datepicker(.*)\\.css"));
 	}
 
 	@Test
@@ -98,11 +100,12 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		for (int i = 0; i < 5; i++) {
 			assertEquals("script", scripts.get(i).getName());
 		}
-		assertTrue(scripts.get(0).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
-		assertTrue(scripts.get(1).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
-		assertTrue(scripts.get(2).getAttribute("src").matches("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
-		assertTrue(scripts.get(3).getAttribute("src").matches("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-event-jquery(.*)\\.js"));
-		assertTrue(scripts.get(4).getValue().matches("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
+		
+		assertThat(scripts.get(0).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
+		assertThat(scripts.get(1).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
+		assertThat(scripts.get(2).getAttribute("src"), matchesPattern("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
+		assertThat(scripts.get(3).getAttribute("src"), matchesPattern("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-ajax-jquery(.*)\\.js"));
+		assertThat(scripts.get(4).getValue(), matchesPattern("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
 				field.getMarkupId() + "\"\\).datepicker\\(\\);(.*);\\}\\);(.*)"));
 	}
 
@@ -128,12 +131,13 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		for (int i = 0; i < 6; i++) {
 			assertEquals("script", scripts.get(i).getName());
 		}
-		assertTrue(scripts.get(0).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
-		assertTrue(scripts.get(1).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
-		assertTrue(scripts.get(2).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/locales/bootstrap-datepicker.fr(.*)\\.js"));
-		assertTrue(scripts.get(3).getAttribute("src").matches("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
-		assertTrue(scripts.get(4).getAttribute("src").matches("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-event-jquery(.*)\\.js"));
-		assertTrue(scripts.get(5).getValue().matches("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
+		
+		assertThat(scripts.get(0).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
+		assertThat(scripts.get(1).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
+		assertThat(scripts.get(2).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/locales/bootstrap-datepicker.fr(.*)\\.js"));
+		assertThat(scripts.get(3).getAttribute("src"), matchesPattern("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
+		assertThat(scripts.get(4).getAttribute("src"), matchesPattern("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-ajax-jquery(.*)\\.js"));
+		assertThat(scripts.get(5).getValue(), matchesPattern("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
 				field.getMarkupId() + "\"\\).datepicker\\(\\);(.*);\\}\\);(.*)"));
 	}
 
@@ -167,11 +171,12 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		for (int i = 0; i < 5; i++) {
 			assertEquals("script", scripts.get(i).getName());
 		}
-		assertTrue(scripts.get(0).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
-		assertTrue(scripts.get(1).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
-		assertTrue(scripts.get(2).getAttribute("src").matches("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
-		assertTrue(scripts.get(3).getAttribute("src").matches("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-event-jquery(.*)\\.js"));
-		assertTrue(scripts.get(4).getValue().matches("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
+
+		assertThat(scripts.get(0).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
+		assertThat(scripts.get(1).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
+		assertThat(scripts.get(2).getAttribute("src"), matchesPattern("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
+		assertThat(scripts.get(3).getAttribute("src"), matchesPattern("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-ajax-jquery(.*)\\.js"));
+		assertThat(scripts.get(4).getValue(), matchesPattern("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
 				field.getMarkupId() + "\"\\).datepicker\\(null, \\[" +
 				"\\{dt:new Date\\('2010-12-25'\\), css:'holiday', tooltip:'Christmas'\\}" +
 				"\\]\\);(.*);\\}\\);(.*)"));
@@ -209,11 +214,12 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		for (int i = 0; i < 5; i++) {
 			assertEquals("script", scripts.get(i).getName());
 		}
-		assertTrue(scripts.get(0).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
-		assertTrue(scripts.get(1).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
-		assertTrue(scripts.get(2).getAttribute("src").matches("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
-		assertTrue(scripts.get(3).getAttribute("src").matches("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-event-jquery(.*)\\.js"));
-		assertTrue(scripts.get(4).getValue().matches("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
+		assertThat(scripts.get(0).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
+		assertThat(scripts.get(1).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
+		assertThat(scripts.get(2).getAttribute("src"), matchesPattern("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
+		assertThat(scripts.get(3).getAttribute("src"), matchesPattern("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-ajax-jquery(.*)\\.js"));
+
+		assertThat(scripts.get(4).getValue(), matchesPattern("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
 				field.getMarkupId() + "\"\\).datepicker\\(null, \\[" +
 				"\\{dt:new Date\\('2010-12-25'\\), css:'holiday', tooltip:'Christmas'\\}," +
 				"\\{dt:new Date\\('2010-01-01'\\), css:'holiday', tooltip:'New Year'\\}" +
@@ -249,12 +255,14 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		for (int i = 0; i < 5; i++) {
 			assertEquals("script", scripts.get(i).getName());
 		}
-		assertTrue(scripts.get(0).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
-		assertTrue(scripts.get(1).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
-		assertTrue(scripts.get(2).getAttribute("src").matches("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
-		assertTrue(scripts.get(3).getAttribute("src").matches("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-event-jquery(.*)\\.js"));
-		assertTrue(scripts.get(4).getValue().matches("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
+
+		assertThat(scripts.get(0).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
+		assertThat(scripts.get(1).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
+		assertThat(scripts.get(2).getAttribute("src"), matchesPattern("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
+		assertThat(scripts.get(3).getAttribute("src"), matchesPattern("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-ajax-jquery(.*)\\.js"));
+		assertThat(scripts.get(4).getValue(), matchesPattern("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
 				field.getMarkupId() + "\"\\).datepicker\\(\\);(.*);\\}\\);(.*)"));
+
 	}
 
 	@Test

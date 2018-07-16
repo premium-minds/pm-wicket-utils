@@ -26,7 +26,7 @@ import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.model.IModel;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
@@ -40,7 +40,7 @@ import com.premiumminds.webapp.wicket.bootstrap.datetimepicker.BootstrapDateTime
  * 
  * Requires jQuery, BootStrap and Font Awesome. Warning: make sure your jQuery is loaded as a priority header item!
  */
-public class BootstrapDateTimePicker extends WebMarkupContainer implements IGenericComponent<Date> 
+public class BootstrapDateTimePicker extends WebMarkupContainer implements IGenericComponent<Date, TextField<Date>>
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -99,27 +99,4 @@ public class BootstrapDateTimePicker extends WebMarkupContainer implements IGene
 		return component;
 	}
 
-	@Override
-	public IModel<Date> getModel() 
-	{
-		return getDateTextField().getModel();
-	}
-
-	@Override
-	public void setModel(IModel<Date> model) 
-	{
-		getDateTextField().setModel(model);
-	}
-
-	@Override
-	public void setModelObject(Date object) 
-	{
-		getDateTextField().setModelObject(object);
-	}
-	
-	@Override
-	public Date getModelObject() 
-	{
-		return getDateTextField().getModelObject();
-	}
 }

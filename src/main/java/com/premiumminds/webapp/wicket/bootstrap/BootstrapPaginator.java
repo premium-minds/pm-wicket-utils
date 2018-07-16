@@ -18,6 +18,8 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap;
 
+import java.util.Date;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.IGenericComponent;
@@ -25,6 +27,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.list.Loop;
 import org.apache.wicket.markup.html.list.LoopItem;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -58,7 +61,7 @@ import org.apache.wicket.model.Model;
  * @author acamilo
  * @see <a href="http://getbootstrap.com/components/#pagination">bootstrap pagination</a>
  */
-public abstract class BootstrapPaginator extends Panel implements IGenericComponent<Integer> {
+public abstract class BootstrapPaginator extends FormComponentPanel<Integer> {
 	private static final long serialVersionUID = -5991811031611368885L;
 	
 	/*booleans to control if the component should be showned*/
@@ -263,61 +266,6 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			}));
 		}
 		
-	}
-
-	// hack to remove wicket:panel tag from output
-	@Override
-	protected void onRender() {
-		Application.get().getMarkupSettings().setStripWicketTags(true);
-		super.onRender();
-	}
-	
-	// hack to remove wicket:panel tag from output
-	@Override
-	protected void onAfterRenderChildren() {
-		super.onAfterRenderChildren();
-		Application.get().getMarkupSettings().setStripWicketTags(stripTags);
-	}
-	
-	/**
-	 * Get the model with the number of the current page
-	 * 
-	 * @return model of the current page
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public IModel<Integer> getModel() {
-		return (IModel<Integer>) getDefaultModel();
-	}
-
-	/**
-	 * Get the number of the current page
-	 * 
-	 * @return the current page
-	 */
-	@Override
-	public Integer getModelObject() {
-		return (Integer) getDefaultModelObject();
-	}
-
-	/**
-	 * Set the model with the number of the current page
-	 * 
-	 * @param model model of the current page
-	 */
-	@Override
-	public void setModel(IModel<Integer> model) {
-		setDefaultModel(model);
-	}
-
-	/**
-	 * Set the number of the current page
-	 * 
-	 * @param page current page
-	 */
-	@Override
-	public void setModelObject(Integer page) {
-		setDefaultModelObject(page);
 	}
 
 	/**

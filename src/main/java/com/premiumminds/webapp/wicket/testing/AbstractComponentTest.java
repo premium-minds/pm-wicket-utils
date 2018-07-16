@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.function.Function;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
@@ -166,7 +167,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 
 	private WebApplication wicketApp;
 	private ExtendedWicketTester tester;
-	private IContextProvider<AjaxRequestTarget, Page> orig;
+	private Function<Page, AjaxRequestTarget> orig;
 	private AjaxRequestTarget target;
 	private boolean running;
 

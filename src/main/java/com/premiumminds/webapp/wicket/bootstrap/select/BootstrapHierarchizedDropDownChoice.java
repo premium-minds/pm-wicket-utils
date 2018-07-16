@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.util.string.AppendingStringBuffer;
 
 @SuppressWarnings("rawtypes")
@@ -179,8 +180,9 @@ public class BootstrapHierarchizedDropDownChoice<T extends IHierarchyValue> exte
 	}
 	
 	@Override
-	public List<? extends T> getChoices() {
-		return convertChoices(super.getChoices());
+	public IModel<? extends List<? extends T>> getChoicesModel() {
+		List<? extends T> choices = convertChoices(super.getChoices());
+		return (IModel<? extends List<? extends T>>) Model.of(choices);
 	}
 	
 	public void setDisableParents(boolean disable){
