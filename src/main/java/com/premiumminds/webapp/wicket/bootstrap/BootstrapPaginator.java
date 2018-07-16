@@ -18,11 +18,7 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap;
 
-import java.util.Date;
-
-import org.apache.wicket.Application;
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.IGenericComponent;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -30,7 +26,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.list.Loop;
 import org.apache.wicket.markup.html.list.LoopItem;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -81,8 +76,6 @@ public abstract class BootstrapPaginator extends FormComponentPanel<Integer> {
 	private int pagesToShow = 5;
 	private IModel<Integer> totalResults;
 	private int numberResultsPerPage;
-	
-	private boolean stripTags; // hack to not render wicket tags
 
 	/**
 	 * Creates a paginator with 20 results per page by default
@@ -104,7 +97,7 @@ public abstract class BootstrapPaginator extends FormComponentPanel<Integer> {
 	@SuppressWarnings("serial")
 	public BootstrapPaginator(String id, IModel<Integer> totalResults, int resultsPerPage){
 		super(id, Model.of(0));
-		stripTags = Application.get().getMarkupSettings().getStripWicketTags();
+
 		setOutputMarkupId(true);
 		
 		this.totalResults = totalResults;
