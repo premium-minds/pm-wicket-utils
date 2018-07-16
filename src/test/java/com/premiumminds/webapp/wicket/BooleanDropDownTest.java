@@ -18,7 +18,10 @@
  */
 package com.premiumminds.webapp.wicket;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.Locale;
 
@@ -83,6 +86,7 @@ public class BooleanDropDownTest extends AbstractComponentTest {
 		
 		assertNotEquals(firstOption.getValue(), "Choose");
 		assertEquals(trueOption.getAttribute("selected"), "selected");
+		assertNull(falseOption.getAttribute("selected"));
 	}
 
 	@Test
@@ -100,6 +104,8 @@ public class BooleanDropDownTest extends AbstractComponentTest {
 		
 		assertEquals(firstOption.getValue(), "Choose");
 		assertEquals(firstOption.getAttribute("selected"), "selected");
+		assertNull(trueOption.getAttribute("selected"));
+		assertNull(falseOption.getAttribute("selected"));
 	}
 
 	@Test
@@ -116,6 +122,7 @@ public class BooleanDropDownTest extends AbstractComponentTest {
 		TagTester falseOption = selectTag.getChild("value", "false");
 		
 		assertNotEquals(firstOption.getValue(), "Choose");
+		assertNull(trueOption.getAttribute("selected"));
 		assertEquals(falseOption.getAttribute("selected"), "selected");
 	}
 
@@ -134,6 +141,8 @@ public class BooleanDropDownTest extends AbstractComponentTest {
 		
 		assertEquals(firstOption.getValue(), "Choose");
 		assertEquals(firstOption.getAttribute("selected"), "selected");
+		assertNull(trueOption.getAttribute("selected"));
+		assertNull(falseOption.getAttribute("selected"));
 	}
 
 	@Test
@@ -151,6 +160,7 @@ public class BooleanDropDownTest extends AbstractComponentTest {
 		
 		assertEquals(firstOption.getValue(), "Choose");
 		assertEquals(trueOption.getAttribute("selected"), "selected");
+		assertNull(falseOption.getAttribute("selected"));
 	}
 
 	private IMarkupFragment createFormPageMarkup(final String componentId) {
