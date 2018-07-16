@@ -88,18 +88,6 @@ public abstract class BootstrapPaginator extends FormComponentPanel<Integer> {
 	 * Creates a paginator with 20 results per page by default
 	 * 
 	 * @param id component id
-	 * 
-	 * @deprecated As of release 2.6, replaced by {@link #BootstrapPaginator(String, IModel)}
-	 */
-	@Deprecated
-	public BootstrapPaginator(String id) {
-		this(id, Model.of(100), 20);
-	}
-	
-	/**
-	 * Creates a paginator with 20 results per page by default
-	 * 
-	 * @param id component id
 	 * @param totalResults model for total results
 	 */
 	public BootstrapPaginator(String id, IModel<Integer> totalResults){
