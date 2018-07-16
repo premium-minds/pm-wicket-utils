@@ -179,6 +179,7 @@ public class BootstrapHierarchizedDropDownChoice<T extends IHierarchyValue> exte
 			buffer.append(" disabled=\"disabled\"");
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public IModel<? extends List<? extends T>> getChoicesModel() {
 		List<? extends T> choices = convertChoices(super.getChoices());
