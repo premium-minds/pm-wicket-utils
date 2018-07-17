@@ -30,7 +30,7 @@ import org.apache.wicket.model.IModel;
  *
  * @param <T> model object type
  */
-public class ListSetItem<T> extends AbstractItem implements IGenericComponent<T> {
+public class ListSetItem<T> extends AbstractItem implements IGenericComponent<T, ListSetItem<T>> {
 	private static final long serialVersionUID = 1993267843582407117L;
 
 	/**
@@ -49,13 +49,15 @@ public class ListSetItem<T> extends AbstractItem implements IGenericComponent<T>
 	}
 
 	@Override
-	public void setModel(IModel<T> model) {
+	public ListSetItem<T> setModel(IModel<T> model) {
 		setDefaultModel(model);
+		return this;
 	}
 
 	@Override
-	public void setModelObject(T object) {
+	public ListSetItem<T> setModelObject(T object) {
 		setDefaultModelObject(object);
+		return this;
 	}
 
 	@SuppressWarnings("unchecked")

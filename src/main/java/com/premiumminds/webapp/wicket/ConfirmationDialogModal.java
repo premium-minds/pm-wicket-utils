@@ -18,6 +18,8 @@
  */
 package com.premiumminds.webapp.wicket;
 
+import java.util.Optional;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
@@ -26,7 +28,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.io.IClusterable;
 
-public class ConfirmationDialogModal extends ModalWindow{
+public class ConfirmationDialogModal extends ModalWindow {
 	private static final long serialVersionUID = 3690754099561035011L;
 
 	public enum Result { OK, CANCELED };
@@ -68,16 +70,20 @@ public class ConfirmationDialogModal extends ModalWindow{
 			add(new Label("message", message));
 			add(new AjaxFallbackLink<Void>("noButton"){
 				@Override
-				public void onClick(AjaxRequestTarget target) {
-					ConfirmationDialogModal.this.close(target);
-					confirmed(target, Result.CANCELED);
+				public void onClick(Optional<AjaxRequestTarget> target) {
+					if (target.isPresent()) {
+						ConfirmationDialogModal.this.close(target.get());
+						confirmed(target.get(), Result.CANCELED);
+					}
 				}
 			}.add(new Label("noLbl", "Cancelar")));
 			WebMarkupContainer yesButton = new AjaxFallbackLink<Void>("yesButton"){
 				@Override
-				public void onClick(AjaxRequestTarget target) {
-					ConfirmationDialogModal.this.close(target);
-					confirmed(target, Result.OK);
+				public void onClick(Optional<AjaxRequestTarget>  target) {
+					if (target.isPresent()) {
+						ConfirmationDialogModal.this.close(target.get());
+						confirmed(target.get(), Result.OK);
+					}
 				}
 			}; 
 			yesButton.add(new Label("okLbl", verb));

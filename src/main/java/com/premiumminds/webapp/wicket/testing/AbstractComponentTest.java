@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.function.Function;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
@@ -36,7 +37,6 @@ import org.apache.wicket.request.ILogData;
 import org.apache.wicket.request.IRequestCycle;
 import org.apache.wicket.request.component.IRequestablePage;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.util.IContextProvider;
 import org.apache.wicket.util.tester.WicketTester;
 import org.easymock.EasyMockSupport;
 import org.junit.After;
@@ -52,7 +52,7 @@ import org.junit.rules.ExpectedException;
  * and {@link AjaxRequestTarget#detach(IRequestCycle)} are ignored by the mock, as they are used by the wicket
  * framework itself.
  */
-public abstract class AbstractComponentTest extends EasyMockSupport implements IContextProvider<AjaxRequestTarget, Page> {
+public abstract class AbstractComponentTest extends EasyMockSupport implements Function<Page, AjaxRequestTarget> {
 	private class RequestTargetTester implements AjaxRequestTarget {
 		private AjaxRequestTarget inner;
 
@@ -166,7 +166,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 
 	private WebApplication wicketApp;
 	private ExtendedWicketTester tester;
-	private IContextProvider<AjaxRequestTarget, Page> orig;
+	private Function<Page, AjaxRequestTarget> orig;
 	private AjaxRequestTarget target;
 	private boolean running;
 
@@ -409,7 +409,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements I
 	 * @see org.apache.wicket.util.IContextProvider#get(java.lang.Object)
 	 */
 	@Override
-	public AjaxRequestTarget get(Page context) {
+	public AjaxRequestTarget apply(Page context) {
 		return target;
 	}
 

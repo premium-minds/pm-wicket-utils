@@ -18,16 +18,14 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.IGenericComponent;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.list.Loop;
 import org.apache.wicket.markup.html.list.LoopItem;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -58,7 +56,7 @@ import org.apache.wicket.model.Model;
  * @author acamilo
  * @see <a href="http://getbootstrap.com/components/#pagination">bootstrap pagination</a>
  */
-public abstract class BootstrapPaginator extends Panel implements IGenericComponent<Integer> {
+public abstract class BootstrapPaginator extends FormComponentPanel<Integer> {
 	private static final long serialVersionUID = -5991811031611368885L;
 	
 	/*booleans to control if the component should be showned*/
@@ -78,21 +76,7 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 	private int pagesToShow = 5;
 	private IModel<Integer> totalResults;
 	private int numberResultsPerPage;
-	
-	private boolean stripTags; // hack to not render wicket tags
 
-	/**
-	 * Creates a paginator with 20 results per page by default
-	 * 
-	 * @param id component id
-	 * 
-	 * @deprecated As of release 2.6, replaced by {@link #BootstrapPaginator(String, IModel)}
-	 */
-	@Deprecated
-	public BootstrapPaginator(String id) {
-		this(id, Model.of(100), 20);
-	}
-	
 	/**
 	 * Creates a paginator with 20 results per page by default
 	 * 
@@ -113,7 +97,7 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 	@SuppressWarnings("serial")
 	public BootstrapPaginator(String id, IModel<Integer> totalResults, int resultsPerPage){
 		super(id, Model.of(0));
-		stripTags = Application.get().getMarkupSettings().getStripWicketTags();
+
 		setOutputMarkupId(true);
 		
 		this.totalResults = totalResults;
@@ -263,61 +247,6 @@ public abstract class BootstrapPaginator extends Panel implements IGenericCompon
 			}));
 		}
 		
-	}
-
-	// hack to remove wicket:panel tag from output
-	@Override
-	protected void onRender() {
-		Application.get().getMarkupSettings().setStripWicketTags(true);
-		super.onRender();
-	}
-	
-	// hack to remove wicket:panel tag from output
-	@Override
-	protected void onAfterRenderChildren() {
-		super.onAfterRenderChildren();
-		Application.get().getMarkupSettings().setStripWicketTags(stripTags);
-	}
-	
-	/**
-	 * Get the model with the number of the current page
-	 * 
-	 * @return model of the current page
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public IModel<Integer> getModel() {
-		return (IModel<Integer>) getDefaultModel();
-	}
-
-	/**
-	 * Get the number of the current page
-	 * 
-	 * @return the current page
-	 */
-	@Override
-	public Integer getModelObject() {
-		return (Integer) getDefaultModelObject();
-	}
-
-	/**
-	 * Set the model with the number of the current page
-	 * 
-	 * @param model model of the current page
-	 */
-	@Override
-	public void setModel(IModel<Integer> model) {
-		setDefaultModel(model);
-	}
-
-	/**
-	 * Set the number of the current page
-	 * 
-	 * @param page current page
-	 */
-	@Override
-	public void setModelObject(Integer page) {
-		setDefaultModelObject(page);
 	}
 
 	/**

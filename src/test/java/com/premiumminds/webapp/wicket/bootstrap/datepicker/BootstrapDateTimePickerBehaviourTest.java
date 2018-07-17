@@ -50,7 +50,7 @@ public class BootstrapDateTimePickerBehaviourTest extends AbstractComponentTest
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> css = TagTester.createTagsByAttribute(head.getValue(), "type", "text/css", false);
@@ -77,7 +77,7 @@ public class BootstrapDateTimePickerBehaviourTest extends AbstractComponentTest
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> scripts = TagTester.createTagsByAttribute(head.getValue(), "type", "text/javascript", false);

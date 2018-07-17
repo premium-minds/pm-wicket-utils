@@ -27,7 +27,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.convert.ConversionException;
 import org.apache.wicket.util.convert.IConverter;
 
-public class FormatLabel<T> extends Label implements IGenericComponent<T> {
+public class FormatLabel<T> extends Label implements IGenericComponent<T, FormatLabel<T>> {
 	private static final long serialVersionUID = 9039206115545313591L;
 
 	public FormatLabel(String id, IModel<T> model) {
@@ -69,12 +69,14 @@ public class FormatLabel<T> extends Label implements IGenericComponent<T> {
 		return (IModel<T>) getDefaultModel();
 	}
 
-	public void setModel(IModel<T> model) {
+	public FormatLabel<T> setModel(IModel<T> model) {
 		setDefaultModel(model);
+		return this;
 	}
 
-	public void setModelObject(T object) {
+	public FormatLabel<T> setModelObject(T object) {
 		setDefaultModelObject(object);
+		return this;
 	}
 
 	@SuppressWarnings("unchecked")

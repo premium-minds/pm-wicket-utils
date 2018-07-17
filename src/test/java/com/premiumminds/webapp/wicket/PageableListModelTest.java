@@ -110,12 +110,12 @@ public class PageableListModelTest extends EasyMockSupport {
 
 		assertTrue(m1.equals(m1));
 		assertFalse(m1.equals(null));
-		assertFalse(m1.equals(new PageableListModel<List<Integer>>(10) {
+		assertNotEquals(m1, new PageableListModel<List<Integer>>(10) {
 			private static final long serialVersionUID = 1L;
 			@Override
 			public List<Integer> getPageList(int startIndex, int viewSize) {
 				return null;
-			}}));
+			}});
 
 		assertTrue(m1.equals(m2));
 		assertTrue(m1.hashCode() == m2.hashCode());

@@ -18,8 +18,8 @@
  */
 package com.premiumminds.webapp.wicket;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
 
 import java.util.Arrays;
 import java.util.List;

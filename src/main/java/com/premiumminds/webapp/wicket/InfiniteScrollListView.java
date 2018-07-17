@@ -143,7 +143,7 @@ public abstract class InfiniteScrollListView<T> extends WebMarkupContainer {
 	protected abstract String getItemMarkupId(final T item);
 	
 	private Behavior getScrollBehaviour(){
-		return new AttributeModifier("onscroll", Model.of(this.getMarkupId())){
+		return new AttributeModifier("scroll", Model.of(this.getMarkupId())){
 			private static final long serialVersionUID = 3523727356782417598L;
 
 			@Override

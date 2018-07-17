@@ -21,6 +21,7 @@ Wicket | pm-wicket-utils |
 | ------------- | ------------- |
 6.x | 2.8 |
 7.x | 3.0 |
+8.x | 4.0-SNAPSHOT |
 
 ## Documentation
 - [Wiki](https://github.com/premium-minds/pm-wicket-utils/wiki)

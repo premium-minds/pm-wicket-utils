@@ -24,10 +24,10 @@ import java.util.List;
 
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.util.string.AppendingStringBuffer;
 
-@SuppressWarnings("rawtypes")
-public class BootstrapHierarchizedDropDownChoice<T extends IHierarchyValue> extends
+public class BootstrapHierarchizedDropDownChoice<T extends IHierarchyValue<?>> extends
 		BootstrapDropDownChoice<T> {
 	private static final long serialVersionUID = 1437604672358804420L;
 	
@@ -179,8 +179,9 @@ public class BootstrapHierarchizedDropDownChoice<T extends IHierarchyValue> exte
 	}
 	
 	@Override
-	public List<? extends T> getChoices() {
-		return convertChoices(super.getChoices());
+	public IModel<? extends List<? extends T>> getChoicesModel() {
+		List<? extends T> choices = convertChoices(super.getChoices());
+		return new ListModel<>(choices);
 	}
 	
 	public void setDisableParents(boolean disable){
@@ -191,8 +192,9 @@ public class BootstrapHierarchizedDropDownChoice<T extends IHierarchyValue> exte
 		return this.disableParents;
 	}
 
+
 	@SuppressWarnings("unchecked")
-	private static <T extends IHierarchyValue> List<T> convertChoices(Collection<T> choices){
+	private static <T extends IHierarchyValue<?>> List<T> convertChoices(Collection<T> choices){
 		ArrayList<T> newList = new ArrayList<T>();
 		for(T elem : choices){
 			newList.add(elem);
@@ -204,7 +206,7 @@ public class BootstrapHierarchizedDropDownChoice<T extends IHierarchyValue> exte
 		return newList;
 	}
 	
-	private static <T extends IHierarchyValue> int calculateDepth(T option){
+	private static <T extends IHierarchyValue<?>> int calculateDepth(T option){
 		if(option.getParent()==null) return 0;
 		else return 1+calculateDepth(option.getParent());
 	}

@@ -18,7 +18,11 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap.datepicker;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.text.MatchesPattern.matchesPattern;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,13 +70,13 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> css = TagTester.createTagsByAttribute(head.getValue(), "type", "text/css", false);
 		assertEquals(1, css.size());
 		assertEquals("link", css.get(0).getName());
-		assertTrue(css.get(0).getAttribute("href").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/datepicker(.*)\\.css"));
+		assertThat(css.get(0).getAttribute("href"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/datepicker(.*)\\.css"));
 	}
 
 	@Test
@@ -90,7 +94,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> scripts = TagTester.createTagsByAttribute(head.getValue(), "type", "text/javascript", false);
@@ -98,11 +102,12 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		for (int i = 0; i < 5; i++) {
 			assertEquals("script", scripts.get(i).getName());
 		}
-		assertTrue(scripts.get(0).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
-		assertTrue(scripts.get(1).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
-		assertTrue(scripts.get(2).getAttribute("src").matches("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
-		assertTrue(scripts.get(3).getAttribute("src").matches("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-event-jquery(.*)\\.js"));
-		assertTrue(scripts.get(4).getValue().matches("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
+		
+		assertThat(scripts.get(0).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
+		assertThat(scripts.get(1).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
+		assertThat(scripts.get(2).getAttribute("src"), matchesPattern("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
+		assertThat(scripts.get(3).getAttribute("src"), matchesPattern("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-ajax-jquery(.*)\\.js"));
+		assertThat(scripts.get(4).getValue(), matchesPattern("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
 				field.getMarkupId() + "\"\\).datepicker\\(\\);(.*);\\}\\);(.*)"));
 	}
 
@@ -120,7 +125,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> scripts = TagTester.createTagsByAttribute(head.getValue(), "type", "text/javascript", false);
@@ -128,12 +133,13 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		for (int i = 0; i < 6; i++) {
 			assertEquals("script", scripts.get(i).getName());
 		}
-		assertTrue(scripts.get(0).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
-		assertTrue(scripts.get(1).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
-		assertTrue(scripts.get(2).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/locales/bootstrap-datepicker.fr(.*)\\.js"));
-		assertTrue(scripts.get(3).getAttribute("src").matches("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
-		assertTrue(scripts.get(4).getAttribute("src").matches("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-event-jquery(.*)\\.js"));
-		assertTrue(scripts.get(5).getValue().matches("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
+		
+		assertThat(scripts.get(0).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
+		assertThat(scripts.get(1).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
+		assertThat(scripts.get(2).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/locales/bootstrap-datepicker.fr(.*)\\.js"));
+		assertThat(scripts.get(3).getAttribute("src"), matchesPattern("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
+		assertThat(scripts.get(4).getAttribute("src"), matchesPattern("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-ajax-jquery(.*)\\.js"));
+		assertThat(scripts.get(5).getValue(), matchesPattern("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
 				field.getMarkupId() + "\"\\).datepicker\\(\\);(.*);\\}\\);(.*)"));
 	}
 
@@ -159,7 +165,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> scripts = TagTester.createTagsByAttribute(head.getValue(), "type", "text/javascript", false);
@@ -167,11 +173,12 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		for (int i = 0; i < 5; i++) {
 			assertEquals("script", scripts.get(i).getName());
 		}
-		assertTrue(scripts.get(0).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
-		assertTrue(scripts.get(1).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
-		assertTrue(scripts.get(2).getAttribute("src").matches("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
-		assertTrue(scripts.get(3).getAttribute("src").matches("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-event-jquery(.*)\\.js"));
-		assertTrue(scripts.get(4).getValue().matches("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
+
+		assertThat(scripts.get(0).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
+		assertThat(scripts.get(1).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
+		assertThat(scripts.get(2).getAttribute("src"), matchesPattern("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
+		assertThat(scripts.get(3).getAttribute("src"), matchesPattern("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-ajax-jquery(.*)\\.js"));
+		assertThat(scripts.get(4).getValue(), matchesPattern("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
 				field.getMarkupId() + "\"\\).datepicker\\(null, \\[" +
 				"\\{dt:new Date\\('2010-12-25'\\), css:'holiday', tooltip:'Christmas'\\}" +
 				"\\]\\);(.*);\\}\\);(.*)"));
@@ -201,7 +208,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> scripts = TagTester.createTagsByAttribute(head.getValue(), "type", "text/javascript", false);
@@ -209,11 +216,12 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		for (int i = 0; i < 5; i++) {
 			assertEquals("script", scripts.get(i).getName());
 		}
-		assertTrue(scripts.get(0).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
-		assertTrue(scripts.get(1).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
-		assertTrue(scripts.get(2).getAttribute("src").matches("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
-		assertTrue(scripts.get(3).getAttribute("src").matches("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-event-jquery(.*)\\.js"));
-		assertTrue(scripts.get(4).getValue().matches("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
+		assertThat(scripts.get(0).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
+		assertThat(scripts.get(1).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
+		assertThat(scripts.get(2).getAttribute("src"), matchesPattern("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
+		assertThat(scripts.get(3).getAttribute("src"), matchesPattern("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-ajax-jquery(.*)\\.js"));
+
+		assertThat(scripts.get(4).getValue(), matchesPattern("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
 				field.getMarkupId() + "\"\\).datepicker\\(null, \\[" +
 				"\\{dt:new Date\\('2010-12-25'\\), css:'holiday', tooltip:'Christmas'\\}," +
 				"\\{dt:new Date\\('2010-01-01'\\), css:'holiday', tooltip:'New Year'\\}" +
@@ -241,7 +249,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		TagTester head = TagTester.createTagByAttribute(doc, "head");
+		TagTester head = TagTester.createTagByName(doc, "head");
 		assertNotNull(head);
 
 		List<TagTester> scripts = TagTester.createTagsByAttribute(head.getValue(), "type", "text/javascript", false);
@@ -249,12 +257,14 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		for (int i = 0; i < 5; i++) {
 			assertEquals("script", scripts.get(i).getName());
 		}
-		assertTrue(scripts.get(0).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
-		assertTrue(scripts.get(1).getAttribute("src").matches("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
-		assertTrue(scripts.get(2).getAttribute("src").matches("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
-		assertTrue(scripts.get(3).getAttribute("src").matches("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-event-jquery(.*)\\.js"));
-		assertTrue(scripts.get(4).getValue().matches("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
+
+		assertThat(scripts.get(0).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.js"));
+		assertThat(scripts.get(1).getAttribute("src"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker-extension(.*)\\.js"));
+		assertThat(scripts.get(2).getAttribute("src"), matchesPattern("(.*)" + JQueryResourceReference.class.getName() + "(.*)/jquery(.*)\\.js"));
+		assertThat(scripts.get(3).getAttribute("src"), matchesPattern("(.*)" + AbstractDefaultAjaxBehavior.class.getName() + "(.*)/wicket-ajax-jquery(.*)\\.js"));
+		assertThat(scripts.get(4).getValue(), matchesPattern("(?s)(.*)Wicket.Event.add\\(window, \\\"domready\\\", function\\(event\\) \\{(.*)\\$\\(\"#" +
 				field.getMarkupId() + "\"\\).datepicker\\(\\);(.*);\\}\\);(.*)"));
+
 	}
 
 	@Test
@@ -270,7 +280,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		String doc = getTester().getLastResponse().getDocument();
 
-		assertNull(TagTester.createTagByAttribute(doc, "head"));
+		assertNull(TagTester.createTagByName(doc, "head"));
 
 		TagTester elem = TagTester.createTagByAttribute(doc, "wicket:id", "field");
 		assertNull(elem.getAttribute("data-date-language"));

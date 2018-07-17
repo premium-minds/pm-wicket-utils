@@ -135,6 +135,7 @@ public class BootstrapFeedbackPanel extends FeedbackPanel {
 	
 	@Override
 	protected void onConfigure() {
+		super.onConfigure();
 		setVisible(anyMessage());
 	}
 

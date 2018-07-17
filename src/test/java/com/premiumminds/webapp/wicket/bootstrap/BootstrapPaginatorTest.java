@@ -34,7 +34,7 @@ public class BootstrapPaginatorTest {
 	@Test
 	public void testRenderComponent(){
 		WicketTester tester = createTester();
-		BootstrapPaginator paginator = new BootstrapPaginator("paginator") {
+		BootstrapPaginator paginator = new BootstrapPaginator("paginator", Model.of(100)) {
 			private static final long serialVersionUID = -4486050808642574868L;
 
 			@Override
@@ -54,7 +54,7 @@ public class BootstrapPaginatorTest {
 		WicketTester tester = createTester();
 		final Boxed<Integer> pageBox = new Boxed<Integer>();
 		
-		BootstrapPaginator paginator = new BootstrapPaginator("paginator") {
+		BootstrapPaginator paginator = new BootstrapPaginator("paginator", Model.of(100)) {
 			private static final long serialVersionUID = -4486050808642574868L;
 
 			@Override
@@ -80,7 +80,7 @@ public class BootstrapPaginatorTest {
 		WicketTester tester = createTester();
 		final Boxed<Integer> pageBox = new Boxed<Integer>();
 		
-		BootstrapPaginator paginator = new BootstrapPaginator("paginator") {
+		BootstrapPaginator paginator = new BootstrapPaginator("paginator", Model.of(100)) {
 			private static final long serialVersionUID = -4486050808642574868L;
 
 			@Override
@@ -103,7 +103,7 @@ public class BootstrapPaginatorTest {
 		WicketTester tester = createTester();
 		final Boxed<Integer> pageBox = new Boxed<Integer>();
 		
-		BootstrapPaginator paginator = new BootstrapPaginator("paginator") {
+		BootstrapPaginator paginator = new BootstrapPaginator("paginator", Model.of(100)) {
 			private static final long serialVersionUID = -4486050808642574868L;
 
 			@Override
@@ -127,7 +127,7 @@ public class BootstrapPaginatorTest {
 		WicketTester tester = createTester();
 		final Boxed<Integer> pageBox = new Boxed<Integer>();
 		
-		BootstrapPaginator paginator = new BootstrapPaginator("paginator") {
+		BootstrapPaginator paginator = new BootstrapPaginator("paginator", Model.of(100)) {
 			private static final long serialVersionUID = -4486050808642574868L;
 
 			@Override
@@ -151,7 +151,7 @@ public class BootstrapPaginatorTest {
 		WicketTester tester = createTester();
 		final Boxed<Integer> pageBox = new Boxed<Integer>();
 		
-		BootstrapPaginator paginator = new BootstrapPaginator("paginator") {
+		BootstrapPaginator paginator = new BootstrapPaginator("paginator", Model.of(100)) {
 			private static final long serialVersionUID = -4486050808642574868L;
 
 			@Override
@@ -174,7 +174,7 @@ public class BootstrapPaginatorTest {
 	@Test
 	public void testShowHiddenComponents(){
 		WicketTester tester = createTester();
-		BootstrapPaginator paginator = new BootstrapPaginator("paginator") {
+		BootstrapPaginator paginator = new BootstrapPaginator("paginator", Model.of(100)) {
 			private static final long serialVersionUID = -4486050808642574868L;
 			
 			@Override
