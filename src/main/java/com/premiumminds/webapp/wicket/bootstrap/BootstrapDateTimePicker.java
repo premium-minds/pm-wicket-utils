@@ -27,6 +27,7 @@ import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
@@ -97,6 +98,26 @@ public class BootstrapDateTimePicker extends WebMarkupContainer implements IGene
 		}
 		
 		return component;
+	}
+
+	@Override
+	public IModel<Date> getModel() {
+		return dateField.getModel();
+	}
+
+	@Override
+	public TextField<Date> setModel(IModel<Date> model) {
+		return (TextField<Date>) dateField.setModel(model);
+	}
+
+	@Override
+	public Date getModelObject() {
+		return dateField.getModelObject();
+	}
+
+	@Override
+	public TextField<Date> setModelObject(Date object) {
+		return (TextField<Date>) dateField.setModelObject(object);
 	}
 
 }
