@@ -27,6 +27,7 @@ import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
@@ -38,7 +39,7 @@ import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBe
  * @author acamilo
  * @see <a href="https://github.com/eternicode/bootstrap-datepicker">https://github.com/eternicode/bootstrap-datepicker</a>
  */
-public class BootstrapDatepicker extends WebMarkupContainer implements IGenericComponent<Date, TextField<Date>> {
+public class BootstrapDatePicker extends WebMarkupContainer implements IGenericComponent<Date, TextField<Date>> {
 	private static final long serialVersionUID = -117683073963817461L;
 
 	private DateTextField dateField;
@@ -48,14 +49,14 @@ public class BootstrapDatepicker extends WebMarkupContainer implements IGenericC
 	 *
 	 * @param id the wicket:id
 	 */
-	public BootstrapDatepicker(String id) {
+	public BootstrapDatePicker(String id) {
 		super(id);
 		add(new BootstrapDatePickerBehaviour() {
 			private static final long serialVersionUID = 1L;
 		
 			@Override
 			public Collection<SpecialDate> getSpecialDates() {
-				return BootstrapDatepicker.this.getSpecialDates();
+				return BootstrapDatePicker.this.getSpecialDates();
 			}
 		});
 	}
@@ -104,4 +105,23 @@ public class BootstrapDatepicker extends WebMarkupContainer implements IGenericC
 		return null;
 	}
 
+	@Override
+	public IModel<Date> getModel() {
+		return dateField.getModel();
+	}
+
+	@Override
+	public TextField<Date> setModel(IModel<Date> model) {
+		return (TextField<Date>) dateField.setModel(model);
+	}
+
+	@Override
+	public Date getModelObject() {
+		return dateField.getModelObject();
+	}
+
+	@Override
+	public TextField<Date> setModelObject(Date object) {
+		return (TextField<Date>) dateField.setModelObject(object);
+	}
 }

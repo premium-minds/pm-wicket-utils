@@ -19,6 +19,7 @@
 package com.premiumminds.webapp.wicket.bootstrap;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -31,25 +32,27 @@ import org.apache.wicket.Component;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
+import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.IMarkupFragment;
 import org.apache.wicket.markup.MarkupFragment;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.util.tester.FormTester;
 import org.junit.Test;
 
 import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBehaviour;
 import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 
-public class BootstrapDatepickerTest extends AbstractComponentTest {
-	private class TestBootstrapDatepicker extends BootstrapDatepicker {
+public class BootstrapDatePickerTest extends AbstractComponentTest {
+	private class TestBootstrapDatePicker extends BootstrapDatePicker {
 		private static final long serialVersionUID = 1L;
 
 		private DateTextField field;
 
-		public TestBootstrapDatepicker(String id) {
+		public TestBootstrapDatePicker(String id) {
 			super(id);
 
-			field = new DateTextField("input");
+			field = new DateTextField("input", new Model<Date>());
 		}
 
 		@Override
@@ -83,7 +86,7 @@ public class BootstrapDatepickerTest extends AbstractComponentTest {
 	public void testDatepickerInvokeSpecialDates() {
 		final List<SpecialDate> list = Arrays.asList(new SpecialDate(christmas, "holiday", "Christmas"));
 
-		BootstrapDatepicker picker = new BootstrapDatepicker("picker") {
+		BootstrapDatePicker picker = new BootstrapDatePicker("picker") {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -97,14 +100,29 @@ public class BootstrapDatepickerTest extends AbstractComponentTest {
 		assertTrue(behaviors.get(0) instanceof BootstrapDatePickerBehaviour);
 		assertEquals(list, ((BootstrapDatePickerBehaviour)behaviors.get(0)).getSpecialDates());
 	}
+	
+	@Test
+	public void testModel() {
+		TestBootstrapDatePicker picker = new TestBootstrapDatePicker("picker");
 
+		getTester().startComponentInForm(picker, "date");
+		FormTester formTester = getTester().newFormTester("form");
+		assertNull(picker.getModelObject());
+		formTester.setValue(picker.getId() + ":" + picker.getDateTextField().getId(), "2/29/2012");
+		assertNull(picker.getModelObject());
+		formTester.submit();
+		assertNotNull(picker.getModelObject());
+		
+		assertEquals(0, getTester().getMessages(FeedbackMessage.ERROR).size());
+	}
+	
 	@Test
 	public void testDatepickerLifecycle() {
-		TestBootstrapDatepicker picker = new TestBootstrapDatepicker("picker");
+		TestBootstrapDatePicker picker = new TestBootstrapDatePicker("picker");
 
 		startTest(picker);
 
-		getTester().assertComponent(picker.getPageRelativePath(), TestBootstrapDatepicker.class);
+		getTester().assertComponent(picker.getPageRelativePath(), TestBootstrapDatePicker.class);
 		getTester().assertComponent(picker.getInnerField().getPageRelativePath(), DateTextField.class);
 		assertEquals(picker.getInnerField(), picker.getDateTextField());
 	}
@@ -113,7 +131,7 @@ public class BootstrapDatepickerTest extends AbstractComponentTest {
 	public void testLifecycleWithoutDateField() {
 		exception.expect(WicketRuntimeException.class);
 
-		BootstrapDatepicker picker = new BootstrapDatepicker("picker");
+		BootstrapDatePicker picker = new BootstrapDatePicker("picker");
 
 		startTest(picker);
 		
@@ -122,11 +140,11 @@ public class BootstrapDatepickerTest extends AbstractComponentTest {
 	@Test
 	public void testIGenericComponentImplementation() {
 		IModel<Date> model = new Model<Date>(christmas);
-		BootstrapDatepicker picker = new TestBootstrapDatepicker("picker");
+		BootstrapDatePicker picker = new TestBootstrapDatePicker("picker");
 
 		startTest(picker);
 
-		assertNull(picker.getModel());
+		assertNotNull(picker.getModel());
 		assertNull(picker.getModelObject());
 
 		picker.setModel(model);
