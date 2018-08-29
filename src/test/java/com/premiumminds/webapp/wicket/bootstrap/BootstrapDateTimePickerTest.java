@@ -24,7 +24,6 @@ import static org.junit.Assert.assertNull;
 
 import java.util.Date;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.IMarkupFragment;

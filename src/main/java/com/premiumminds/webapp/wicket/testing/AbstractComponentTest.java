@@ -430,6 +430,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements F
 		aux.remove(getMethodHelper("addListener", AjaxRequestTarget.IListener.class));
 		aux.remove(getMethodHelper("respond", IRequestCycle.class));
 		aux.remove(getMethodHelper("detach", IRequestCycle.class));
+		aux.removeIf(m -> m.isSynthetic());
 		return aux.toArray(new Method[aux.size()]);
 	}
 

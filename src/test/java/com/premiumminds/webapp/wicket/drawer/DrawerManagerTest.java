@@ -25,6 +25,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.easymock.Capture;
+import org.easymock.EasyMock;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Before;
@@ -122,16 +123,16 @@ public class DrawerManagerTest extends AbstractComponentTest {
 
 	@Test
 	public void testPushMultipleDrawersWithAJAX() {
-		Capture<Panel> item1 = new Capture<Panel>();
-		Capture<Panel> item2 = new Capture<Panel>();
-		Capture<Panel> item3 = new Capture<Panel>();
-		Capture<String> str1 = new Capture<String>();
-		Capture<String> str2 = new Capture<String>();
-		Capture<String> str2a = new Capture<String>();
-		Capture<String> str2b = new Capture<String>();
-		Capture<String> str3 = new Capture<String>();
-		Capture<String> str3a = new Capture<String>();
-		Capture<String> str3b = new Capture<String>();
+		Capture<Panel> item1 = EasyMock.newCapture();
+		Capture<Panel> item2 = EasyMock.newCapture();
+		Capture<Panel> item3 = EasyMock.newCapture();
+		Capture<String> str1 = EasyMock.newCapture();
+		Capture<String> str2 = EasyMock.newCapture();
+		Capture<String> str2a = EasyMock.newCapture();
+		Capture<String> str2b = EasyMock.newCapture();
+		Capture<String> str3 = EasyMock.newCapture();
+		Capture<String> str3a = EasyMock.newCapture();
+		Capture<String> str3b = EasyMock.newCapture();
 		DrawerManager m = new DrawerManager("test");
 		startTest(m);
 
@@ -260,7 +261,7 @@ public class DrawerManagerTest extends AbstractComponentTest {
 
 	@Test
 	public void testCloseDrawerEvent() {
-		Capture<EmptyPanel> p = new Capture<EmptyPanel>();
+		Capture<EmptyPanel> p = EasyMock.newCapture();
 		DrawerManager m = new DrawerManager("test");
 		TestDrawer d = new TestDrawer();
 		m.push(d);
@@ -284,7 +285,7 @@ public class DrawerManagerTest extends AbstractComponentTest {
 
 	@Test
 	public void testCloseInnerDrawerEvent() {
-		Capture<EmptyPanel> p = new Capture<EmptyPanel>();
+		Capture<EmptyPanel> p = EasyMock.newCapture();
 		DrawerManager m = new DrawerManager("test");
 		TestDrawer d1 = new TestDrawer();
 		m.push(d1);
@@ -329,8 +330,8 @@ public class DrawerManagerTest extends AbstractComponentTest {
 
 	@Test
 	public void testCloseDrawerEventForMultipleDrawers() {
-		Capture<EmptyPanel> p2 = new Capture<EmptyPanel>();
-		Capture<EmptyPanel> p3 = new Capture<EmptyPanel>();
+		Capture<EmptyPanel> p2 = EasyMock.newCapture();
+		Capture<EmptyPanel> p3 = EasyMock.newCapture();
 		DrawerManager m = new DrawerManager("test");
 		TestDrawer d1 = new TestDrawer();
 		m.push(d1);
@@ -367,7 +368,7 @@ public class DrawerManagerTest extends AbstractComponentTest {
 
 	@Test
 	public void testLockedDrawerInHierarchyPreventsCloseOfLowerDrawers() {
-		Capture<EmptyPanel> p = new Capture<EmptyPanel>();
+		Capture<EmptyPanel> p = EasyMock.newCapture();
 		DrawerManager m = new DrawerManager("test");
 		TestDrawer d1 = new TestDrawer();
 		m.push(d1);
