@@ -18,30 +18,30 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap;
 
+import java.time.temporal.Temporal;
 import java.util.Collection;
 
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
-import org.joda.time.ReadableInstant;
 
-import com.premiumminds.webapp.wicket.JodaInstantTextField;
+import com.premiumminds.webapp.wicket.TemporalTextField;
 import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBehaviour;
 
-public class BootstrapJodaDatepicker<T extends ReadableInstant> extends WebMarkupContainer {
+public class BootstrapTemporalDatepicker<T extends Temporal> extends WebMarkupContainer {
 	private static final long serialVersionUID = -117683073963817461L;
 
-	private JodaInstantTextField<T> dateField;
+	private TemporalTextField<T> dateField;
 	
-	public BootstrapJodaDatepicker(String id) {
+	public BootstrapTemporalDatepicker(String id) {
 		super(id);
 		add(new BootstrapDatePickerBehaviour() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Collection<SpecialDate> getSpecialDates() {
-				return BootstrapJodaDatepicker.this.getSpecialDates();
+				return BootstrapTemporalDatepicker.this.getSpecialDates();
 			}
 		});
 	}
@@ -50,9 +50,9 @@ public class BootstrapJodaDatepicker<T extends ReadableInstant> extends WebMarku
 	protected void onConfigure() {
 		super.onConfigure();
 
-		dateField = visitChildren(JodaInstantTextField.class, new IVisitor<JodaInstantTextField<T>, JodaInstantTextField<T>>() {
+		dateField = visitChildren(TemporalTextField.class, new IVisitor<TemporalTextField<T>, TemporalTextField<T>>() {
 			@Override
-			public void component(JodaInstantTextField<T> arg0, IVisit<JodaInstantTextField<T>> arg1) {
+			public void component(TemporalTextField<T> arg0, IVisit<TemporalTextField<T>> arg1) {
 				arg1.stop(arg0);
 			}
 		});

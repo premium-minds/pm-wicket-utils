@@ -18,6 +18,9 @@
  */
 package com.premiumminds.webapp.wicket;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 import java.util.Locale;
 
 import org.apache.wicket.markup.html.form.AbstractTextComponent.ITextFormatProvider;
@@ -25,40 +28,38 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.convert.ConversionException;
 import org.apache.wicket.util.convert.IConverter;
-import org.joda.time.ReadableInstant;
-import org.joda.time.format.DateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JodaInstantTextField<T extends ReadableInstant> extends TextField<T> implements ITextFormatProvider {
+public class TemporalTextField<T extends Temporal> extends TextField<T> implements ITextFormatProvider {
 	/** Log for reporting. */
-	private static final Logger log = LoggerFactory.getLogger(JodaInstantTextField.class);
+	private static final Logger log = LoggerFactory.getLogger(TemporalTextField.class);
 	private static final long serialVersionUID = 1L;
 	private String pattern;
 	private IConverter<T> converter;
 
 	private static final String DEFAULT_PATTERN = "dd/MM/yyyy";
 
-	public JodaInstantTextField(String id, Class<T> type) {
+	public TemporalTextField(String id, Class<T> type) {
 		this(id, null, defaultDatePattern(), type);
 	}
 
-	public JodaInstantTextField(String id, IModel<T> model, Class<T> type) {
+	public TemporalTextField(String id, IModel<T> model, Class<T> type) {
 		this(id, model, defaultDatePattern(), type);
 	}
 
-	public JodaInstantTextField(String id, IModel<T> model,
+	public TemporalTextField(String id, IModel<T> model,
 			String pattern, final Class<T> type) {
 		super(id, model, type);
 		this.pattern = pattern;
 		converter = new IConverter<T>() {
 			private static final long serialVersionUID = 1L;
 
-			public String convertToString(ReadableInstant value, Locale locale) {
+			public String convertToString(Temporal value, Locale locale) {
 				if(null == locale) {
-					return DateTimeFormat.forPattern(JodaInstantTextField.this.pattern).print(value);
+					return DateTimeFormatter.ofPattern(TemporalTextField.this.pattern).format(value);
 				} else {
-					return DateTimeFormat.forPattern(JodaInstantTextField.this.pattern).withLocale(locale).print(value);
+					return DateTimeFormatter.ofPattern(TemporalTextField.this.pattern).withLocale(locale).format(value);
 				}
 			}
 
@@ -66,9 +67,9 @@ public class JodaInstantTextField<T extends ReadableInstant> extends TextField<T
 					throws ConversionException {
 				try {
 				if(null == locale) {
-					return type.getConstructor(Long.TYPE).newInstance(DateTimeFormat.forPattern(JodaInstantTextField.this.pattern).parseDateTime(value).getMillis());
+					return type.getConstructor(Long.TYPE).newInstance(ZonedDateTime.parse(value, DateTimeFormatter.ofPattern(TemporalTextField.this.pattern)).toInstant().toEpochMilli());
 				} else {
-					return type.getConstructor(Long.TYPE).newInstance(DateTimeFormat.forPattern(JodaInstantTextField.this.pattern).withLocale(locale).parseDateTime(value).getMillis());
+					return type.getConstructor(Long.TYPE).newInstance(ZonedDateTime.parse(value, DateTimeFormatter.ofPattern(TemporalTextField.this.pattern).withLocale(locale)).toInstant().toEpochMilli());
 				}
 				} catch(Exception e) {
 					log.error("Could not convert [" + value +"] to a valid " + type.getSimpleName());
@@ -93,7 +94,7 @@ public class JodaInstantTextField<T extends ReadableInstant> extends TextField<T
 	@Override
 	public <C> IConverter<C> getConverter(final Class<C> type)
 	{
-		if (ReadableInstant.class.isAssignableFrom(type))
+		if (Temporal.class.isAssignableFrom(type))
 		{
 			return (IConverter<C>)converter;
 		}
