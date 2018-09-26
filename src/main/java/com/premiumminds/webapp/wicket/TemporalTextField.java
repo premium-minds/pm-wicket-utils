@@ -18,8 +18,11 @@
  */
 package com.premiumminds.webapp.wicket;
 
+import java.lang.reflect.Method;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
 import java.util.Locale;
 
@@ -51,7 +54,9 @@ public class TemporalTextField<T extends Temporal> extends TextField<T> implemen
 	public TemporalTextField(String id, IModel<T> model,
 			String pattern, final Class<T> type) {
 		super(id, model, type);
+
 		this.pattern = pattern;
+
 		converter = new IConverter<T>() {
 			private static final long serialVersionUID = 1L;
 
@@ -63,18 +68,31 @@ public class TemporalTextField<T extends Temporal> extends TextField<T> implemen
 				}
 			}
 
-			public T convertToObject(String value, Locale locale)
-					throws ConversionException {
-				try {
-				if(null == locale) {
-					return type.getConstructor(Long.TYPE).newInstance(ZonedDateTime.parse(value, DateTimeFormatter.ofPattern(TemporalTextField.this.pattern)).toInstant().toEpochMilli());
-				} else {
-					return type.getConstructor(Long.TYPE).newInstance(ZonedDateTime.parse(value, DateTimeFormatter.ofPattern(TemporalTextField.this.pattern).withLocale(locale)).toInstant().toEpochMilli());
+			@SuppressWarnings("unchecked")
+			public T convertToObject(String value, Locale locale) throws ConversionException {
+				DateTimeFormatter formatter =
+			            new DateTimeFormatterBuilder().appendPattern(TemporalTextField.this.pattern)
+			            .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+			            .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+			            .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+			            .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
+			            .parseDefaulting(ChronoField.MONTH_OF_YEAR, 1)
+			            .parseDefaulting(ChronoField.YEAR_OF_ERA, ZonedDateTime.now().getYear())
+			            .toFormatter();
+				if (null != locale) {
+					formatter = formatter.withLocale(locale);
 				}
+
+				try {
+					Method parser = type.getMethod("parse", CharSequence.class, DateTimeFormatter.class);
+					return (T)parser.invoke(null, value, formatter);
+				} catch (NoSuchMethodException | SecurityException e1) {
+					log.error("Could not find parser for type " + type.getSimpleName());
 				} catch(Exception e) {
 					log.error("Could not convert [" + value +"] to a valid " + type.getSimpleName());
-					return null;
 				}
+
+				return null;
 			}
 		};
 	}
