@@ -54,12 +54,12 @@ public class BootstrapDatePickerBehaviour extends Behavior {
 		Collection<SpecialDate> specialDates = getSpecialDates();
 
 		if(component.isEnabledInHierarchy()){
-			response.render(CssReferenceHeaderItem.forReference(DATE_PICKER_CSS));
+			/* response.render(CssReferenceHeaderItem.forReference(DATE_PICKER_CSS));
 			response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_JAVASCRIPT));
-			response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_EXTENSION_JAVASCRIPT));
-			if(!component.getLocale().getLanguage().equals("en")){
+			response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_EXTENSION_JAVASCRIPT)); */
+			/* if(!component.getLocale().getLanguage().equals("en")){
 				response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "locales/bootstrap-datepicker."+component.getLocale().getLanguage()+".js")));
-			}
+			} */
 
 			if(null != specialDates && !specialDates.isEmpty()) {
 				StringBuilder sb = new StringBuilder();
