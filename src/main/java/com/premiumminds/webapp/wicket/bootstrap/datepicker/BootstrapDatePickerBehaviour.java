@@ -36,9 +36,9 @@ import com.premiumminds.webapp.wicket.bootstrap.SpecialDate;
 public class BootstrapDatePickerBehaviour extends Behavior {
 	private static final long serialVersionUID = 6150624915791893034L;
 
-	private static final ResourceReference DATE_PICKER_CSS = new CssResourceReference(BootstrapDatePickerBehaviour.class, "datepicker.css");
+	private static final ResourceReference DATE_PICKER_CSS = new CssResourceReference(BootstrapDatePickerBehaviour.class, "datepicker.min.css");
 	
-	private static final ResourceReference DATE_PICKER_JAVASCRIPT = new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "bootstrap-datepicker.js");
+	private static final ResourceReference DATE_PICKER_JAVASCRIPT = new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "bootstrap-datepicker.min.js");
 	private static final ResourceReference DATE_PICKER_EXTENSION_JAVASCRIPT = new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "bootstrap-datepicker-extension.js");
 	
 	@Override
@@ -54,12 +54,12 @@ public class BootstrapDatePickerBehaviour extends Behavior {
 		Collection<SpecialDate> specialDates = getSpecialDates();
 
 		if(component.isEnabledInHierarchy()){
-			/* response.render(CssReferenceHeaderItem.forReference(DATE_PICKER_CSS));
+			response.render(CssReferenceHeaderItem.forReference(DATE_PICKER_CSS));
 			response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_JAVASCRIPT));
-			response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_EXTENSION_JAVASCRIPT)); */
-			/* if(!component.getLocale().getLanguage().equals("en")){
-				response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "locales/bootstrap-datepicker."+component.getLocale().getLanguage()+".js")));
-			} */
+			response.render(JavaScriptHeaderItem.forReference(DATE_PICKER_EXTENSION_JAVASCRIPT));
+			if(!component.getLocale().getLanguage().equals("en")){
+				response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(BootstrapDatePickerBehaviour.class, "locales/bootstrap-datepicker."+component.getLocale().getLanguage()+".min.js")));
+			}
 
 			if(null != specialDates && !specialDates.isEmpty()) {
 				StringBuilder sb = new StringBuilder();
