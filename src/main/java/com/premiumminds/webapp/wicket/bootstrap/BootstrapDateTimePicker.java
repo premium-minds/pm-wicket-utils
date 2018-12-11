@@ -36,10 +36,10 @@ import com.premiumminds.webapp.wicket.bootstrap.datetimepicker.BootstrapDateTime
 /**
  * Bootstrap DateTime picker for Wicket.
  *
+ * Requires jQuery, BootStrap and Font Awesome. Warning: make sure your jQuery is loaded as a priority header item!
+ * 
  * @author npires
  * @see <a href="https://eonasdan.github.io/bootstrap-datetimepicker/">Bootstrap 3 DateTime picker</a>
- * 
- * Requires jQuery, BootStrap and Font Awesome. Warning: make sure your jQuery is loaded as a priority header item!
  */
 public class BootstrapDateTimePicker extends WebMarkupContainer implements IGenericComponent<Date, TextField<Date>>
 {

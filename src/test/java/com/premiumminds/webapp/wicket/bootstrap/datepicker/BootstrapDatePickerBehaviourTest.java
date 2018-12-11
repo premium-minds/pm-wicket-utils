@@ -40,7 +40,7 @@ import com.premiumminds.webapp.wicket.bootstrap.SpecialDate;
 import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 
 public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
-	/* @Test
+	@Test
 	public void testTagInjection() {
 		getTester().getSession().setLocale(Locale.ENGLISH);
 
@@ -76,7 +76,7 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 		List<TagTester> css = TagTester.createTagsByAttribute(head.getValue(), "type", "text/css", false);
 		assertEquals(1, css.size());
 		assertEquals("link", css.get(0).getName());
-		assertThat(css.get(0).getAttribute("href"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/datepicker(.*)\\.css"));
+		assertThat(css.get(0).getAttribute("href"), matchesPattern("(.*)" + BootstrapDatePickerBehaviour.class.getName() + "/bootstrap-datepicker(.*)\\.css"));
 	}
 
 	@Test
@@ -284,5 +284,5 @@ public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 
 		TagTester elem = TagTester.createTagByAttribute(doc, "wicket:id", "field");
 		assertNull(elem.getAttribute("data-date-language"));
-	} */
+	}
 }
