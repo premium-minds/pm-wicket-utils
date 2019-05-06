@@ -92,4 +92,14 @@ public class PortugueseNIFValidatorTest {
 		assertEquals(1, validatable.getErrors().size());
 	}
 
+	@Test
+	public void testValidDoubleDigit() {
+		IValidator<String> validator = new PortugueseNIFValidator();
+		
+		Validatable<String> validatable = new Validatable<String>("451234561");
+		validator.validate(validatable);
+		
+		assertEquals(0, validatable.getErrors().size());
+
+	}
 }
