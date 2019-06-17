@@ -21,7 +21,7 @@ If you use old versions of wicket, here is a compatibility table:
 Wicket | pm-wicket-utils |
 | ------------- | ------------- |
 6.x | 2.8 |
-7.x | 3.0 |
+7.x | 3.1 |
 8.x | 4.4 |
 
 ## Documentation
