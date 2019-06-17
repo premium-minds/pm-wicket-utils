@@ -1,7 +1,7 @@
 pm-wicket-utils
 ===============
 
-A library with Wicket Components, Behaviours and some other stuff.
+A library with [Wicket](http://wicket.apache.org/) Components, Behaviours and some other stuff.
 
 ## Maven projects
 
