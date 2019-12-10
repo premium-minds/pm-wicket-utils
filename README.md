@@ -18,11 +18,11 @@ Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search
 
 If you use old versions of wicket, here is a compatibility table:
 
-Wicket | pm-wicket-utils |
-| ------------- | ------------- |
-6.x | 2.8 |
-7.x | 3.1 |
-8.x | 4.4 |
+Wicket | pm-wicket-utils | Maven Central |
+| ------------- | ------------- | ------------- | 
+6.x | 2.8 | ![Maven Central with version prefix filter](https://img.shields.io/maven-central/v/com.premiumminds/pm-wicket-utils/2)|
+7.x | 3.1 | ![Maven Central with version prefix filter](https://img.shields.io/maven-central/v/com.premiumminds/pm-wicket-utils/3)|
+8.x | 4.4 | ![Maven Central with version prefix filter](https://img.shields.io/maven-central/v/com.premiumminds/pm-wicket-utils/4)|
 
 ## Documentation
 
