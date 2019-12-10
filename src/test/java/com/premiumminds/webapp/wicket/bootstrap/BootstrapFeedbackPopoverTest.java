@@ -1,7 +1,5 @@
 package com.premiumminds.webapp.wicket.bootstrap;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
