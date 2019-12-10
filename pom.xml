@@ -115,7 +115,7 @@
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>pm-persistence-utils</artifactId>
-			<version>2.0</version>
+			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
 
