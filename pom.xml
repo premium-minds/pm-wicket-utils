@@ -2,9 +2,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.premiumminds</groupId>
-	<artifactId>pm-wicket-utils</artifactId>
+	<artifactId>pm-wicket-utils-parent</artifactId>
 	<version>4.5-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>pm-wicket-utils</name>
 	<description>A library with Wicket Components, Behaviours and some other stuff</description>
@@ -36,6 +36,10 @@
 			<name>André Camilo</name>
 			<organization>Premium Minds</organization>
 		</developer>
+		<developer>
+			<name>Filipe Roque</name>
+			<organization>Premium Minds</organization>
+		</developer>
 	</developers>
 
 	<properties>
@@ -45,33 +49,12 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.hamcrest</groupId>
-					<artifactId>hamcrest-core</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+	<modules>
+		<module>core</module>
+		<module>testing</module>
+	</modules>
 
-		<dependency>
-		    <groupId>org.hamcrest</groupId>
-		    <artifactId>hamcrest-junit</artifactId>
-		    <version>2.0.0.0</version>
-		    <scope>provided</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>4.1</version>
-			<scope>provided</scope>
-		</dependency>
+	<dependencies>
 
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
@@ -233,13 +216,13 @@
 
 		<resources>
 			<resource>
-				<directory>src/main/resources</directory>
+				<directory>${basedir}/src/main/resources</directory>
 				<includes>
 					<include>**</include>
 				</includes>
 			</resource>
 			<resource>
-				<directory>src/main/java</directory>
+				<directory>${basedir}/src/main/java</directory>
 				<includes>
 					<include>**</include>
 				</includes>
@@ -250,13 +233,13 @@
 		</resources>
 		<testResources>
 			<testResource>
-				<directory>src/test/resources</directory>
+				<directory>${basedir}/src/test/resources</directory>
 				<includes>
 					<include>**</include>
 				</includes>
 			</testResource>
 			<testResource>
-				<directory>src/test/java</directory>
+				<directory>${basedir}/src/test/java</directory>
 				<includes>
 					<include>**</include>
 				</includes>
