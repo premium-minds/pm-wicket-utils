@@ -18,6 +18,8 @@
  */
 package com.premiumminds.webapp.wicket.validators;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +27,7 @@ import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.ValidationError;
 import org.apache.wicket.validation.validator.StringValidator;
 
-import com.google.common.collect.Lists;
+
 
 /**
  * Class the validates portuguese NIF numbers
@@ -57,11 +59,10 @@ public class PortugueseNIFValidator extends StringValidator {
 		if(number.length() != 9) {
 			return false;
 		}
-		
-		List<Character> firstDigits = Lists.charactersOf("123568");
-		boolean validFirstDigit = firstDigits.stream().map(c -> number.charAt(0) == c).filter(b -> b).findAny().orElse(false);
 
-		List<String> firstDoubleDigits = Lists.newArrayList("45", "70", "71", "72", "74", "75", "77", "79", "90", "91", "98", "99");
+		boolean validFirstDigit = "123568".chars().mapToObj(c -> number.charAt(0) == c).filter(b -> b).findAny().orElse(false);
+
+		List<String> firstDoubleDigits = Arrays.asList("45", "70", "71", "72", "74", "75", "77", "79", "90", "91", "98", "99");
 		boolean validDoubleDigits = firstDoubleDigits.stream().map(c -> number.substring(0,  2).equals(c)).filter(b -> b).findAny().orElse(false);
 		
 		if(!validFirstDigit && !validDoubleDigits){
