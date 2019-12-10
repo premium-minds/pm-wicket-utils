@@ -89,7 +89,7 @@
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-persist</artifactId>
-			<version>4.2.0</version>
+			<version>4.2.2</version>
 			<scope>provided</scope>
 		</dependency>
 
