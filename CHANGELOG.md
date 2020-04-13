@@ -26,7 +26,8 @@
  - [Bump junit from 4.12 to 4.13](https://github.com/premium-minds/pm-wicket-utils/pull/63)
  - [Bump maven-source-plugin from 3.2.0 to 3.2.1](https://github.com/premium-minds/pm-wicket-utils/pull/62)
  - [Bump easymock from 4.1 to 4.2](https://github.com/premium-minds/pm-wicket-utils/pull/66)
- - [Bump maven-javadoc-plugin from 3.1.1 to 3.2.0 #69 ](https://github.com/premium-minds/pm-wicket-utils/pull/69)
+ - [Bump maven-javadoc-plugin from 3.1.1 to 3.2.0](https://github.com/premium-minds/pm-wicket-utils/pull/69)
+ - [Bump hibernate-validator from 6.1.2.Final to 6.1.3.Final](https://github.com/premium-minds/pm-wicket-utils/pull/70)
  
 ### Removed
 
