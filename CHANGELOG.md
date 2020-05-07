@@ -29,6 +29,7 @@
  - [Bump maven-javadoc-plugin from 3.1.1 to 3.2.0](https://github.com/premium-minds/pm-wicket-utils/pull/69)
  - [Bump hibernate-validator from 6.1.2.Final to 6.1.3.Final](https://github.com/premium-minds/pm-wicket-utils/pull/70)
  - [Bump wicket.version from 8.7.0 to 8.8.0](https://github.com/premium-minds/pm-wicket-utils/pull/72)
+ - [Bump hibernate-validator from 6.1.3.Final to 6.1.5.Final](https://github.com/premium-minds/pm-wicket-utils/pull/74)
  
 ### Removed
 
