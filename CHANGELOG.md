@@ -30,6 +30,7 @@
  - [Bump hibernate-validator from 6.1.2.Final to 6.1.3.Final](https://github.com/premium-minds/pm-wicket-utils/pull/70)
  - [Bump wicket.version from 8.7.0 to 8.8.0](https://github.com/premium-minds/pm-wicket-utils/pull/72)
  - [Bump hibernate-validator from 6.1.3.Final to 6.1.5.Final](https://github.com/premium-minds/pm-wicket-utils/pull/74)
+ - [Bump commons-text from 1.8 to 1.9](https://github.com/premium-minds/pm-wicket-utils/pull/76)
  
 ### Removed
 
