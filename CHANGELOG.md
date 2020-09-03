@@ -1,3 +1,4 @@
+<!-- https://keepachangelog.com/en/1.0.0/ -->
 # Changelog
 
 ## [Unreleased]
@@ -32,6 +33,7 @@
  - [Bump hibernate-validator from 6.1.3.Final to 6.1.5.Final](https://github.com/premium-minds/pm-wicket-utils/pull/74)
  - [Bump commons-text from 1.8 to 1.9](https://github.com/premium-minds/pm-wicket-utils/pull/76)
  - [Bump wicket.version from 8.8.0 to 8.9.0](https://github.com/premium-minds/pm-wicket-utils/pull/77)
+ - [Moved dependencies from parent module into each submodule](https://github.com/premium-minds/pm-wicket-utils/pull/73)
  
 ### Removed
 
