@@ -36,6 +36,7 @@
  - [Moved dependencies from parent module into each submodule](https://github.com/premium-minds/pm-wicket-utils/pull/73)
  - [Bump hibernate-validator from 6.1.5.Final to 6.1.6.Final](https://github.com/premium-minds/pm-wicket-utils/pull/78)
  - [Bump wicket.version from 8.9.0 to 8.10.0](https://github.com/premium-minds/pm-wicket-utils/pull/79)
+ - [[Security] Bump junit from 4.13 to 4.13.1](https://github.com/premium-minds/pm-wicket-utils/pull/80)
  
 ### Removed
 
