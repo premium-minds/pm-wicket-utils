@@ -38,6 +38,7 @@
  - [Bump wicket.version from 8.9.0 to 8.10.0](https://github.com/premium-minds/pm-wicket-utils/pull/79)
  - [[Security] Bump junit from 4.13 to 4.13.1](https://github.com/premium-minds/pm-wicket-utils/pull/80)
  - [Bump wicket.version from 8.10.0 to 8.11.0](https://github.com/premium-minds/pm-wicket-utils/pull/83)
+ - [Bump hibernate-validator from 6.1.6.Final to 6.1.7.Final](https://github.com/premium-minds/pm-wicket-utils/pull/84)
  
 ### Removed
 
