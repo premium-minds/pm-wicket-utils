@@ -46,32 +46,32 @@
  - removed unused dependency log4j 
 
  
-## [4.4]
+## [4.4] - 2019-07-17
 
 ### Fixed
 
 - [nova-gama-de-nif-comeca-por-3](https://github.com/premium-minds/pm-wicket-utils/pull/42)
 
-## [4.3]
+## [4.3] - 2018-12-12
 
 ### Changed
 
  - [Update bs](https://github.com/premium-minds/pm-wicket-utils/pull/39)
  - [added un-minified js and css for bootstrap datepicker](https://github.com/premium-minds/pm-wicket-utils/pull/40)
 
-## [4.2]
+## [4.2] - 2018-10-02
 
 ### Changed
 
  - [Remove Joda Time dependency and migrate to Java 8 time API](https://github.com/premium-minds/pm-wicket-utils/pull/38)
  
-## [4.1]
+## [4.1] - 2018-08-29
 
 ### Changed
 
  - [Dependency adjustments and cleanups](https://github.com/premium-minds/pm-wicket-utils/pull/37)
  
-## [4.0]
+## [4.0] - 2018-08-29
 
 ### Changed
 
@@ -80,6 +80,74 @@
 ### Fixed
 
  - [Bug in BootstrapDatePicker and BootstrapDateTimePicker](https://github.com/premium-minds/pm-wicket-utils/pull/36)
+
+## [3.1] - 2018-07-02
+
+### Added
+
+ - [New BooleanDropDown component to show booleans as a drop down list, which can have null as a possible value.](https://github.com/premium-minds/pm-wicket-utils/pull/32)
+ 
+### Changed
+
+ - [Updated wicket version to 7.7.0](https://github.com/premium-minds/pm-wicket-utils/pull/33/files)
+ - [Applied fix to deprecated wicket.properties location](https://github.com/premium-minds/pm-wicket-utils/pull/34)
+ 
+## [3.0] - 2016-03-22
+
+### Changed
+
+ - [Wicket update to version 7.2.0](https://github.com/premium-minds/pm-wicket-utils/pull/29) - requires Java 7
+
+## [2.8] - 2016-03-22
+
+### Added
+
+ - [pm-wicket-utils: bootstrap datetime picker implementation + test](https://github.com/premium-minds/pm-wicket-utils/pull/31)
+ 
+### Fixed
+
+ - [NIF validator correction](https://github.com/premium-minds/pm-wicket-utils/pull/27)
+
+## [2.7] - 2015-05-14
+
+### Changed
+
+ - [Refine unit tests](https://github.com/premium-minds/pm-wicket-utils/pull/21/files)
+ - [InfiniteScrollListView unit tests](https://github.com/premium-minds/pm-wicket-utils/pull/22)
+ - [New method resetTest in AbstractComponentTest](https://github.com/premium-minds/pm-wicket-utils/pull/23)
+ - [New functionality for AbstractComponentTest](https://github.com/premium-minds/pm-wicket-utils/pull/24)
+ - [make actual validation method public static](https://github.com/premium-minds/pm-wicket-utils/pull/25)
+ - [Additional functionality for AbstractComponentTest](https://github.com/premium-minds/pm-wicket-utils/pull/26)
+ 
+### Fixed
+
+ - [fixed bug in FF with drawers](https://github.com/premium-minds/pm-wicket-utils/commit/ad3b358845d47ba167fbd3a1e453a3cf5391e211)
+ 
+## [2.6.1] - 2014-12-29
+
+ - [bootstrappaginator bug fixed](https://github.com/premium-minds/pm-wicket-utils/commit/b3970fba815583cc15a24795a177bec4179e952c)
+ 
+## [2.6] - 2014-12-29
+
+### Added
+
+ - [drawers system](https://github.com/premium-minds/pm-wicket-utils/pull/16)
+
+### Changed
+
+ - [Solve deprecation warnings](https://github.com/premium-minds/pm-wicket-utils/pull/14)
+ - [Full unit tests for FormatLabel and AjaxComponentFeedbackPanel](https://github.com/premium-minds/pm-wicket-utils/pull/15)
+ - [Moved AbstractComponentTest to a package in src/main](https://github.com/premium-minds/pm-wicket-utils/pull/18)
+ - [Javadoc for AbstractComponentTest and TestNotStartedException](https://github.com/premium-minds/pm-wicket-utils/pull/19)
+ 
+### Fixed
+
+ - [Failing to validate a NIF](https://github.com/premium-minds/pm-wicket-utils/pull/12)
+ - [Paginator NPE](https://github.com/premium-minds/pm-wicket-utils/pull/17)
+ 
+## [2.5] - 2014-11-27
+
+## [2.4] - 2014-08-26
 
 [2.4]: https://github.com/premium-minds/pm-wicket-utils/compare/v1.11...v2.4
 [2.5]: https://github.com/premium-minds/pm-wicket-utils/compare/v2.4...v2.5
