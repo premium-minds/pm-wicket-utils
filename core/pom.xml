@@ -100,8 +100,8 @@
 
         <dependency>
             <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>3.0.0</version>
+            <artifactId>jakarta.el</artifactId>
+            <version>3.0.3</version>
             <scope>test</scope>
         </dependency>
 
