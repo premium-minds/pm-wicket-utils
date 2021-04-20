@@ -43,6 +43,7 @@
  - [Replace old javax.servlet-api with new jakarta.servlet-api](https://github.com/premium-minds/pm-wicket-utils/pull/88)
  - [Replace old glassfish javax.el with new glassfish jakarta.el](https://github.com/premium-minds/pm-wicket-utils/pull/89)
  - [Bump wicket.version from 8.11.0 to 8.12.0](https://github.com/premium-minds/pm-wicket-utils/pull/93)
+ - [Bump easymock from 4.2 to 4.3](https://github.com/premium-minds/pm-wicket-utils/pull/94)
  
 ### Removed
 
