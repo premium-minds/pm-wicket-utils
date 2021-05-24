@@ -47,6 +47,7 @@
  - [Bump junit from 4.13.1 to 4.13.2](https://github.com/premium-minds/pm-wicket-utils/pull/95)
  - [Bump hibernate-validator from 6.1.7.Final to 6.2.0.Final](https://github.com/premium-minds/pm-wicket-utils/pull/98)
  - [Bump maven-gpg-plugin from 1.6 to 3.0.1](https://github.com/premium-minds/pm-wicket-utils/pull/99)
+ - [Bump maven-javadoc-plugin from 3.2.0 to 3.3.0](https://github.com/premium-minds/pm-wicket-utils/pull/100)
  
 ### Removed
 
