@@ -49,6 +49,7 @@
  - [Bump nexus-staging-maven-plugin from 1.6.2 to 1.6.8](https://github.com/premium-minds/pm-wicket-utils/pull/58)
  - [Bump maven-release-plugin from 2.4.2 to 2.5.3](https://github.com/premium-minds/pm-wicket-utils/pull/47)
  - [Bump maven-scm-provider-gitexe from 1.8.1 to 1.11.2](https://github.com/premium-minds/pm-wicket-utils/pull/45)
+ - [Bump maven-scm-provider-gitexe from 1.11.2 to 1.11.3](https://github.com/premium-minds/pm-wicket-utils/pull/102)
 
 ### Removed
 
