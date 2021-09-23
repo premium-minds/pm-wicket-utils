@@ -31,9 +31,7 @@ Wicket | pm-wicket-utils | Maven Central |
 
 ## Continuous Integration
 
-[![Build Status](https://travis-ci.com/premium-minds/pm-wicket-utils.png?branch=master)](https://travis-ci.com/github/premium-minds/pm-wicket-utils)
-
-CI is hosted by [travis-ci.com](https://travis-ci.com/)
+[![Java CI with Maven](https://github.com/premium-minds/pm-wicket-utils/actions/workflows/maven.yml/badge.svg)](https://github.com/premium-minds/pm-wicket-utils/actions/workflows/maven.yml)
 
 ## Licence
 
