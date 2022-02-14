@@ -19,6 +19,7 @@
 package com.premiumminds.webapp.wicket.drawer;
 
 import static org.easymock.EasyMock.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -39,7 +40,7 @@ public class DrawerManagerTest extends AbstractComponentTest {
 	//Setting up a proper interface unit test would entail instantiating a JavaScript engine.
 	//This is the next best thing. - JMMM
 
-	private class TestDrawer extends AbstractDrawer {
+	private static class TestDrawer extends AbstractDrawer {
 		private static final long serialVersionUID = 1L;
 
 		private boolean mbOnCloseCalled = false;
