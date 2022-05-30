@@ -62,6 +62,7 @@
  - [Bump maven-scm-provider-gitexe from 1.11.2 to 1.11.3](https://github.com/premium-minds/pm-wicket-utils/pull/102)
  - [Bump maven-scm-provider-gitexe from 1.11.3 to 1.12.0](https://github.com/premium-minds/pm-wicket-utils/pull/105)
  - [Bump maven-scm-provider-gitexe from 1.12.0 to 1.12.2](https://github.com/premium-minds/pm-wicket-utils/pull/107)
+ - [Bump maven-scm-provider-gitexe from 1.12.2 to 1.13.0](https://github.com/premium-minds/pm-wicket-utils/pull/121)
 
 ### Removed
 
