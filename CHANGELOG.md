@@ -49,6 +49,7 @@
  - [Bump maven-javadoc-plugin from 3.3.0 to 3.3.1](https://github.com/premium-minds/pm-wicket-utils/pull/104)
  - [Bump maven-javadoc-plugin from 3.3.1 to 3.3.2](https://github.com/premium-minds/pm-wicket-utils/pull/111)
  - [Bump maven-javadoc-plugin from 3.3.2 to 3.4.0](https://github.com/premium-minds/pm-wicket-utils/pull/119)
+ - [Bump maven-javadoc-plugin from 3.3.2 to 3.4.1](https://github.com/premium-minds/pm-wicket-utils/pull/125)
  - [Bump maven-compiler-plugin from 2.3.2 to 3.8.1](https://github.com/premium-minds/pm-wicket-utils/pull/51)
  - [Bump maven-compiler-plugin from 3.8.1 to 3.9.0](https://github.com/premium-minds/pm-wicket-utils/pull/108)
  - [Bump maven-compiler-plugin from 3.9.0 to 3.10.0](https://github.com/premium-minds/pm-wicket-utils/pull/113)
