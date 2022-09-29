@@ -11,6 +11,7 @@
  - [Bump javax.servlet-api from 4.0.0 to 4.0.1](https://github.com/premium-minds/pm-wicket-utils/pull/57)
  - [Bump commons-text from 1.4 to 1.8](https://github.com/premium-minds/pm-wicket-utils/pull/43)
  - [Bump commons-text from 1.8 to 1.9](https://github.com/premium-minds/pm-wicket-utils/pull/76)
+ - [Bump commons-text from 1.9 to 1.10.0](https://github.com/premium-minds/pm-wicket-utils/pull/127)
  - [Moved dependencies from parent module into each submodule](https://github.com/premium-minds/pm-wicket-utils/pull/73)
  - [Replace old javax.servlet-api with new jakarta.servlet-api](https://github.com/premium-minds/pm-wicket-utils/pull/88)
  - [Replace old glassfish javax.el with new glassfish jakarta.el](https://github.com/premium-minds/pm-wicket-utils/pull/89)
