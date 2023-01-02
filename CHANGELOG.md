@@ -35,6 +35,7 @@
  - [Bump easymock from 3.6 to 4.1](https://github.com/premium-minds/pm-wicket-utils/pull/48)
  - [Bump easymock from 4.1 to 4.2](https://github.com/premium-minds/pm-wicket-utils/pull/66)
  - [Bump easymock from 4.2 to 4.3](https://github.com/premium-minds/pm-wicket-utils/pull/94)
+ - [Bump easymock from 4.3 to 5.1.0](https://github.com/premium-minds/pm-wicket-utils/pull/130)
  - [Bump junit from 4.12 to 4.13](https://github.com/premium-minds/pm-wicket-utils/pull/63)
  - [[Security] Bump junit from 4.13 to 4.13.1](https://github.com/premium-minds/pm-wicket-utils/pull/80)
  - [Bump junit from 4.13.1 to 4.13.2](https://github.com/premium-minds/pm-wicket-utils/pull/95)
