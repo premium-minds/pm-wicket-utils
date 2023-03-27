@@ -63,11 +63,13 @@
  - [Bump nexus-staging-maven-plugin from 1.6.11 to 1.6.12](https://github.com/premium-minds/pm-wicket-utils/pull/115)
  - [Bump nexus-staging-maven-plugin from 1.6.12 to 1.6.13](https://github.com/premium-minds/pm-wicket-utils/pull/120)
  - [Bump maven-release-plugin from 2.4.2 to 2.5.3](https://github.com/premium-minds/pm-wicket-utils/pull/47)
+ - [Bump maven-release-plugin from 2.5.3 to 3.0.0](https://github.com/premium-minds/pm-wicket-utils/pull/134)
  - [Bump maven-scm-provider-gitexe from 1.8.1 to 1.11.2](https://github.com/premium-minds/pm-wicket-utils/pull/45)
  - [Bump maven-scm-provider-gitexe from 1.11.2 to 1.11.3](https://github.com/premium-minds/pm-wicket-utils/pull/102)
  - [Bump maven-scm-provider-gitexe from 1.11.3 to 1.12.0](https://github.com/premium-minds/pm-wicket-utils/pull/105)
  - [Bump maven-scm-provider-gitexe from 1.12.0 to 1.12.2](https://github.com/premium-minds/pm-wicket-utils/pull/107)
  - [Bump maven-scm-provider-gitexe from 1.12.2 to 1.13.0](https://github.com/premium-minds/pm-wicket-utils/pull/121)
+ - [Bump maven-scm-provider-gitexe from 1.13.0 to 2.0.0](https://github.com/premium-minds/pm-wicket-utils/pull/133)
 
 ### Removed
 
