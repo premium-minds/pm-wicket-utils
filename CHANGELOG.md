@@ -24,6 +24,7 @@
  - [Bump wicket.version from 8.11.0 to 8.12.0](https://github.com/premium-minds/pm-wicket-utils/pull/93)
  - [Bump wicket.version from 8.12.0 to 8.13.0](https://github.com/premium-minds/pm-wicket-utils/pull/101)
  - [Bump wicket.version from 8.13.0 to 8.14.0](https://github.com/premium-minds/pm-wicket-utils/pull/110)
+ - [Bump wicket.version from 8.14.0 to 8.15.0](https://github.com/premium-minds/pm-wicket-utils/pull/136)
  - [Bump hibernate-validator from 6.0.12.Final to 6.1.0.Final](https://github.com/premium-minds/pm-wicket-utils/pull/46)
  - [Bump hibernate-validator from 6.1.0.Final to 6.1.1.Final](https://github.com/premium-minds/pm-wicket-utils/pull/65)
  - [Bump hibernate-validator from 6.1.1.Final to 6.1.2.Final](https://github.com/premium-minds/pm-wicket-utils/pull/67)
