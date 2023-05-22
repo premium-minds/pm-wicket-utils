@@ -42,6 +42,7 @@
  - [Bump junit from 4.13.1 to 4.13.2](https://github.com/premium-minds/pm-wicket-utils/pull/95)
  - [Bump maven-source-plugin from 2.2.1 to 3.2.0](https://github.com/premium-minds/pm-wicket-utils/pull/59)
  - [Bump maven-source-plugin from 3.2.0 to 3.2.1](https://github.com/premium-minds/pm-wicket-utils/pull/62)
+ - [Bump maven-source-plugin from 3.2.1 to 3.3.0](https://github.com/premium-minds/pm-wicket-utils/pull/139)
  - [Bump maven-scm-publish-plugin from 1.1 to 3.0.0](https://github.com/premium-minds/pm-wicket-utils/pull/52)
  - [Bump maven-scm-publish-plugin from 3.0.0 to 3.1.0](https://github.com/premium-minds/pm-wicket-utils/pull/86)
  - [Bump maven-scm-publish-plugin from 3.1.0 to 3.2.1](https://github.com/premium-minds/pm-wicket-utils/pull/135)
