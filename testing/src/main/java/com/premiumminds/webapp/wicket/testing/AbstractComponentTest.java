@@ -175,7 +175,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements F
 	}
 
 	/**
-	 * Rule for expecting thrown exceptions during test execution. Preferred over <tt>expected=</tt> in a <tt>@Test</tt>
+	 * Rule for expecting thrown exceptions during test execution. Preferred over <code>expected=</code> in a <code>@Test</code>
 	 * annotation.
 	 * The test should call {@link ExpectedException#expect(Class)} or a similar method to specify that it expects an
 	 * exception to be thrown subsequently.
@@ -184,8 +184,8 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements F
 	public ExpectedException exception = ExpectedException.none();
 
 	/**
-	 * Code that runs before every test. If this method is overriden, the override <b>must</b> call <tt>super.setUp()</tt>.
-	 * The preferred alternative is to simply create a differently named method and annotate it with <tt>@Before</tt>.
+	 * Code that runs before every test. If this method is overriden, the override <b>must</b> call <code>super.setUp()</code>.
+	 * The preferred alternative is to simply create a differently named method and annotate it with <code>@Before</code>.
 	 */
 	@Before
 	public void setUp() {
@@ -194,8 +194,8 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements F
 	}
 
 	/**
-	 * Code that runs after every test. If this method is overriden, the override <b>must</b> call <tt>super.tearDown()</tt>.
-	 * The preferred alternative is to simply create a differently named method and annotate it with <tt>@After</tt>.
+	 * Code that runs after every test. If this method is overriden, the override <b>must</b> call <code>super.tearDown()</code>.
+	 * The preferred alternative is to simply create a differently named method and annotate it with <code>@After</code>.
 	 */
 	@After
 	public void tearDown() {
@@ -403,10 +403,9 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements F
 	}
 
 	/**
-	 * This method is a part of <tt>IContextProvider&lt;AjaxRequestTarget, Page&gt;</tt> implementation and is not
+	 * This method is a part of <code>IContextProvider&lt;AjaxRequestTarget, Page&gt;</code> implementation and is not
 	 * meant to be called by user code.
-	 * 
-	 * @see org.apache.wicket.util.IContextProvider#get(java.lang.Object)
+	 *
 	 */
 	@Override
 	public AjaxRequestTarget apply(Page context) {

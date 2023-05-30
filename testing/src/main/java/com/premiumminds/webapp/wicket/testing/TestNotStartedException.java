@@ -19,10 +19,10 @@
 package com.premiumminds.webapp.wicket.testing;
 
 /**
- * <tt>TestNotStartedException</tt> is thrown when {@link AbstractComponentTest} gets a call to
+ * <code>TestNotStartedException</code> is thrown when {@link AbstractComponentTest} gets a call to
  * {@link AbstractComponentTest#getTarget()} before getting a call to
- * {@link AbstractComponentTest#startTest(Component)} or
- * {@link AbstractComponentTest#startTest(Component, boolean)}
+ * {@link AbstractComponentTest#startTest(org.apache.wicket.Component)} or
+ * {@link AbstractComponentTest#startTest(org.apache.wicket.Component, boolean)}
  */
 public class TestNotStartedException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
