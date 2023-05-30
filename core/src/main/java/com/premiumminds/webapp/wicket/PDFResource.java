@@ -20,10 +20,10 @@ package com.premiumminds.webapp.wicket;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.Instant;
 
 import org.apache.wicket.request.resource.AbstractResource;
 import org.apache.wicket.request.resource.ContentDisposition;
-import org.apache.wicket.util.time.Time;
 
 public class PDFResource extends AbstractResource {
 	private static final long serialVersionUID = 8422342746704720791L;
@@ -42,7 +42,7 @@ public class PDFResource extends AbstractResource {
 		response.setContentType("application/pdf");
 		response.setContentDisposition(ContentDisposition.ATTACHMENT);
 		response.setFileName(callback.getFilename());
-		response.setLastModified(Time.now());
+		response.setLastModified(Instant.now());
 		response.disableCaching();
 		response.setWriteCallback(new WriteCallback() {
 			

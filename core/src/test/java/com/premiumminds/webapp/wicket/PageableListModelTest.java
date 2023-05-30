@@ -18,16 +18,18 @@
  */
 package com.premiumminds.webapp.wicket;
 
-import static org.junit.Assert.*;
-
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.wicket.model.IDetachable;
 import org.easymock.EasyMockSupport;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PageableListModelTest extends EasyMockSupport {
 	public final List<Integer> theList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -52,9 +54,6 @@ public class PageableListModelTest extends EasyMockSupport {
 	private interface DetachableInterface extends List<Integer>, IDetachable {}
 	private interface NonDetachableInterface extends List<Integer> {}
 
-	@Rule
-	public ExpectedException exception = ExpectedException.none();
-
 	@Test
 	public void testCreationAndGetObject() {
 		TestModel model = new TestModel();
@@ -70,10 +69,10 @@ public class PageableListModelTest extends EasyMockSupport {
 
 	@Test
 	public void testSetObjectUnsupported() {
-		exception.expect(UnsupportedOperationException.class);
-
-		TestModel model = new TestModel();
-		model.setObject(theList);
+		assertThrows(UnsupportedOperationException.class, () -> {
+			TestModel model = new TestModel();
+			model.setObject(theList);
+		});
 	}
 
 	@Test

@@ -23,7 +23,7 @@ import org.apache.wicket.markup.IMarkupFragment;
 
 /**
  * Holds the component which is passed to {@link ExtendedWicketTester}'s
- * {@link ExtendedWicketTester#startComponentInForm()} methods and meta data about it.
+ * {@link ExtendedWicketTester#startComponentInForm} methods and meta data about it.
  */
 class ComponentInForm {
 	/**
@@ -39,7 +39,7 @@ class ComponentInForm {
 	/**
 	 * A flag indicating whether the {@link #component} has been instantiated by Wicket.
 	 * 
-	 * @see {@link ExtendedWicketTester#startComponentInForm(Class, IMarkupFragment)}.
+	 * @see {@link ExtendedWicketTester#startComponentInForm(Class, String, IMarkupFragment)}.
 	 */
 	boolean isInstantiated = false;
 }

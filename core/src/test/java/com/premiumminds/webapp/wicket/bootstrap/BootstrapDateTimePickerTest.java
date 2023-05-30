@@ -18,21 +18,20 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 import java.util.Date;
 
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.IMarkupFragment;
 import org.apache.wicket.markup.MarkupFragment;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.FormTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class BootstrapDateTimePickerTest extends AbstractComponentTest {
 	private class TestBootstrapDateTimePicker extends BootstrapDateTimePicker {

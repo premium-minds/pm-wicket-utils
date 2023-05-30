@@ -18,17 +18,17 @@
  */
 package com.premiumminds.webapp.wicket;
 
-import static org.junit.Assert.*;
-
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 import org.apache.wicket.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.Model;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AjaxComponentFeedbackPanelTest extends AbstractComponentTest {
 	private static final String msg = "Message!";

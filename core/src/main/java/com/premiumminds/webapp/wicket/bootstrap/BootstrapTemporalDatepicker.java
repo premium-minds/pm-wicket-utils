@@ -21,13 +21,12 @@ package com.premiumminds.webapp.wicket.bootstrap;
 import java.time.temporal.Temporal;
 import java.util.Collection;
 
+import com.premiumminds.webapp.wicket.TemporalTextField;
+import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBehaviour;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
-
-import com.premiumminds.webapp.wicket.TemporalTextField;
-import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBehaviour;
 
 public class BootstrapTemporalDatepicker<T extends Temporal> extends WebMarkupContainer {
 	private static final long serialVersionUID = -117683073963817461L;

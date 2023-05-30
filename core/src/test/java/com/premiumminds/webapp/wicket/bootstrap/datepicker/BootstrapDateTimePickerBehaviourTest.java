@@ -18,19 +18,18 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap.datepicker;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.wicket.extensions.markup.html.form.DateTextField;
-import org.apache.wicket.util.tester.TagTester;
-import org.junit.Test;
-
 import com.premiumminds.webapp.wicket.bootstrap.datetimepicker.BootstrapDateTimePickerBehaviour;
 import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+import org.apache.wicket.extensions.markup.html.form.DateTextField;
+import org.apache.wicket.util.tester.TagTester;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BootstrapDateTimePickerBehaviourTest extends AbstractComponentTest 
 {

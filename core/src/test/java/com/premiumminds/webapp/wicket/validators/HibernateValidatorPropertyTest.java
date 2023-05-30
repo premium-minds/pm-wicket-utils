@@ -18,10 +18,7 @@
  */
 package com.premiumminds.webapp.wicket.validators;
 
-import static org.junit.Assert.*;
-
 import java.io.Serializable;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -29,9 +26,9 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.Validatable;
 import org.apache.wicket.validation.ValidationError;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HibernateValidatorPropertyTest {
 

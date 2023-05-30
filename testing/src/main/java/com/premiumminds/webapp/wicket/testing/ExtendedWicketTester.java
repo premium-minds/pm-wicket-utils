@@ -18,10 +18,7 @@
  */
 package com.premiumminds.webapp.wicket.testing;
 
-import static org.junit.Assert.fail;
-
 import java.lang.reflect.Constructor;
-
 import javax.servlet.ServletContext;
 
 import org.apache.wicket.Component;
@@ -37,6 +34,8 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.lang.Args;
 import org.apache.wicket.util.resource.StringResourceStream;
 import org.apache.wicket.util.tester.WicketTester;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A helper class to ease unit testing of Wicket form components without the need for a servlet

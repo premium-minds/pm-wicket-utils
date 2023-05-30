@@ -18,21 +18,23 @@
  */
 package com.premiumminds.webapp.wicket.drawer;
 
-import static org.easymock.EasyMock.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.*;
-
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.easymock.Capture;
 import org.easymock.EasyMock;
 import org.hamcrest.CoreMatchers;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+import static org.easymock.EasyMock.capture;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DrawerManagerTest extends AbstractComponentTest {
 	//Some tests are highly brittle, as they treat AJAX communication details (which should be
@@ -59,10 +61,10 @@ public class DrawerManagerTest extends AbstractComponentTest {
 
 	public DrawerManagerTest() {}
 
-	@Before
+	@BeforeEach
 	public void setup() {}
 
-	@After
+	@AfterEach
 	public void teardown() {}
 
 	@Test

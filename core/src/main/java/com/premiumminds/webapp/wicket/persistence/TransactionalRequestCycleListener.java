@@ -18,11 +18,10 @@
  */
 package com.premiumminds.webapp.wicket.persistence;
 
+import com.premiumminds.persistence.PersistenceTransaction;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.IRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
-
-import com.premiumminds.persistence.PersistenceTransaction;
 
 public class TransactionalRequestCycleListener implements IRequestCycleListener {
 	private PersistenceTransaction persistenceTransaction;

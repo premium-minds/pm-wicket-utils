@@ -18,10 +18,6 @@
  */
 package com.premiumminds.webapp.wicket.repeaters;
 
-import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
 import java.util.List;
 
 import org.apache.commons.collections4.set.ListOrderedSet;
@@ -33,8 +29,12 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.TagTester;
 import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AjaxListSetViewTest {
 	private WicketTester tester;
@@ -141,7 +141,7 @@ public class AjaxListSetViewTest {
 		}
 	}
 	
-	@Before
+	@BeforeEach
 	public void setUp(){
 		tester = new WicketTester(new WebApplication() {
 			

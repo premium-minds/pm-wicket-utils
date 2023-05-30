@@ -39,10 +39,8 @@ import org.apache.wicket.request.component.IRequestablePage;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.tester.WicketTester;
 import org.easymock.EasyMockSupport;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Base class for creating unit tests for wicket components. The core of the class is based on
@@ -175,19 +173,10 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements F
 	}
 
 	/**
-	 * Rule for expecting thrown exceptions during test execution. Preferred over <code>expected=</code> in a <code>@Test</code>
-	 * annotation.
-	 * The test should call {@link ExpectedException#expect(Class)} or a similar method to specify that it expects an
-	 * exception to be thrown subsequently.
-	 */
-	@Rule
-	public ExpectedException exception = ExpectedException.none();
-
-	/**
 	 * Code that runs before every test. If this method is overriden, the override <b>must</b> call <code>super.setUp()</code>.
 	 * The preferred alternative is to simply create a differently named method and annotate it with <code>@Before</code>.
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() {
 		tester = createTester(wicketApp);
 		running = false;
@@ -197,7 +186,7 @@ public abstract class AbstractComponentTest extends EasyMockSupport implements F
 	 * Code that runs after every test. If this method is overriden, the override <b>must</b> call <code>super.tearDown()</code>.
 	 * The preferred alternative is to simply create a differently named method and annotate it with <code>@After</code>.
 	 */
-	@After
+	@AfterEach
 	public void tearDown() {
 		resetTest();
 	}

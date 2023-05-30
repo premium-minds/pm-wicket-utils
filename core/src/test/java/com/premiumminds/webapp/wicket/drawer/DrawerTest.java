@@ -18,11 +18,13 @@
  */
 package com.premiumminds.webapp.wicket.drawer;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
 
 import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DrawerTest extends AbstractComponentTest {
 	private class TestDrawer extends AbstractDrawer {

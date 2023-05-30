@@ -18,26 +18,25 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap.datepicker;
 
-import static org.hamcrest.text.MatchesPattern.matchesPattern;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.premiumminds.webapp.wicket.bootstrap.SpecialDate;
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.resource.JQueryResourceReference;
 import org.apache.wicket.util.tester.TagTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import com.premiumminds.webapp.wicket.bootstrap.SpecialDate;
-import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.text.MatchesPattern.matchesPattern;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class BootstrapDatePickerBehaviourTest extends AbstractComponentTest {
 	@Test

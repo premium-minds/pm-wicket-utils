@@ -18,6 +18,7 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap;
 
+import com.premiumminds.webapp.wicket.UniqueFeedbackMessageFilter;
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.feedback.FeedbackMessage;
@@ -26,10 +27,8 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.util.visit.IVisitor;
 import org.apache.wicket.util.visit.IVisit;
-
-import com.premiumminds.webapp.wicket.UniqueFeedbackMessageFilter;
+import org.apache.wicket.util.visit.IVisitor;
 
 public class BootstrapFeedbackPanel extends FeedbackPanel {
 	private static final long serialVersionUID = 918157933592698927L;
