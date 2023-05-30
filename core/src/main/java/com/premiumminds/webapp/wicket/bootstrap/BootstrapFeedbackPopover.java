@@ -143,7 +143,7 @@ public class BootstrapFeedbackPopover extends WebMarkupContainer implements IFee
 		List<FeedbackMessage> msgs = model.getObject();
 		if(msgs.size()>0){
 			for(Component component: messages.keySet()){
-				StringBuffer sb = new StringBuffer();
+				StringBuilder sb = new StringBuilder();
 				for(FeedbackMessage msg : messages.get(component)){
 					sb.append(msg.getMessage()+"\n");
 					msg.markRendered();
