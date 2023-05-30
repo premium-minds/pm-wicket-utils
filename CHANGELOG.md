@@ -78,6 +78,7 @@
 ### Removed
 
  - removed unused dependency log4j 
+ - [removed dependencies commons-beanutils, commons-collections4 and commons-lang3 not used](https://github.com/premium-minds/pm-wicket-utils/commit/1ab6b246962638f796dc6c1658ac744ace6f43ee)
 
  
 ## [4.4] - 2019-07-17
