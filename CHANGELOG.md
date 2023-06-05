@@ -3,6 +3,10 @@
 
 ## [Unreleased]
 
+### Added
+
+ - [Adds Automatic-Module-Name](https://github.com/premium-minds/pm-wicket-utils/pull/145)
+
 ### Changed 
 
  - [Updates javadoc to be compatible with java 17](https://github.com/premium-minds/pm-wicket-utils/pull/142)
