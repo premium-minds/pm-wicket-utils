@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 
+## [5.0] - 2023-06-06
+
 ### Added
 
  - [Adds Automatic-Module-Name](https://github.com/premium-minds/pm-wicket-utils/pull/145)
@@ -204,4 +206,5 @@
 [4.2]: https://github.com/premium-minds/pm-wicket-utils/compare/v4.1...v4.2
 [4.3]: https://github.com/premium-minds/pm-wicket-utils/compare/v4.2...v4.3
 [4.4]: https://github.com/premium-minds/pm-wicket-utils/compare/v4.3...v4.4
-[unreleased]: https://github.com/premium-minds/pm-wicket-utils/compare/v4.4...HEAD
+[5.0]: https://github.com/premium-minds/pm-wicket-utils/compare/v4.4...v5.0
+[unreleased]: https://github.com/premium-minds/pm-wicket-utils/compare/v5.0...HEAD

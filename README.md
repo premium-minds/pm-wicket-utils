@@ -11,7 +11,7 @@ Add the following maven dependency to your project `pom.xml`:
 <dependency>
    <groupId>com.premiumminds</groupId>
    <artifactId>pm-wicket-utils</artifactId>
-   <version>4.4</version>
+   <version>5.0</version>
 </dependency>
 ```
 Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search;quick~pm-wicket-utils) for latest snapshots and releases.
@@ -23,6 +23,7 @@ Wicket | pm-wicket-utils | Maven Central |
 6.x | 2.8 | ![Maven Central with version prefix filter](https://img.shields.io/maven-central/v/com.premiumminds/pm-wicket-utils/2)|
 7.x | 3.1 | ![Maven Central with version prefix filter](https://img.shields.io/maven-central/v/com.premiumminds/pm-wicket-utils/3)|
 8.x | 4.4 | ![Maven Central with version prefix filter](https://img.shields.io/maven-central/v/com.premiumminds/pm-wicket-utils/4)|
+9.x | 5.0 | ![Maven Central with version prefix filter](https://img.shields.io/maven-central/v/com.premiumminds/pm-wicket-utils/5)|
 
 ## Documentation
 
