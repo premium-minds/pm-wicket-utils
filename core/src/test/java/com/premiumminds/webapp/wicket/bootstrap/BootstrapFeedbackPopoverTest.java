@@ -5,9 +5,9 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.WicketTester;
+import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.StringContains;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BootstrapFeedbackPopoverTest {
 
@@ -46,7 +46,7 @@ public class BootstrapFeedbackPopoverTest {
 
         String response = tester.getLastResponseAsString();
 
-        Assert.assertThat(response,StringContains.containsString("this is an error from textfield with tabs (\\t), new lines (\\r\\n), double quotes (\\\"hey\\\")"));
+        MatcherAssert.assertThat(response, StringContains.containsString("this is an error from textfield with tabs (\\t), new lines (\\r\\n), double quotes (\\\"hey\\\")"));
     }
 
 }

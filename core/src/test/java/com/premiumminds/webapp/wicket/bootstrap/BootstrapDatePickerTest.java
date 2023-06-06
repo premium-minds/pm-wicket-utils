@@ -18,16 +18,13 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBehaviour;
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 import org.apache.wicket.Component;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.behavior.Behavior;
@@ -38,10 +35,13 @@ import org.apache.wicket.markup.MarkupFragment;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.FormTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import com.premiumminds.webapp.wicket.bootstrap.datepicker.BootstrapDatePickerBehaviour;
-import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BootstrapDatePickerTest extends AbstractComponentTest {
 	private class TestBootstrapDatePicker extends BootstrapDatePicker {
@@ -129,12 +129,14 @@ public class BootstrapDatePickerTest extends AbstractComponentTest {
 
 	@Test
 	public void testLifecycleWithoutDateField() {
-		exception.expect(WicketRuntimeException.class);
+		Assertions.assertThrows(WicketRuntimeException.class, () -> {
 
-		BootstrapDatePicker picker = new BootstrapDatePicker("picker");
+			BootstrapDatePicker picker = new BootstrapDatePicker("picker");
 
-		startTest(picker);
-		
+			startTest(picker);
+		});
+
+
 	}
 
 	@Test

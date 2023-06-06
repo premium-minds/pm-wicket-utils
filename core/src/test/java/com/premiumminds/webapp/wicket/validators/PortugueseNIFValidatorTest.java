@@ -18,15 +18,11 @@
  */
 package com.premiumminds.webapp.wicket.validators;
 
-import static org.junit.Assert.*;
-
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.Validatable;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
-
-import com.premiumminds.webapp.wicket.validators.PortugueseNIFValidator;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PortugueseNIFValidatorTest {
 

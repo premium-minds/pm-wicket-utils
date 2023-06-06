@@ -18,13 +18,10 @@
  */
 package com.premiumminds.webapp.wicket;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
 import java.util.Locale;
 
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+import com.premiumminds.webapp.wicket.testing.ExtendedWicketTester;
 import org.apache.wicket.markup.ContainerInfo;
 import org.apache.wicket.markup.IMarkupFragment;
 import org.apache.wicket.markup.MarkupParser;
@@ -32,10 +29,12 @@ import org.apache.wicket.markup.MarkupResourceStream;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.resource.StringResourceStream;
 import org.apache.wicket.util.tester.TagTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
-import com.premiumminds.webapp.wicket.testing.ExtendedWicketTester;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class BooleanDropDownTest extends AbstractComponentTest {
 	private Boolean inputBoolean;

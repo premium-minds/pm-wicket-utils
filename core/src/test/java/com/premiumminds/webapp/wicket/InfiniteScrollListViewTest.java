@@ -18,20 +18,19 @@
  */
 package com.premiumminds.webapp.wicket;
 
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.expectLastCall;
-
 import java.util.Arrays;
 import java.util.List;
 
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 import org.apache.wicket.markup.IMarkupFragment;
 import org.apache.wicket.markup.MarkupFragment;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.easymock.EasyMock;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
 
 public class InfiniteScrollListViewTest extends AbstractComponentTest {
 	private abstract class TestList extends PageableListModel<List<Integer>> {
@@ -75,7 +74,7 @@ public class InfiniteScrollListViewTest extends AbstractComponentTest {
 
 	private TestList list;
 
-	@Before
+	@BeforeEach
 	public void createMock() {
 		list = createMock(TestList.class);
 		expect(list.getSize()).andReturn(10).anyTimes();

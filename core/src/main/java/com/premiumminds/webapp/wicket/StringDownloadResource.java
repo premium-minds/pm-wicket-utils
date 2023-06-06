@@ -18,9 +18,10 @@
  */
 package com.premiumminds.webapp.wicket;
 
+import java.time.Instant;
+
 import org.apache.wicket.request.resource.AbstractResource;
 import org.apache.wicket.request.resource.ContentDisposition;
-import org.apache.wicket.util.time.Time;
 
 public abstract class StringDownloadResource extends AbstractResource {
 	private static final long serialVersionUID = 7033429559494560378L;
@@ -40,7 +41,7 @@ public abstract class StringDownloadResource extends AbstractResource {
 		response.setContentType(contentType);
 		response.setContentDisposition(ContentDisposition.ATTACHMENT);
 		response.setFileName(filename);
-		response.setLastModified(Time.now());
+		response.setLastModified(Instant.now());
 		response.disableCaching();
 		response.setWriteCallback(new WriteCallback() {
 			

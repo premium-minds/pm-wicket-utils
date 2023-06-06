@@ -18,17 +18,15 @@
  */
 package com.premiumminds.webapp.wicket.bootstrap;
 
-import static org.junit.Assert.*;
-
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import com.premiumminds.webapp.wicket.bootstrap.BootstrapPaginator;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BootstrapPaginatorTest {
 	@Test

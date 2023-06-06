@@ -18,11 +18,10 @@
  */
 package com.premiumminds.webapp.wicket;
 
+import com.premiumminds.webapp.wicket.repeaters.AjaxListSetView;
 import org.apache.wicket.Application;
 import org.apache.wicket.IInitializer;
 import org.apache.wicket.protocol.http.WebApplication;
-
-import com.premiumminds.webapp.wicket.repeaters.AjaxListSetView;
 
 public class Initializer implements IInitializer {
 

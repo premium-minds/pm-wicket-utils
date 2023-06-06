@@ -21,6 +21,7 @@ package com.premiumminds.webapp.wicket.bootstrap;
 
 import java.util.Date;
 
+import com.premiumminds.webapp.wicket.bootstrap.datetimepicker.BootstrapDateTimePickerBehaviour;
 import org.apache.wicket.IGenericComponent;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
@@ -30,8 +31,6 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
-
-import com.premiumminds.webapp.wicket.bootstrap.datetimepicker.BootstrapDateTimePickerBehaviour;
 
 /**
  * Bootstrap DateTime picker for Wicket.

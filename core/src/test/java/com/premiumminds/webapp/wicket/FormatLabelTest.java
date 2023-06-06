@@ -18,16 +18,17 @@
  */
 package com.premiumminds.webapp.wicket;
 
-import static org.junit.Assert.*;
-
 import java.util.Locale;
 
+import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.convert.ConversionException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import com.premiumminds.webapp.wicket.testing.AbstractComponentTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FormatLabelTest extends AbstractComponentTest {
 	private double tau = 6.28318530717958647692;
@@ -58,8 +59,9 @@ public class FormatLabelTest extends AbstractComponentTest {
 		FormatLabel<Double> fl = new FormatLabel<Double>("id");
 		startTest(fl);
 
-		exception.expect(ConversionException.class);
-		fl.getConverter(Double.class).convertToObject("", fl.getLocale());
+		assertThrows(ConversionException.class, () -> {
+			fl.getConverter(Double.class).convertToObject("", fl.getLocale());
+		});
 	}
 
 	@Test
@@ -67,8 +69,9 @@ public class FormatLabelTest extends AbstractComponentTest {
 		FormatLabel<Double> fl = new FormatLabel<Double>("id");
 		startTest(fl);
 
-		exception.expect(RuntimeException.class);
-		fl.getConverter(Double.class).convertToString(null, fl.getLocale());
+		assertThrows(RuntimeException.class, () -> {
+			fl.getConverter(Double.class).convertToString(null, fl.getLocale());
+		});
 	}
 
 	@Test

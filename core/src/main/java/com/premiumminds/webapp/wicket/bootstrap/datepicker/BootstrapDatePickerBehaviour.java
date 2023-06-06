@@ -21,6 +21,8 @@ package com.premiumminds.webapp.wicket.bootstrap.datepicker;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+
+import com.premiumminds.webapp.wicket.bootstrap.SpecialDate;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
@@ -31,8 +33,6 @@ import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
-
-import com.premiumminds.webapp.wicket.bootstrap.SpecialDate;
 public class BootstrapDatePickerBehaviour extends Behavior {
 	private static final long serialVersionUID = 6150624915791893034L;
 
