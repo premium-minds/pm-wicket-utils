@@ -12,6 +12,7 @@
  - [Updates javadoc to be compatible with java 17](https://github.com/premium-minds/pm-wicket-utils/pull/142)
  - [Bump pm-persistence-utils from 2.0 to 2.1](https://github.com/premium-minds/pm-wicket-utils/pull/56)
  - [Bump pm-persistence-utils from 2.1 to 2.2](https://github.com/premium-minds/pm-wicket-utils/pull/68)
+ - [Bump pm-persistence-utils from 2.2 to 2.3](https://github.com/premium-minds/pm-wicket-utils/pull/147)
  - [split library into core and testing](https://github.com/premium-minds/pm-wicket-utils/pull/61)
  - [Bump javax.servlet-api from 4.0.0 to 4.0.1](https://github.com/premium-minds/pm-wicket-utils/pull/57)
  - [Bump commons-text from 1.4 to 1.8](https://github.com/premium-minds/pm-wicket-utils/pull/43)
