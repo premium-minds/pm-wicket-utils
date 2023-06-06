@@ -9,6 +9,7 @@
 
 ### Changed 
 
+ - [Upgrade to Wicket 9, Java 11 and Junit 5](https://github.com/premium-minds/pm-wicket-utils/pull/143)
  - [Updates javadoc to be compatible with java 17](https://github.com/premium-minds/pm-wicket-utils/pull/142)
  - [Bump pm-persistence-utils from 2.0 to 2.1](https://github.com/premium-minds/pm-wicket-utils/pull/56)
  - [Bump pm-persistence-utils from 2.1 to 2.2](https://github.com/premium-minds/pm-wicket-utils/pull/68)
