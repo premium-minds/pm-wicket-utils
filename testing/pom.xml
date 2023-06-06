@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.premiumminds</groupId>
         <artifactId>pm-wicket-utils-parent</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.premiumminds</groupId>
     <artifactId>pm-wicket-utils-testing</artifactId>
-    <version>5.0</version>
+    <version>5.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
