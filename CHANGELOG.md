@@ -3,6 +3,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+ - [Bump junit-jupiter-api from 5.9.2 to 5.9.3](https://github.com/premium-minds/pm-wicket-utils/pull/149)
+
 ## [5.0] - 2023-06-06
 
 ### Added
