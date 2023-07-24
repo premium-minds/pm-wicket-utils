@@ -6,6 +6,8 @@
 ### Changed
 
  - [Bump junit-jupiter-api from 5.9.2 to 5.9.3](https://github.com/premium-minds/pm-wicket-utils/pull/149)
+ - [Bump org.junit.jupiter:junit-jupiter from 5.9.3 to 5.10.0](https://github.com/premium-minds/pm-wicket-utils/pull/152)
+ - [Bump org.junit.jupiter:junit-jupiter-api from 5.9.3 to 5.10.0](https://github.com/premium-minds/pm-wicket-utils/pull/151)
  - [Bump maven-surefire-plugin from 3.1.0 to 3.1.2](https://github.com/premium-minds/pm-wicket-utils/pull/148)
 
 ## [5.0] - 2023-06-06
