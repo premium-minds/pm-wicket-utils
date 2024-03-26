@@ -14,6 +14,7 @@
  - [Bump org.junit.jupiter:junit-jupiter-api from 5.10.1 to 5.10.2](https://github.com/premium-minds/pm-wicket-utils/pull/167)
  - [Bump org.easymock:easymock from 5.1.0 to 5.2.0](https://github.com/premium-minds/pm-wicket-utils/pull/153)
  - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.11.0 to 3.12.1](https://github.com/premium-minds/pm-wicket-utils/pull/164)
+ - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.12.1 to 3.13.0](https://github.com/premium-minds/pm-wicket-utils/pull/171)
  - [Bump maven-surefire-plugin from 3.1.0 to 3.1.2](https://github.com/premium-minds/pm-wicket-utils/pull/148)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.1.2 to 3.2.1](https://github.com/premium-minds/pm-wicket-utils/pull/155)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.1 to 3.2.2](https://github.com/premium-minds/pm-wicket-utils/pull/159)
