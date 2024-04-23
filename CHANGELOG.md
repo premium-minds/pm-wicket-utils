@@ -5,6 +5,7 @@
 
 ### Changed
 
+ - [Bump org.apache.commons:commons-text from 1.10.0 to 1.12.0](https://github.com/premium-minds/pm-wicket-utils/pull/179)
  - [Bump junit-jupiter-api from 5.9.2 to 5.9.3](https://github.com/premium-minds/pm-wicket-utils/pull/149)
  - [Bump org.junit.jupiter:junit-jupiter from 5.9.3 to 5.10.0](https://github.com/premium-minds/pm-wicket-utils/pull/152)
  - [Bump org.junit.jupiter:junit-jupiter from 5.10.0 to 5.10.1](https://github.com/premium-minds/pm-wicket-utils/pull/157)
@@ -25,6 +26,7 @@
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.2 to 3.6.3](https://github.com/premium-minds/pm-wicket-utils/pull/161)
  - [Bump org.apache.maven.plugins:maven-source-plugin from 3.3.0 to 3.3.1](https://github.com/premium-minds/pm-wicket-utils/pull/173)
  - [Bump org.apache.maven.plugins:maven-jar-plugin from 3.3.0 to 3.4.0](https://github.com/premium-minds/pm-wicket-utils/pull/174)
+ - [Bump org.apache.maven.plugins:maven-jar-plugin from 3.4.0 to 3.4.1](https://github.com/premium-minds/pm-wicket-utils/pull/178)
 
 ## [5.0] - 2023-06-06
 
