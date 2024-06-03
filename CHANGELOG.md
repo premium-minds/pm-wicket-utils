@@ -24,9 +24,11 @@
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.5.0 to 3.6.0](https://github.com/premium-minds/pm-wicket-utils/pull/154)
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.0 to 3.6.2](https://github.com/premium-minds/pm-wicket-utils/pull/160)
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.2 to 3.6.3](https://github.com/premium-minds/pm-wicket-utils/pull/161)
+ - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.3 to 3.7.0](https://github.com/premium-minds/pm-wicket-utils/pull/181)
  - [Bump org.apache.maven.plugins:maven-source-plugin from 3.3.0 to 3.3.1](https://github.com/premium-minds/pm-wicket-utils/pull/173)
  - [Bump org.apache.maven.plugins:maven-jar-plugin from 3.3.0 to 3.4.0](https://github.com/premium-minds/pm-wicket-utils/pull/174)
  - [Bump org.apache.maven.plugins:maven-jar-plugin from 3.4.0 to 3.4.1](https://github.com/premium-minds/pm-wicket-utils/pull/178)
+ - [Bump org.sonatype.plugins:nexus-staging-maven-plugin from 1.6.13 to 1.7.0](https://github.com/premium-minds/pm-wicket-utils/pull/183)
 
 ## [5.0] - 2023-06-06
 
