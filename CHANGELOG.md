@@ -26,6 +26,7 @@
  - [Bump org.easymock:easymock from 5.1.0 to 5.2.0](https://github.com/premium-minds/pm-wicket-utils/pull/153)
  - [Bump org.easymock:easymock from 5.2.0 to 5.3.0](https://github.com/premium-minds/pm-wicket-utils/pull/184)
  - [Bump org.easymock:easymock from 5.3.0 to 5.4.0](https://github.com/premium-minds/pm-wicket-utils/pull/196)
+ - [Bump org.easymock:easymock from 5.4.0 to 5.5.0](https://github.com/premium-minds/pm-wicket-utils/pull/217)
  - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.11.0 to 3.12.1](https://github.com/premium-minds/pm-wicket-utils/pull/164)
  - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.12.1 to 3.13.0](https://github.com/premium-minds/pm-wicket-utils/pull/171)
  - [Bump maven-surefire-plugin from 3.1.0 to 3.1.2](https://github.com/premium-minds/pm-wicket-utils/pull/148)
