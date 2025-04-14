@@ -7,6 +7,7 @@
 
  - [Bump org.apache.commons:commons-text from 1.10.0 to 1.12.0](https://github.com/premium-minds/pm-wicket-utils/pull/179)
  - [Bump org.apache.commons:commons-text from 1.12.0 to 1.13.0](https://github.com/premium-minds/pm-wicket-utils/pull/219)
+ - [Bump org.apache.commons:commons-text from 1.13.0 to 1.13.1](https://github.com/premium-minds/pm-wicket-utils/pull/233)
  - [Bump junit-jupiter-api from 5.9.2 to 5.9.3](https://github.com/premium-minds/pm-wicket-utils/pull/149)
  - [Bump org.junit.jupiter:junit-jupiter from 5.9.3 to 5.10.0](https://github.com/premium-minds/pm-wicket-utils/pull/152)
  - [Bump org.junit.jupiter:junit-jupiter from 5.10.0 to 5.10.1](https://github.com/premium-minds/pm-wicket-utils/pull/157)
@@ -17,6 +18,7 @@
  - [Bump org.junit.jupiter:junit-jupiter from 5.11.2 to 5.11.3](https://github.com/premium-minds/pm-wicket-utils/pull/213)
  - [Bump org.junit.jupiter:junit-jupiter from 5.11.3 to 5.11.4](https://github.com/premium-minds/pm-wicket-utils/pull/221)
  - [Bump org.junit.jupiter:junit-jupiter from 5.11.4 to 5.12.0](https://github.com/premium-minds/pm-wicket-utils/pull/227)
+ - [Bump org.junit.jupiter:junit-jupiter from 5.12.0 to 5.12.2](https://github.com/premium-minds/pm-wicket-utils/pull/232)
  - [Bump org.junit.jupiter:junit-jupiter-api from 5.9.3 to 5.10.0](https://github.com/premium-minds/pm-wicket-utils/pull/151)
  - [Bump org.junit.jupiter:junit-jupiter-api from 5.10.0 to 5.10.1](https://github.com/premium-minds/pm-wicket-utils/pull/158)
  - [Bump org.junit.jupiter:junit-jupiter-api from 5.10.1 to 5.10.2](https://github.com/premium-minds/pm-wicket-utils/pull/167)
@@ -28,6 +30,7 @@
  - [Bump org.junit.jupiter:junit-jupiter-api from 5.11.3 to 5.11.4](https://github.com/premium-minds/pm-wicket-utils/pull/223)
  - [Bump org.junit.jupiter:junit-jupiter-api from 5.11.4 to 5.12.0](https://github.com/premium-minds/pm-wicket-utils/pull/228)
  - [Bump org.junit.jupiter:junit-jupiter-api from 5.12.0 to 5.12.1](https://github.com/premium-minds/pm-wicket-utils/pull/230)
+ - [Bump org.junit.jupiter:junit-jupiter-api from 5.12.1 to 5.12.2](https://github.com/premium-minds/pm-wicket-utils/pull/234)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.11.0 to 5.11.1](https://github.com/premium-minds/pm-wicket-utils/pull/208)
  - [Bump org.easymock:easymock from 5.1.0 to 5.2.0](https://github.com/premium-minds/pm-wicket-utils/pull/153)
  - [Bump org.easymock:easymock from 5.2.0 to 5.3.0](https://github.com/premium-minds/pm-wicket-utils/pull/184)
