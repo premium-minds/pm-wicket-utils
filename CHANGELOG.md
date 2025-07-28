@@ -23,6 +23,7 @@
  - [Bump org.junit.jupiter:junit-jupiter from 5.13.0 to 5.13.1](https://github.com/premium-minds/pm-wicket-utils/pull/242)
  - [Bump org.junit.jupiter:junit-jupiter from 5.13.1 to 5.13.2](https://github.com/premium-minds/pm-wicket-utils/pull/245)
  - [Bump org.junit.jupiter:junit-jupiter from 5.13.2 to 5.13.3](https://github.com/premium-minds/pm-wicket-utils/pull/248)
+ - [Bump org.junit.jupiter:junit-jupiter from 5.13.3 to 5.13.4](https://github.com/premium-minds/pm-wicket-utils/pull/251)
  - [Bump org.junit.jupiter:junit-jupiter-api from 5.9.3 to 5.10.0](https://github.com/premium-minds/pm-wicket-utils/pull/151)
  - [Bump org.junit.jupiter:junit-jupiter-api from 5.10.0 to 5.10.1](https://github.com/premium-minds/pm-wicket-utils/pull/158)
  - [Bump org.junit.jupiter:junit-jupiter-api from 5.10.1 to 5.10.2](https://github.com/premium-minds/pm-wicket-utils/pull/167)
