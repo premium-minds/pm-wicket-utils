@@ -50,6 +50,7 @@
  - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.11.0 to 3.12.1](https://github.com/premium-minds/pm-wicket-utils/pull/164)
  - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.12.1 to 3.13.0](https://github.com/premium-minds/pm-wicket-utils/pull/171)
  - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.13.0 to 3.14.0](https://github.com/premium-minds/pm-wicket-utils/pull/226)
+ - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.14.0 to 3.14.1](https://github.com/premium-minds/pm-wicket-utils/pull/256)
  - [Bump maven-surefire-plugin from 3.1.0 to 3.1.2](https://github.com/premium-minds/pm-wicket-utils/pull/148)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.1.2 to 3.2.1](https://github.com/premium-minds/pm-wicket-utils/pull/155)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.1 to 3.2.2](https://github.com/premium-minds/pm-wicket-utils/pull/159)
