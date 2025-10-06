@@ -43,7 +43,7 @@
 	</developers>
 
 	<properties>
-		<wicket.version>9.14.0</wicket.version>
+		<wicket.version>10.7.0</wicket.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
 	</properties>
