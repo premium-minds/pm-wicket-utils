@@ -80,6 +80,7 @@
  - [Bump org.sonatype.plugins:nexus-staging-maven-plugin from 1.6.13 to 1.7.0](https://github.com/premium-minds/pm-wicket-utils/pull/183)
  - [Bump org.apache.maven.plugins:maven-release-plugin from 3.0.1 to 3.1.0](https://github.com/premium-minds/pm-wicket-utils/pull/187)
  - [Bump org.apache.maven.plugins:maven-release-plugin from 3.1.0 to 3.1.1](https://github.com/premium-minds/pm-wicket-utils/pull/193)
+ - [Bump org.apache.maven.plugins:maven-release-plugin from 3.1.1 to 3.2.0](https://github.com/premium-minds/pm-wicket-utils/pull/264)
 
 ## [5.0] - 2023-06-06
 
