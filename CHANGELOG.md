@@ -9,6 +9,7 @@
  - [Bump org.apache.commons:commons-text from 1.12.0 to 1.13.0](https://github.com/premium-minds/pm-wicket-utils/pull/219)
  - [Bump org.apache.commons:commons-text from 1.13.0 to 1.13.1](https://github.com/premium-minds/pm-wicket-utils/pull/233)
  - [Bump org.apache.commons:commons-text from 1.13.1 to 1.14.0](https://github.com/premium-minds/pm-wicket-utils/pull/250)
+ - [Bump org.apache.commons:commons-text from 1.14.0 to 1.15.0](https://github.com/premium-minds/pm-wicket-utils/pull/269)
  - [Bump junit-jupiter-api from 5.9.2 to 5.9.3](https://github.com/premium-minds/pm-wicket-utils/pull/149)
  - [Bump org.junit.jupiter:junit-jupiter from 5.9.3 to 5.10.0](https://github.com/premium-minds/pm-wicket-utils/pull/152)
  - [Bump org.junit.jupiter:junit-jupiter from 5.10.0 to 5.10.1](https://github.com/premium-minds/pm-wicket-utils/pull/157)
